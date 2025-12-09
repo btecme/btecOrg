@@ -15,7 +15,7 @@ function getPost(slug: string) {
     };
 }
 
-// 2. This function generates the static paths (makes it fast)
+// 2. Generate Static Params (This stays the same)
 export async function generateStaticParams() {
     const files = fs.readdirSync(path.join('posts'));
     return files.map((filename) => ({
@@ -23,9 +23,15 @@ export async function generateStaticParams() {
     }));
 }
 
-// 3. The Page Component
-export default function PostPage({ params }: { params: { slug: string } }) {
-    const props = getPost(params.slug);
+// 3. The Page Component (UPDATED FOR NEXT.JS 15)
+// Notice we type 'params' as a Promise and 'await' it inside.
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+
+    // AWAIT THE PARAMS HERE:
+    const { slug } = await params;
+
+    // Now we can safely fetch the post
+    const props = getPost(slug);
 
     return (
         <article className="min-h-screen bg-background text-foreground py-24 px-6">
@@ -47,7 +53,6 @@ export default function PostPage({ params }: { params: { slug: string } }) {
 
                 {/* Content Body */}
                 <div className="prose prose-invert prose-lg max-w-none">
-                    {/* This renders the Markdown */}
                     <MDXRemote source={props.content} />
                 </div>
 
