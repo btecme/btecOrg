@@ -1,32 +1,6 @@
-'use client';
-
-import { useEffect } from 'react';
-import Script from 'next/script';
 import BaseHero from './BaseHero';
 
 export default function BasePage() {
-
-    // This hook ensures the Lemon Squeezy script scans the DOM
-    // as soon as the component mounts.
-    // Force re-scan on navigation
-    useEffect(() => {
-        // 1. Define the refresh function
-        const refreshLemonSqueezy = () => {
-            // FIX: Cast window to 'any' so TypeScript doesn't complain
-            if ((window as any).createLemonSqueezy) {
-                (window as any).createLemonSqueezy();
-            }
-        };
-
-        // 2. Run immediately in case script is ready
-        refreshLemonSqueezy();
-
-        // 3. Safety Net: Run again after 100ms
-        const timer = setTimeout(refreshLemonSqueezy, 100);
-
-        return () => clearTimeout(timer);
-    }, []);
-
     return (
         <div className="min-h-screen bg-background text-foreground">
 
@@ -115,8 +89,10 @@ export default function BasePage() {
                         </p>
 
                         <a
-                            href="https://btec.lemonsqueezy.com/buy/0cdc0276-4d93-431a-b86b-cb72b1bb3bd7?embed=1&discount=0"
-                            className="lemonsqueezy-button inline-block px-8 py-4 bg-accent text-background font-bold rounded-full hover:bg-accent-dim transition-all hover:scale-105 cursor-pointer relative z-10"
+                            href="https://buy.stripe.com/eVq14p1s95ZzaNwfI82cg00"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block px-8 py-4 bg-accent text-background font-bold rounded-full hover:bg-accent-dim transition-all hover:scale-105 cursor-pointer relative z-10"
                         >
                             Join as Founding Member
                         </a>
@@ -146,9 +122,6 @@ export default function BasePage() {
 
                 </div>
             </section>
-
-            {/* Lemon Squeezy Script - No onLoad to avoid errors */}
-            <Script src="https://assets.lemonsqueezy.com/lemon.js" strategy="lazyOnload" />
         </div>
     );
 }
