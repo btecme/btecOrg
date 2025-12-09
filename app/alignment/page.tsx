@@ -31,7 +31,7 @@ export default function AlignmentPage() {
                     <div className="mb-4 text-accent font-mono text-sm tracking-widest">01 / THE ENTROPY</div>
                     <h2 className="text-4xl md:text-5xl font-bold mb-8">Systems Fail Suddenly.</h2>
                     <p className="text-xl text-foreground/60 leading-relaxed mb-8">
-                        Most organizations are running on unstructured data and ad-hoc processes—a &quot;rat&apos;s nest&quot; of hidden dependencies.
+                        Most organizations are running on unstructured data and ad-hoc processes. A &quot;rat&apos;s nest&quot; of hidden dependencies.
                         When you add high-speed AI agents to a chaotic system, you don&apos;t get efficiency. You get accelerated failure.
                     </p>
                 </div>
