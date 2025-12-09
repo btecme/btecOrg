@@ -23,7 +23,7 @@ export default function MemberPortalPage() {
                     <span className="font-mono text-green-400 text-sm tracking-widest uppercase">Access Granted</span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">Welcome to the Resistance.</h1>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">Welcome to the Future.</h1>
 
                 <p className="text-xl text-foreground/80 leading-relaxed mb-8">
                     Your contribution has been logged. You are now officially a <strong>Founding Member</strong> of BASE.
