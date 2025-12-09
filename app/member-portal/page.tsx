@@ -23,34 +23,28 @@ export default function MemberPortalPage() {
                     <span className="font-mono text-green-400 text-sm tracking-widest uppercase">Access Granted</span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">Welcome to the Future.</h1>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">Welcome to the Resistance.</h1>
 
                 <p className="text-xl text-foreground/80 leading-relaxed mb-8">
-                    Your contribution has been logged. You are now officially a <strong>Founding Member</strong> of BASE. The infrastructure build-out proceeds with your support.
+                    Your contribution has been logged. You are now officially a <strong>Founding Member</strong> of BASE.
                 </p>
 
-                {/* The Instructions Block */}
-                <div className="bg-black/40 rounded-xl p-6 border border-white/10 mb-8 space-y-4">
-                    <h3 className="font-bold text-lg text-white mb-2">Next Steps: Retrieve Your Protocol</h3>
+                <p className="text-sm text-foreground/60 mb-8 p-4 border border-white/10 rounded-lg bg-black/20">
+                    <strong>Note:</strong> Your <strong>Stripe Transaction ID</strong> (found on your email receipt) is your cryptographically unique Founder Hash. Save it.
+                </p>
 
-                    <div className="flex gap-4 items-start">
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-mono text-sm shrink-0">1</div>
-                        <div>
-                            <p className="text-foreground/70 text-sm mb-1">Check your email inbox immediately.</p>
-                            <p className="text-xs font-mono text-accent bg-accent/10 inline-block px-2 py-1 rounded">
-                                Sender: btec (via Lemon Squeezy)
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-4 items-start">
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-mono text-sm shrink-0">2</div>
-                        <div>
-                            <p className="text-foreground/70 text-sm">
-                                Open the email from <span className="text-foreground">hello@lemonsqueezy-mail.com</span> and click the <strong className="text-white">View Order</strong> button to download your Founding Member Document.
-                            </p>
-                        </div>
-                    </div>
+                {/* THE DOWNLOAD BUTTON */}
+                <div className="mb-8">
+                    <a
+                        href="/btec-ProtocolFounder_01-BASE.pdf"
+                        download="btec-ProtocolFounder_01-BASE.pdf"
+                        className="block w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold text-center rounded-lg transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(22,163,74,0.3)]"
+                    >
+                        Download Founding Protocol (.pdf)
+                    </a>
+                    <p className="text-xs text-center mt-3 text-foreground/40">
+                        Secure transmission.
+                    </p>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-4 pt-4 border-t border-white/10">
