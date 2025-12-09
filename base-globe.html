@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BASE - High End</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000000;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .ui-layer {
+            position: relative;
+            z-index: 10;
+            color: #A9A9A9;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; 
+            mix-blend-mode: exclusion;
+        }
+        
+        h1 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            font-size: 5vw;
+            margin: 0;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        p {
+            opacity: 0.8;
+            letter-spacing: 0.3em;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #CD853F;
+        }
+
+        #status {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #333;
+            font-family: monospace;
+            font-size: 10px;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="status">INITIALIZING...</div>
+    <div id="canvas-container"></div>
+
+    <div class="ui-layer">
+        <h1>BASE</h1>
+        <p>Stable. Personal Intelligence. Civil Defense.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- CONFIG ---
+        const SETTINGS = {
+            count: 65000, 
+            radius: 2.5
+        };
+
+        const container = document.getElementById('canvas-container');
+        const status = document.getElementById('status');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('#000000');
+        
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = 6;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // --- TEXTURE LOADER ---
+        // We use a high-contrast specular map to define land vs water
+        const textureLoader = new THREE.TextureLoader();
+        textureLoader.crossOrigin = 'anonymous'; // Important for CORS
+        const earthMap = textureLoader.load(
+            'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg', 
+            () => { status.innerText = "DATA LOADED"; },
+            undefined,
+            () => { status.innerText = "MAP FAILED - USING BACKUP"; }
+        );
+
+        // --- SHADERS ---
+        const vertexShader = `
+            precision highp float;
+            
+            uniform float uTime;
+            uniform float uMorph;
+            uniform float uPixelRatio;
+            uniform sampler2D uEarthMap;
+
+            attribute vec3 positionTarget;
+            
+            varying float vLight;
+            varying vec3 vColor;
+
+            void main() {
+                // 1. MAP LOOKUP
+                // The texture is black(land) and white(water) mostly in specular maps,
+                // or sometimes inverted. We assume White=Water here based on previous tests.
+                vec4 mapData = texture2D(uEarthMap, uv);
+                // Invert so 1.0 = Land
+                float isLand = 1.0 - smoothstep(0.2, 0.5, mapData.r);
+
+                // 2. ROTATION (Spin & Tilt)
+                vec3 pos = position;
+                
+                // Spin (Y-Axis)
+                float spinSpeed = 0.05;
+                float c = cos(uTime * spinSpeed);
+                float s = sin(uTime * spinSpeed);
+                float xSpin = pos.x * c - pos.z * s;
+                float zSpin = pos.x * s + pos.z * c;
+                pos.x = xSpin; pos.z = zSpin;
+
+                // Tilt (23.44 deg Z-Axis)
+                float tiltRad = -0.41; 
+                float cT = cos(tiltRad);
+                float sT = sin(tiltRad);
+                float xTilt = pos.x * cT - pos.y * sT;
+                float yTilt = pos.x * sT + pos.y * cT;
+                pos.x = xTilt; pos.y = yTilt;
+
+                // 3. MORPH & CHAOS
+                vec3 finalPos = mix(pos, positionTarget, uMorph);
+
+                if (uMorph > 0.01) {
+                    float noise = sin(finalPos.y * 10.0 + uTime * 5.0);
+                    finalPos += normal * noise * uMorph * 0.8;
+                }
+
+                vec4 mvPosition = modelViewMatrix * vec4(finalPos, 1.0);
+                gl_Position = projectionMatrix * mvPosition;
+
+                // 4. LIGHTING
+                vec3 lightDir = normalize(vec3(1.0, 0.5, 1.0));
+                vec3 n = normal;
+                float nx = n.x * c - n.z * s; float nz = n.x * s + n.z * c;
+                n.x = nx; n.z = nz;
+                float nxt = n.x * cT - n.y * sT; float nyt = n.x * sT + n.y * cT;
+                n.x = nxt; n.y = nyt;
+                
+                float light = max(0.2, dot(normalize(n), lightDir));
+                vLight = light;
+
+                // --- COLORS (High End Palette) ---
+                
+                // OCEAN: Deep Matte Slate (Not electric blue)
+                vec3 cOcean = vec3(0.05, 0.07, 0.12);
+
+                // LAND PALETTE:
+                vec3 cSage   = vec3(0.35, 0.45, 0.35); // Muted Green
+                vec3 cSand   = vec3(0.60, 0.55, 0.45); // Dark Tan
+                vec3 cClay   = vec3(0.55, 0.35, 0.25); // Burnt Orange/Brown
+
+                // Mix land colors based on latitude (y position) to create "Climate Zones"
+                // Poles = Light (Sand), Equator = Dark (Sage/Clay)
+                float lat = abs(position.y) * 0.4; // 0.0 to 1.0 roughly
+                vec3 landMix = mix(cSage, cClay, lat);
+                // Add some noise for variation
+                float landNoise = sin(position.x * 20.0) * 0.5 + 0.5;
+                landMix = mix(landMix, cSand, landNoise * 0.3);
+
+                vec3 finalEarthColor = mix(cOcean, landMix, isLand);
+
+                // CHAOS PALETTE (Alien Green)
+                vec3 cToxic  = vec3(0.2, 0.9, 0.0);
+                vec3 cWhite  = vec3(0.8, 1.0, 0.8);
+                float shimmer = sin(finalPos.x * 10.0 + uTime * 5.0) * 0.5 + 0.5;
+                vec3 cChaos = mix(cToxic, cWhite, shimmer);
+
+                vColor = mix(finalEarthColor, cChaos, uMorph);
+
+                // --- SIZE ---
+                // Ocean particles = 0.5 (very small background texture)
+                // Land particles = 1.0 (main focal point)
+                float sizeMap = mix(0.5, 1.0, isLand);
+                float visibility = max(sizeMap, uMorph); 
+                
+                // Hardcoded 2.0 base size to ensure visibility on all screens
+                gl_PointSize = 2.0 * uPixelRatio * (1.0 + light * 0.3) * (12.0 / -mvPosition.z) * visibility;
+            }
+        `;
+
+        const fragmentShader = `
+            precision highp float;
+            varying float vLight;
+            varying vec3 vColor;
+
+            void main() {
+                vec2 coord = gl_PointCoord - vec2(0.5);
+                if (length(coord) > 0.5) discard;
+                // Solid shading
+                gl_FragColor = vec4(vColor * (0.6 + 0.4 * vLight), 1.0);
+            }
+        `;
+
+        // --- GEOMETRY ---
+        const geometry = new THREE.SphereGeometry(SETTINGS.radius, 200, 200);
+        const count = geometry.attributes.position.count;
+        
+        const targetPositions = new Float32Array(count * 3);
+        for(let i=0; i<count; i++){
+            const r = 6.0;
+            targetPositions[i*3] = (Math.random()-0.5) * r * 2;
+            targetPositions[i*3+1] = (Math.random()-0.5) * r * 2;
+            targetPositions[i*3+2] = (Math.random()-0.5) * r * 2;
+        }
+        geometry.setAttribute('positionTarget', new THREE.BufferAttribute(targetPositions, 3));
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
+            uniforms: {
+                uTime: { value: 0 },
+                uMorph: { value: 0 },
+                uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+                uEarthMap: { value: earthMap }
+            },
+            transparent: true,
+            blending: THREE.NormalBlending, // Solid, pleasant colors
+            depthTest: false
+        });
+
+        const mesh = new THREE.Points(geometry, material);
+        scene.add(mesh);
+
+        // --- ANIMATION ---
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+            material.uniforms.uTime.value = t;
+            
+            // Cycle: Earth -> Chaos -> Earth
+            let cycle = (Math.sin(t * 0.2) + 1.0) * 0.5; 
+            cycle = Math.pow(cycle, 12.0); 
+            material.uniforms.uMorph.value = cycle;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
