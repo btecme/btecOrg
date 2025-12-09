@@ -12,16 +12,16 @@ export default function BasePage() {
     useEffect(() => {
         // 1. Define the refresh function
         const refreshLemonSqueezy = () => {
-            if (window.createLemonSqueezy) {
-                window.createLemonSqueezy();
+            // FIX: Cast window to 'any' so TypeScript doesn't complain
+            if ((window as any).createLemonSqueezy) {
+                (window as any).createLemonSqueezy();
             }
         };
 
         // 2. Run immediately in case script is ready
         refreshLemonSqueezy();
 
-        // 3. Safety Net: Run again after 100ms to catch React re-renders
-        // This fixes the "Home -> Back to Base" navigation bug
+        // 3. Safety Net: Run again after 100ms
         const timer = setTimeout(refreshLemonSqueezy, 100);
 
         return () => clearTimeout(timer);
