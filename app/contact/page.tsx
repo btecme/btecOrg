@@ -3,6 +3,8 @@
 import { useState } from 'react';
 
 export default function Contact() {
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mpwvjvvv";
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -18,9 +20,13 @@ export default function Contact() {
         setStatus('submitting');
 
         try {
-            const res = await fetch('/api/contact', {
+            // We fetch directly to Formspree now
+            const res = await fetch(FORMSPREE_ENDPOINT, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json' // Crucial: Tells Formspree to return JSON, not redirect
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -63,6 +69,7 @@ export default function Contact() {
                                 <label className="text-sm font-bold text-foreground/80">Name</label>
                                 <input
                                     type="text"
+                                    name="name" // Added name attributes for safety
                                     required
                                     className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
                                     value={formData.name}
@@ -73,6 +80,7 @@ export default function Contact() {
                                 <label className="text-sm font-bold text-foreground/80">Email</label>
                                 <input
                                     type="email"
+                                    name="email"
                                     required
                                     className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
                                     value={formData.email}
@@ -86,6 +94,7 @@ export default function Contact() {
                                 <label className="text-sm font-bold text-foreground/80">Company</label>
                                 <input
                                     type="text"
+                                    name="company"
                                     className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
                                     value={formData.company}
                                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
@@ -94,6 +103,7 @@ export default function Contact() {
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-foreground/80">Sector</label>
                                 <select
+                                    name="sector"
                                     className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors appearance-none"
                                     value={formData.sector}
                                     onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
@@ -109,6 +119,7 @@ export default function Contact() {
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-foreground/80">What are you trying to fix in the next 12 months?</label>
                             <textarea
+                                name="message"
                                 required
                                 rows={4}
                                 className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
@@ -120,6 +131,7 @@ export default function Contact() {
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-foreground/80">Tolerance for operational disruption</label>
                             <select
+                                name="tolerance"
                                 className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors appearance-none"
                                 value={formData.tolerance}
                                 onChange={(e) => setFormData({ ...formData, tolerance: e.target.value })}
