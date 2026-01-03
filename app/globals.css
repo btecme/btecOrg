@@ -3,9 +3,9 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --accent: #5B85AA;
-  /* Muted Blue/Slate matching logo */
-  --accent-dim: #3A5A78;
+  --accent: #00D4FF;
+  /* Bright Cyan matching business card */
+  --accent-dim: #00A3C4;
 }
 
 @theme inline {

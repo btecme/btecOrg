@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   description: "b-tec is a boutique technology practice focused on public-good civil defense and professional alignment services.",
 };
 
+import CircuitBackground from "@/components/CircuitBackground";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,6 +42,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CircuitBackground />
       </body>
     </html>
   );

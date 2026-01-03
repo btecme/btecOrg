@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -33,8 +34,8 @@ export default function Header() {
         }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="text-8xl font-sans tracking-tighter text-accent hover:text-accent/80 transition-colors pb-4">
-          b-tec
+        <Link href="/" className="pb-4 hover:opacity-80 transition-opacity">
+          <Image src="/b-tecLogo-Transparency.png" alt="b-tec logo" width={220} height={70} className="h-20 w-auto" priority />
         </Link>
 
         {/* Desktop Nav */}
