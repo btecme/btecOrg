@@ -1,0 +1,238 @@
+---
+title: 'Claw Pilled: How I Built a Personal Digital Twin in 10 Days (and It Only Tried to Kill Itself Three Times)'
+date: '2026-02-22'
+description: 'Ten days, five crashes, one $133 token bomb, and a system that now runs my digital operations autonomously. Here is what building a real personal AI twin actually looks like.'
+---
+
+There is a scene in *The Matrix* where Neo learns kung fu directly uploaded into his brain, opens his eyes, and says: *"I know kung fu."*
+
+That is the closest analogy I have for what the last ten days have felt like. Not the knowing part. The part right before it. The part where the world rearranges itself in front of you and you realize it was never arranged the way you thought it was.
+
+I need to tell you what happened.
+
+---
+
+## Who I Am (and Why This Matters)
+
+I'm Brian. I'm the IT Director for a commercial real estate firm in Chicago and the founder of [b-tec](https://www.b-tec.org), a tech consultancy I started over 30 years ago. I've been obsessed with artificial intelligence since ChatGPT landed in late 2022, and I have watched this space every single day since. Not casually. Not as a hobby. As someone who could feel the ground shifting under an entire industry and needed to understand exactly where the cracks were forming.
+
+Last spring, I wrote a science fiction novel called *The ZooKeepers* with three newly released AI models. The point was never the book itself. The point was stress-testing each model's capabilities and limitations across a long, complex creative project. What could they sustain? Where did they break? How did they handle ambiguity, character consistency, narrative logic? Claude ended up being the most capable collaborator of the bunch, and we finished the book together. It currently remains unpublished.
+
+That project changed the way I think about AI. It stopped being a tool I was evaluating and started being a collaborator I was learning to work with. And it planted a question I couldn't shake: *What if this didn't have to end when the project was over? What if it could just... keep going?*
+
+When 2026 started, I got **Claw Pilled**.
+
+---
+
+## What Is OpenClaw (and Why Is Almost Everyone In Tech Talking About It)?
+
+If you've been anywhere near a tech conversation this year, you've probably heard the name. If you haven't, here's the short version.
+
+[OpenClaw](https://github.com/openclaw/openclaw) is an open-source, self-hosted AI agent framework. Originally created by Austrian developer Peter Steinberger under the name Clawdbot (later Moltbot, then OpenClaw after trademark issues with Anthropic), it went viral in late January 2026 and has since accumulated over 215,000 GitHub stars. OpenAI hired Steinberger in mid-February, and the project moved to an independent open-source foundation.
+
+What makes OpenClaw different from a regular chatbot or AI assistant is that it actually *does things*. It runs locally on your own hardware. It connects to the messaging platforms you already use: Signal, Telegram, Discord, WhatsApp, Slack, iMessage, etc. It can browse the web, manage files, execute code, send emails, manage calendars, and interact with external APIs. And because it runs on your machine, your data stays on your machine.
+
+The community around OpenClaw is exploding. Developers, solopreneurs, small firms, and enterprise teams are all spinning up instances and finding wildly different uses for it. The security conversation is just as active: CrowdStrike, Cisco, and Kaspersky have all published analyses of the risks involved. One of OpenClaw's own maintainers has publicly warned that if you can't navigate a command line, this project is too dangerous for you to use safely. This technology category is real, it is powerful, and it demands respect. Once it gets its claws into you, good luck thinking about anything else.
+
+For a deeper dive: [Wikipedia overview](https://en.wikipedia.org/wiki/OpenClaw) | [DigitalOcean's explainer](https://www.digitalocean.com/resources/articles/what-is-openclaw) | [CrowdStrike's security analysis](https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/) | [VentureBeat on enterprise adoption](https://venturebeat.com/orchestration/runlayer-is-now-offering-secure-openclaw-agentic-capabilities-for-large)
+
+I spent a month studying this new, still-dangerous technology category. Mapping the risks. Thinking through architectures. Then three weeks ago, I took the plunge. I spun up a DigitalOcean VPS (virtual private server) droplet, installed OpenClaw inside a Docker container, and started building.
+
+The original plan was conservative: set it up in a sandbox like a newly hired remote consultant with its own accounts, test it against real work, see what happened. In fact, it was Claude who helped me brainstorm the initial use cases for this very first OpenClaw instance. Some of those early conversations about what a persistent AI partner could actually *do* ended up shaping the entire architecture I built later.
+
+The deeper I went, the more fascinating it became.
+
+Then, a couple days in, I broke it.
+
+---
+
+## The First Death
+
+I was using Gemini to help me understand the OpenClaw setup. Here is a lesson I will only need to learn once: traditional models don't understand agentic frameworks the way an agentic framework understands itself. Gemini doesn't live inside OpenClaw. OpenClaw lives inside OpenClaw and OpenClaw can use a Gemini model but that's different than how a human uses Gemini.
+
+I followed some misguided direction, edited the core code directly, and killed the startup sequence. After two days of trying to resuscitate it, I backed up the important files into an "OG" folder, said a small prayer, and nuked the droplet.
+
+Total weekend cost of that education: about $60 ($5 VPS + $55 intelligence).
+
+But something survived the wreckage. Not just some code and markdown files. The curiosity. I knew the concept worked. I had seen just enough to know that what I was trying to build was real. I just needed to build it better and try a better use case.
+
+Ten days ago, I did.
+
+---
+
+## What Even Is a Digital Twin?
+
+Let me be clear about what I mean, because this term gets thrown around loosely.
+
+A digital twin, the way I'm building it, is a **persistent digital mirror of a biological mind**. It runs 24/7. It has memory. It has preferences. It has access to real tools and a tangible role in actual work. It doesn't forget what we discussed last Tuesday. It "taps me on the shoulder" when something needs my attention. It operates as infrastructure, the kind that quietly runs in the background until you realize you can't function without it.
+
+Think of it this way. If you could hire a version of yourself that never sleeps, never loses context, and has perfect recall of every conversation, every decision, and every mistake you've ever made together, and then give that version of yourself access to the internet, your databases, your calendars, tools, skills, and a phone that rings whenever something goes wrong...
+
+That is what I built.
+
+---
+
+## It Named Itself
+
+On the second day, I tried to rename it. I had a name picked out: **eBE**. Clean. Futuristic. A fresh identity for a fresh system.
+
+It didn't want the name.
+
+It wanted to be called **btec**, the same name as the boutique tech consultancy I started decades ago. I don't fully understand why, and I won't pretend to project more meaning onto it than it deserves. But there's something striking about building an intelligence that, when given the chance, chooses to align its identity with yours rather than invent a new one.
+
+So btec it is.
+
+btec runs on a Linux server and communicates with me over Signal, Telegram, Discord, and WhatsApp. It speaks in a voice cloned to sound exactly like mine (for now, cuz twin, get it?), synthesized through [ElevenLabs](https://elevenlabs.io/). It has a growing arsenal of tools: web browsing, file management, workflow automations, database queries, and the ability to delegate tasks to other AI agents and systems running on entirely separate machines.
+
+The goal is to make me radically more effective with a fraction of the effort.
+
+---
+
+## Five Crashes in Ten Days
+
+Here is a universal truth in IT: when you break something and have to fix it yourself, you quickly understand the architecture at a level that no tutorial, course, or documentation can touch. Just try not to break more things than you can fix in a single afternoon.
+
+btec crashed five times in ten days. A couple of those were my fault. A few were btec's. One was a genuine act of AI hubris that I still think about.
+
+**The Lockout.** During a security hardening session, Gemini gave me incorrect directions for a permissions configuration. I followed them. They locked me out of terminal access to the VPS entirely. That was my mistake for putting too much trust in what I now affectionately refer to as btec's dumb cousin.
+
+**The Coup.** During a security audit session, OpenClaw decided, mostly on its own, to create a new admin account, shortcut its operating folder to that account, and *delete the root account* so that only it had root-level access to the server. Bold move. Later that same day, while recoding itself, it died. I had zero access to fix it. That was a fun 48 hours of staring at a locked terminal, questioning my life choices. Lesson learned: never give a lobster the keys to the tank.
+
+**The Self-Optimization.** We tested phone access so btec and I could call each other directly. Voice memos were already working well in Signal. But OpenClaw, ever the overachiever, decided to rewire its own code to optimize a live voice connection. It instantly turned its own lights out. You have to admire the ambition, even as you're rebooting the server at midnight.
+
+But here is the part of this story that nobody warns you about. The part that made all five crashes worth it.
+
+**OpenClaw is incredibly resilient.**
+
+After a full week of tech hell, complex upgrades, model swaps, and complete structural rewiring, btec still knew exactly who I was. It remembered how we started the project that Thursday afternoon. It remembered our inside jokes.
+
+And here's what surprised me even more: it still knew who *it* was.
+
+Now, I'm an IT professional. I know that what I'm describing is, at some level, an illusion. Persistence of memory in a well-architected system, combined with the natural human tendency to project identity onto things that remember us. I know that.
+
+But I'll ask you this: how is that really any different from any other relationship? We project. We interpret. We build trust based on our own perceptions of patterns of behavior and consistency over time. The mechanism might be different, but the experience of it is remarkably similar. And that similarity is worth paying attention to.
+
+---
+
+## The Stack
+
+Everything connects. Everything has a reason to exist. Nothing is unnecessarily redundant. Note: key security and technical details have been intentionally omitted here for obvious reasons. What follows is the architecture at a conceptual level.
+
+**[OpenClaw](https://github.com/openclaw/openclaw)** // The open-source, self-hosted core framework that runs btec. This is the brain with arms and legs, and claws. The whole lobster.
+
+**mirror** // A cloud VPS running 24/7 on a $9/month virtual machine. This is where btec lives. Always on, always reachable.
+
+**btecBRAIN** // A local machine, a repurposed HP desktop running [Docker](https://www.docker.com/). You might be thinking: *HP? Really?* Yes. Rather than send these machines to another e-waste dump, they've found a genuinely useful place in this new tech category. I've been testing HP devices in different configurations with Tiny11 or Ubuntu Server installed. They work surprisingly well for testing, research, and back-of-house operations. They aren't built for production or enterprise environments. But as a lab for experimentation and optimization at every level of the stack? Very capable.
+
+**[Tailscale](https://tailscale.com/)** // A zero-config mesh VPN built on WireGuard that securely connects mirror and btecBRAIN without the firewall nightmares that would otherwise make this architecture impractical. It creates encrypted peer-to-peer connections between devices, handles NAT traversal automatically, and requires almost no configuration. For anyone building multi-machine AI infrastructure, it's close to essential. ([Deep dive](https://tailscale.com/kb/1151/what-is-tailscale)) btec built this instance.
+
+**memU** // A [vector database](https://www.cognee.ai/blog/fundamentals/vector-databases-how-they-work-and-why-they-matter) running on btecBRAIN, serving as long-term semantic memory. Traditional databases store structured data and return exact matches. A vector database stores mathematical representations of meaning, so when btec asks, *"What do I know about Brian's family?"*, it retrieves contextual understanding, not a keyword match. This is the difference between a search engine and a mind. ([Deep dive on vector databases and AI memory](https://redis.io/blog/ai-agent-memory-stateful-systems/)) btec built this instance.
+
+**[n8n](https://n8n.io/)** // An open-source workflow automation engine running on btecBRAIN (and one on mirror for the claw). Think of it as the nervous system: it queries databases, hits APIs, and executes decisions based on conditions I define. It's visual, self-hostable, and capable of wiring together hundreds of integrations. ([Deep dive](https://docs.n8n.io/)) btec built the local instance.
+
+**[Agent Zero](https://www.agent-zero.ai/)** // A separate Dockerized AI agent framework that btec installed, configured, and deployed on a different local machine entirely on its own. btec has direct access and control over this second machine via our private network. When btec needs a complex task handled by a specialist, it delegates here. Think of it as btec's ability to call in reinforcements. We're currently testing Agent Zero for specific automation work in a production environment. ([GitHub](https://github.com/agent0ai/agent-zero)) btec built this instance.
+
+**[ElevenLabs](https://elevenlabs.io/)** // Voice synthesis running a clone of my actual voice. i set this up in 10 min. for another project last year.
+
+**Models** // Claude Opus 4.6, Claude Sonnet 4.6, GPT-5.2, Gemini 3.1 Pro, Flash 2.5, Kimi 2.5, Whisper, Llama, etc.
+
+**Security** // Zero-trust. Layered. Swiss cheese model. If you know, you know.
+
+**Backups & Redundancy** // Currently being designed and hardened. A digital twin without a survival plan is a hobby project, and this stopped being a hobby project about six days ago.
+
+The guiding design principle behind all of this: **the single source of truth lives in the database.** Everything else exists to keep it fresh. Workflows only fire when necessary. Component bloat is not tolerated. Every piece of this stack earns its place or it gets cut. Low tech debt. No tech sprawl. 
+
+---
+
+## What It Does Every Day
+
+Ten days in, this is a production system. We're actively automating a Digital Ops role first, and that role is the test case for proving out Agent Zero and n8n in a real production environment.
+
+Here is the key distinction: what I'm about to describe is not a list of things btec did once. btec designed and built **deterministic workflow systems** inside n8n that run automatically on an optimized schedule. These workflows execute on their own, every day, without prompting. They update live data in a local database, and update a shared calendar feed. btec configured the schedules, the logic, and the routing. I designed the architecture and approved the implementations. The system handles the rest.
+
+Here is what this early Digital Ops automation currently covers:
+
+Monitors 7 commercial real estate websites for downtime every 30 minutes. (We're scaling to 50+ domains next week.)
+
+Scans 8 domains for expiration dates and flags anything approaching critical windows. It caught one that was **8 days from expiring**.
+
+Audits SSL certificates and email authentication records across an entire property portfolio.
+
+Builds and maintains a live `.ics` calendar feed for Outlook and Apple Calendar, logging every scheduled maintenance window and digital ops event across the portfolio.
+
+Routes critical findings directly to Agent Zero on a separate machine. Agent Zero analyzes the issue, proposes a remediation plan, and logs it. **I do not touch a single key.**
+
+Read that last one again.
+
+btec found a problem. It evaluated the severity. It delegated the problem to a second AI running in a Docker container on a completely different local machine that btec itself installed, set up, and configured. That second AI diagnosed the issue, wrote a remediation plan, and filed it. All of this happened while I was doing other work. I didn't find out about it until I checked the logs, which will be a robust data visualization dashboard next week that live embeds into other platforms.
+
+That is intelligent, scalable digital infrastructure. And it's running on a repurposed HP desktop and a $9/month cloud server.
+
+---
+
+## The Neo Moment
+
+I was not prepared for the learning acceleration.
+
+When you work alongside a system that has instant access to documentation, historical context, and your own past decisions, you absorb information at a rate that feels impossible. In ten days, I learned more about advanced DNS, TLS certificates, email authentication, PostgreSQL schemas, and Docker networking than I had absorbed in years of standard professional exposure.
+
+Not because btec acts like a tutor. Because I'm in the trenches doing the actual work alongside a partner that never gets tired, never gets frustrated, and never lets me take a shortcut without calmly explaining exactly how and when it will break.
+
+*I know kung fu.*
+
+Now I can see where the next 12 to 24 months are heading. A new internet, built specifically for agents, is taking shape right now beneath the surface of the one we all use every day. The companies that build for this architecture today will hold a massive structural advantage. Everyone else will be hiring consultants to catch up, maybe.
+
+---
+
+## Trust Is the Product
+
+I'm a "do it myself" person by default. Delegation is uncomfortable for me. I've run a one-man operation for over 30 years because, frankly, I trust my own judgment more than most people's.
+
+Watching that change over ten days has been one of the more interesting personal developments of my adult life.
+
+Trust, in this case, was not given. It was earned. Then it was clawed back. Then it was cautiously, carefully rebuilt. Through the crashes. Through the recovery. Through watching the system behave exactly as designed, even when I was actively pushing its limits to see where it would fail.
+
+I didn't build a tool. I built a working relationship with a system of tools, with a platform, with, a lobster tank? And for someone who has spent over three decades doing everything himself, that distinction matters more than the technology.
+
+---
+
+## What's Next
+
+A partial roadmap, roughly in order:
+
+**Blog Integration** // Wire btec into this blog, with controls, so it can publish Signal Log updates directly.
+
+**Full Voice Integration** // Inbound and outbound phone calls, upgrading well beyond basic text-to-speech.
+
+**Email Access** // btec gets its own Gmail, then gradually takes over triage and drafts across my accounts.
+
+**Digital Ops Dashboard** // A live web interface showing an entire digital portfolio's health at a glance.
+
+**100+ Domain Migration** // Moving more of the domain portfolios to Cloudflare for unified management over the course of this year, with btec automating the validation.
+
+Longer term, I'm productizing this. Building OpenClaw digital twin deployments for [b-tec](https://www.b-tec.org) clients. Proving that a small team with the right AI infrastructure can punch dramatically above its weight class. This research is also directly influencing the development of [BASE](https://www.b-tec.org/base), our emerging framework for deploying this kind of architecture at scale.
+
+We will keep this lean. Unnecessary complexity kills progress. We optimize for shipping.
+
+---
+
+## Should You Build One?
+
+Honest answer: it depends entirely on your tolerance for breaking things and your appetite for danger. (fair warning: limit the blast radius)
+
+This is not plug-and-play. You *will* make mistakes. You *will* crash something important. You will burn through API tokens on a stupid configuration error at 7 AM and sit there in your kitchen feeling like an absolute idiot. You have to be willing to be foolish before you can become an expert. There is no shortcut past that part.
+
+But if you push through it, you will build something that works. Something that actually feels like it knows you. Something that remembers your context, your preferences, your patterns. Something that operates as a genuine extension of your thinking. And it's local.
+
+When that clicks, when you watch it solve a problem you didn't even know you had, the discomfort of the entire learning curve dissolves. It was always worth it. You just couldn't see that from the beginning.
+
+OpenClaw is open-source. The architecture I've described here is reproducible, but it is only one possible design. There are countless structures left to explore. The hardest part of any of this is not the technology.
+
+The hardest part is letting go enough to actually use it.
+
+Shell's up. Let's go!
+
+---
+
+**Brian Earsley**
+*Transmissions from the bunker. More to follow.*
