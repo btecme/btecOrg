@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 // 1. Helper to find the file
 function getPost(slug: string) {
@@ -15,7 +16,7 @@ function getPost(slug: string) {
     };
 }
 
-// 2. Generate Static Params (This stays the same)
+// 2. Generate Static Params
 export async function generateStaticParams() {
     const files = fs.readdirSync(path.join('posts'));
     return files.map((filename) => ({
@@ -23,14 +24,33 @@ export async function generateStaticParams() {
     }));
 }
 
-// 3. The Page Component (UPDATED FOR NEXT.JS 15)
-// Notice we type 'params' as a Promise and 'await' it inside.
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-
-    // AWAIT THE PARAMS HERE:
+// 3. Generate per-post metadata (OG tags, title, description)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
+    const { frontMatter } = getPost(slug);
 
-    // Now we can safely fetch the post
+    return {
+        title: `${frontMatter.title} | b-tec Signal Log`,
+        description: frontMatter.description,
+        openGraph: {
+            title: frontMatter.title,
+            description: frontMatter.description,
+            url: `https://www.b-tec.org/blog/${slug}`,
+            siteName: 'b-tec Signal Log',
+            type: 'article',
+            publishedTime: frontMatter.date,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: frontMatter.title,
+            description: frontMatter.description,
+        },
+    };
+}
+
+// 4. The Page Component
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const props = getPost(slug);
 
     return (
