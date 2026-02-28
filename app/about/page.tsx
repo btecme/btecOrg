@@ -6,7 +6,7 @@ export default function About() {
 
                 <div className="mb-16 p-10 bg-white/5 rounded-3xl border border-white/5 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-accent mb-4">
-                        &quot;Adding Value. Building Trust.&quot;
+                        Adding Value. Building Trust.
                     </h2>
                     <p className="text-foreground/60">
                         Our guiding principle for over three decades.
