@@ -103,6 +103,27 @@ export default function ResearchPage() {
           </div>
         </section>
 
+
+
+        <section className="mt-20 mb-6 rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-4">Transparency Note</h2>
+          <p className="text-foreground/70 leading-relaxed mb-4">
+            This page was co-authored and published through an operational AI workflow. b-tec (Brian) provided direction,
+            source materials, and final approval; the implementation, formatting, and deployment actions were executed by
+            btec&apos;s OpenClaw-connected AI assistant as part of live site operations.
+          </p>
+          <p className="text-foreground/70 leading-relaxed mb-4">
+            Stack used for this page: Next.js app routing, GitHub repository commit pipeline, Vercel auto-deploy,
+            OpenClaw tool orchestration, and an AI-assisted content/layout pass driven by real-time instruction.
+          </p>
+          <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+            <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Prompt used</p>
+            <p className="text-sm md:text-base text-foreground/80 leading-relaxed">
+              “We need a new Research page that outlines testing we are doing, new systems and architectures we are trying out in the wild, and new creative agentic stacks like the one attached. can you properly frame out this page?”
+            </p>
+          </div>
+        </section>
+
         <section className="my-16 text-center rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12">
           <h2 className="text-3xl font-bold mb-4">Follow the Research Log</h2>
           <p className="text-foreground/70 max-w-3xl mx-auto mb-8 leading-relaxed">
