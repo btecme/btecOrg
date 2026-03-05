@@ -112,10 +112,33 @@ export default function ResearchPage() {
             source materials, and final approval; the implementation, formatting, and deployment actions were executed by
             btec&apos;s OpenClaw-connected AI assistant as part of live site operations.
           </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-5">
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+              <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Execution Context</p>
+              <ul className="space-y-2 text-sm text-foreground/80 leading-relaxed">
+                <li>• Prompt authored in b-tec&apos;s dedicated Discord web channel for site operations.</li>
+                <li>• Channel routing is scoped to website work (content, SEO, design, deployment tasks).</li>
+                <li>• Model profile for this channel is configured for controlled site-building workflows.</li>
+                <li>• Messages are processed with sender/chat context isolation to prevent cross-thread leakage.</li>
+              </ul>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+              <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Security & Access Controls</p>
+              <ul className="space-y-2 text-sm text-foreground/80 leading-relaxed">
+                <li>• GitHub access is token-scoped and limited to repository content operations.</li>
+                <li>• Credentials are retrieved from a vault at runtime (not embedded in page code).</li>
+                <li>• Deployment path uses GitHub commit events + Vercel auto-deploy with audit trail.</li>
+                <li>• High-risk actions remain explicitly user-directed; no autonomous cross-channel posting.</li>
+              </ul>
+            </div>
+          </div>
+
           <p className="text-foreground/70 leading-relaxed mb-4">
             Stack used for this page: Next.js app routing, GitHub repository commit pipeline, Vercel auto-deploy,
             OpenClaw tool orchestration, and an AI-assisted content/layout pass driven by real-time instruction.
           </p>
+
           <div className="rounded-xl border border-white/10 bg-black/30 p-4">
             <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Prompt used</p>
             <p className="text-sm md:text-base text-foreground/80 leading-relaxed">
