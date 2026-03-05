@@ -25,6 +25,7 @@ export default function Header() {
     { name: 'Alignment', href: '/alignment' },
     { name: 'About', href: '/about' },
     { name: 'Blog', href: '/blog' },
+    { name: 'Research', href: '/research' },
     { name: 'Contact', href: '/contact' },
   ];
 
