@@ -108,9 +108,9 @@ export default function ResearchPage() {
         <section className="mt-20 mb-6 rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
           <h2 className="text-xl md:text-2xl font-bold mb-4">Transparency Note</h2>
           <p className="text-foreground/70 leading-relaxed mb-4">
-            This page was co-authored and published through an operational AI workflow. b-tec (Brian) provided direction,
+            This page was co-authored and published through an operational agentic workflow. b-tec (Brian) provided direction,
             source materials, and final approval; the implementation, formatting, and deployment actions were executed by
-            btec&apos;s OpenClaw-connected AI assistant as part of live site operations.
+            btec&apos;s OpenClaw-connected agent as part of live site operations.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mb-5">
