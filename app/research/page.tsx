@@ -92,7 +92,7 @@ export default function ResearchPage() {
           <p className="text-foreground/80 leading-relaxed mb-5">
             b-tec is actively developing Personal Digital Twins: practical, client-specific systems that extend a human's output,
             decision speed, and operational range. At the base layer, this starts with a new OpenClaw instance tuned to one person
-            through light training, workflow configuration, and memory alignment. From there, the stack can stay simple—or evolve
+            through light training, workflow configuration, and memory alignment. From there, the stack can stay simple, or evolve
             into a highly sophisticated digital operating layer as goals, trust, and risk tolerance increase.
           </p>
           <div className="grid md:grid-cols-2 gap-8 text-foreground/75">
