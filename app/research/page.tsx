@@ -148,6 +148,48 @@ export default function ResearchPage() {
           </div>
         </section>
 
+        <section className="mt-20 mb-6 rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-4">Transparency Note</h2>
+          <p className="text-foreground/70 leading-relaxed mb-4">
+            This page was co-authored and published through an operational agentic workflow. b-tec (Brian) provided direction,
+            source materials, and final approval; the implementation, formatting, and deployment actions were executed by
+            btec&apos;s OpenClaw-connected agent as part of live site operations.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-5">
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+              <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Execution Context</p>
+              <ul className="space-y-2 text-sm text-foreground/80 leading-relaxed">
+                <li>• Prompt authored in b-tec&apos;s dedicated Discord web channel for site operations.</li>
+                <li>• Channel routing is scoped to website work (content, SEO, design, deployment tasks).</li>
+                <li>• Model profile for this channel is configured for controlled site-building workflows.</li>
+                <li>• Messages are processed with sender/chat context isolation to prevent cross-thread leakage.</li>
+              </ul>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+              <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Security & Access Controls</p>
+              <ul className="space-y-2 text-sm text-foreground/80 leading-relaxed">
+                <li>• GitHub access is token-scoped and limited to repository content operations.</li>
+                <li>• Credentials are retrieved from a vault at runtime (not embedded in page code).</li>
+                <li>• Deployment path uses GitHub commit events + Vercel auto-deploy with audit trail.</li>
+                <li>• High-risk actions remain explicitly user-directed; no autonomous cross-channel posting.</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-foreground/70 leading-relaxed mb-4">
+            Stack used for this page: Next.js app routing, GitHub repository commit pipeline, Vercel auto-deploy,
+            OpenClaw tool orchestration, and an AI-assisted content/layout pass driven by real-time instruction.
+          </p>
+
+          <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+            <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Prompt used</p>
+            <p className="text-sm md:text-base text-foreground/80 leading-relaxed">
+              &ldquo;We need a new Research page that outlines testing we are doing, new systems and architectures we are trying out in the wild, and new creative agentic stacks like the one attached. can you properly frame out this page?&rdquo;
+            </p>
+          </div>
+        </section>
+
         <section className="my-16 text-center rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12">
           <h2 className="text-3xl font-bold mb-4">Follow the Research Log</h2>
           <p className="text-foreground/70 max-w-3xl mx-auto mb-8 leading-relaxed">
