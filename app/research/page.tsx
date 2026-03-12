@@ -115,7 +115,7 @@ export default function ResearchPage() {
           </div>
           <p className="text-foreground/70 leading-relaxed mt-6">
             <strong>Transparency:</strong> this category is experimental and potentially disruptive. We frame this work for people with
-            high risk tolerance—often builders who are done with status quo tooling and want to explore this frontier responsibly.
+            high risk tolerance, often digital builders who are done with status quo tooling and want to explore this frontier responsibly.
           </p>
           <p className="text-foreground/70 leading-relaxed mt-4">
             This project is directly informed by our recent blog posts:
