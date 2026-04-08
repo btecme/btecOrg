@@ -31,6 +31,17 @@ export default function Services() {
             outcome: 'Operational readiness for the age of artificial intelligence.',
             highlight: true,
         },
+        {
+            title: 'Design & Construction',
+            description: 'Architectural planning, material selection, and general contracting for residential and light commercial projects. btec coordinates every phase — from design documentation and permitting through trade scheduling, subcontractor management, and quality control. We bring the same systematic, analytical approach to physical structures that we bring to digital infrastructure.',
+            outcome: 'From blueprint to built — managed with precision.',
+        },
+        {
+            title: 'Owner & Claims Advocacy',
+            description: 'Owner representation, insurance claim support, and drone-assisted site assessment. We act as the owner\'s advocate through scope review, gap analysis, supplement preparation, and depreciation recovery for property damage claims. Our drone services provide detailed aerial documentation of rooflines, chimneys, gutters, and hard-to-access areas — giving owners and adjusters data they can\'t get from the ground. This extends our AECO work into real-world recovery and owner protection.',
+            outcome: 'Your advocate from damage assessment to final recovery.',
+            cyan: true,
+        },
     ];
 
     return (
@@ -40,22 +51,24 @@ export default function Services() {
                 Practical, high-value technology services for organizations that demand reliability and foresight.
             </p>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {services.map((service) => (
                     <div
                         key={service.title}
-                        className={`p-8 rounded-2xl border transition-all hover:-translate-y-1 ${service.highlight
-                                ? 'bg-accent/5 border-accent/20 hover:border-accent/40'
-                                : 'bg-white/5 border-white/5 hover:border-white/10'
+                        className={`p-8 rounded-2xl border transition-all hover:-translate-y-1 ${service.cyan
+                                ? 'bg-cyan-400/5 border-cyan-300/20 hover:border-cyan-300/40 shadow-[0_0_30px_rgba(34,211,238,0.08)]'
+                                : service.highlight
+                                    ? 'bg-accent/5 border-accent/20 hover:border-accent/40'
+                                    : 'bg-white/5 border-white/5 hover:border-white/10'
                             }`}
                     >
-                        <h3 className={`text-xl font-bold mb-4 ${service.highlight ? 'text-accent' : 'text-foreground'}`}>
+                        <h3 className={`text-xl font-bold mb-4 ${service.cyan ? 'text-cyan-300' : service.highlight ? 'text-accent' : 'text-foreground'}`}>
                             {service.title}
                         </h3>
                         <p className="text-foreground/60 mb-6 leading-relaxed">
                             {service.description}
                         </p>
-                        <div className="text-sm font-medium text-foreground/40 border-t border-white/5 pt-4">
+                        <div className={`text-sm font-medium border-t pt-4 ${service.cyan ? 'text-cyan-200/80 border-cyan-300/10' : 'text-foreground/40 border-white/5'}`}>
                             {service.outcome}
                         </div>
                     </div>
