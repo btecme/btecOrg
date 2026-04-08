@@ -33,12 +33,12 @@ export default function Services() {
         },
         {
             title: 'Design & Construction',
-            description: 'Architectural planning, material selection, and general contracting for residential and light commercial projects. btec coordinates every phase — from design documentation and permitting through trade scheduling, subcontractor management, and quality control. We bring the same systematic, analytical approach to physical structures that we bring to digital infrastructure.',
-            outcome: 'From blueprint to built — managed with precision.',
+            description: 'Architectural planning, material selection, and construction management for residential and light commercial projects. btec coordinates every phase - from design documentation and permitting through trade scheduling, quality control, and project closeout. We bring the same systematic, analytical approach to physical structures that we bring to digital infrastructure.',
+            outcome: 'From blueprint to built - managed with precision.',
         },
         {
             title: 'Owner & Claims Advocacy',
-            description: 'Owner representation, insurance claim support, and drone-assisted site assessment. We act as the owner\'s advocate through scope review, gap analysis, supplement preparation, and depreciation recovery for property damage claims. Our drone services provide detailed aerial documentation of rooflines, chimneys, gutters, and hard-to-access areas — giving owners and adjusters data they can\'t get from the ground. This extends our AECO work into real-world recovery and owner protection.',
+            description: 'Owner representation, insurance claim support, and drone-assisted site assessment. We act as the owner\'s advocate through scope review, gap analysis, supplement preparation, and depreciation recovery for property damage claims. Our drone services provide detailed aerial documentation of rooflines, chimneys, gutters, and hard-to-access areas - giving owners and adjusters data they can\'t get from the ground.',
             outcome: 'Your advocate from damage assessment to final recovery.',
             cyan: true,
         },
