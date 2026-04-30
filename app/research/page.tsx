@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import PanoramaViewer from '@/components/PanoramaViewer';
 
 export default function ResearchPage() {
   const tracks = [
@@ -74,6 +75,52 @@ export default function ResearchPage() {
           </div>
         </section>
 
+        <section className="my-16 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/[0.03] to-transparent p-6 md:p-10">
+          <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-accent font-mono text-xs tracking-widest mb-3">FIELD DEMO // AUTOMATED IMAGING PIPELINE</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Matterport Space Capture to Interactive 360 Viewer</h2>
+              <p className="text-foreground/70 leading-relaxed max-w-3xl">
+                This early research example shows a practical imaging workflow for physical spaces: a room is scanned in Matterport,
+                a 360 equirectangular media asset is exported from the Matterport library, and the panorama is embedded on the site
+                as an explorable viewer.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-accent/25 bg-accent/10 px-4 py-3 text-sm text-foreground/75 lg:max-w-xs">
+              A lightweight web viewer turns the capture into a live visual reference that can support property documentation,
+              spatial notes, and operational review.
+            </div>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
+            <PanoramaViewer
+              imageSrc="/research/matterport-imaging-pipeline-360.jpg"
+              title="Interactive 360 panorama captured from a Matterport room scan"
+            />
+
+            <div className="space-y-5">
+              <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
+                <h3 className="text-xl font-semibold mb-3">Pipeline</h3>
+                <ol className="space-y-3 text-foreground/70 leading-relaxed">
+                  <li><span className="text-accent font-mono text-sm">01</span> Room scanned in Matterport.</li>
+                  <li><span className="text-accent font-mono text-sm">02</span> Equirectangular 360 media asset captured from the Matterport library.</li>
+                  <li><span className="text-accent font-mono text-sm">03</span> Image asset stored with the site and loaded into a browser panorama viewer.</li>
+                  <li><span className="text-accent font-mono text-sm">04</span> Visitors can click, drag, zoom, and inspect the room directly on the research page.</li>
+                </ol>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
+                <h3 className="text-xl font-semibold mb-3">Why it matters</h3>
+                <p className="text-foreground/70 leading-relaxed">
+                  This is a small but real step toward agentic imaging pipelines for spaces. The same pattern can expand into
+                  multi-room property documentation, visual operations logs, maintenance context, before and after comparisons,
+                  and automated publishing flows where agents collect, label, place, and update spatial media with human review.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="my-16">
           <h2 className="text-3xl font-bold mb-8">Active Research Tracks</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -90,7 +137,7 @@ export default function ResearchPage() {
           <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT</p>
           <h2 className="text-3xl font-bold mb-4">Personal Digital Twins</h2>
           <p className="text-foreground/80 leading-relaxed mb-5">
-            b-tec is actively developing Personal Digital Twins: practical, client-specific systems that extend a human's output,
+            b-tec is actively developing Personal Digital Twins: practical, client-specific systems that extend a human&apos;s output,
             decision speed, and operational range. At the base layer, this starts with a new OpenClaw instance tuned to one person
             through light training, workflow configuration, and memory alignment. From there, the stack can stay simple, or evolve
             into a highly sophisticated digital operating layer as goals, trust, and risk tolerance increase.
@@ -108,7 +155,7 @@ export default function ResearchPage() {
               <h3 className="text-xl font-semibold mb-3 text-foreground">What it is not</h3>
               <ul className="space-y-2">
                 <li>• Not magic, not consciousness, and not a replacement for human judgment</li>
-                <li>• Not a "set and forget" black box</li>
+                <li>• Not a &ldquo;set and forget&rdquo; black box</li>
                 <li>• Not suitable for low risk-tolerance environments at this stage</li>
               </ul>
             </div>

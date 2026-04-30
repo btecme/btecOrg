@@ -85,7 +85,7 @@ export default function BasePage() {
                         <h3 className="text-2xl md:text-3xl font-bold mb-4 relative z-10">Become a Founding Member.</h3>
                         <p className="text-2xl font-bold text-accent mb-6 relative z-10">$100 / One-Time.</p>
                         <p className="text-foreground/60 leading-relaxed mb-8 max-w-2xl relative z-10">
-                            We don't want investors controlling this. We want you. A one-time payment of $100 helps us build this infrastructure. In return, you get lifetime access to BASE and all future updates. No monthly fees, ever.
+                            We don&apos;t want investors controlling this. We want you. A one-time payment of $100 helps us build this infrastructure. In return, you get lifetime access to BASE and all future updates. No monthly fees, ever.
                         </p>
 
                         <a
