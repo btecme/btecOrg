@@ -78,17 +78,17 @@ export default function ResearchPage() {
         <section className="my-16 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/[0.03] to-transparent p-6 md:p-10">
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-accent font-mono text-xs tracking-widest mb-3">FIELD DEMO // AUTOMATED IMAGING PIPELINE</p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Matterport Space Capture to Interactive 360 Viewer</h2>
+              <p className="text-accent font-mono text-xs tracking-widest mb-3">RESEARCH EXAMPLE // AUTOMATED IMAGING PIPELINE</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Automating Imaging Pipelines: Matterport to Web Panorama</h2>
               <p className="text-foreground/70 leading-relaxed max-w-3xl">
-                This early research example shows a practical imaging workflow for physical spaces: a room is scanned in Matterport,
-                a 360 equirectangular media asset is exported from the Matterport library, and the panorama is embedded on the site
-                as an explorable viewer.
+                We scanned this room in Matterport, captured a 360 image from the media library, and embedded it directly into
+                the web experience as an explorable panorama. This is a simple first step toward a broader imaging pipeline
+                where spatial capture, asset extraction, optimization, publishing, and interactive presentation can be
+                coordinated automatically by agents.
               </p>
             </div>
             <div className="rounded-2xl border border-accent/25 bg-accent/10 px-4 py-3 text-sm text-foreground/75 lg:max-w-xs">
-              A lightweight web viewer turns the capture into a live visual reference that can support property documentation,
-              spatial notes, and operational review.
+              The implementation uses the actual 360 image asset, not a mockup, and renders it through a lightweight browser viewer.
             </div>
           </div>
 
@@ -100,21 +100,21 @@ export default function ResearchPage() {
 
             <div className="space-y-5">
               <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
-                <h3 className="text-xl font-semibold mb-3">Pipeline</h3>
+                <h3 className="text-xl font-semibold mb-3">Workflow</h3>
                 <ol className="space-y-3 text-foreground/70 leading-relaxed">
-                  <li><span className="text-accent font-mono text-sm">01</span> Room scanned in Matterport.</li>
-                  <li><span className="text-accent font-mono text-sm">02</span> Equirectangular 360 media asset captured from the Matterport library.</li>
-                  <li><span className="text-accent font-mono text-sm">03</span> Image asset stored with the site and loaded into a browser panorama viewer.</li>
-                  <li><span className="text-accent font-mono text-sm">04</span> Visitors can click, drag, zoom, and inspect the room directly on the research page.</li>
+                  <li><span className="text-accent font-mono text-sm">01</span> Scan the room in Matterport.</li>
+                  <li><span className="text-accent font-mono text-sm">02</span> Capture or export the equirectangular 360 image from the Matterport media library.</li>
+                  <li><span className="text-accent font-mono text-sm">03</span> Store the optimized image asset with the site.</li>
+                  <li><span className="text-accent font-mono text-sm">04</span> Render the asset in a browser panorama viewer for click, drag, and zoom exploration.</li>
                 </ol>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
-                <h3 className="text-xl font-semibold mb-3">Why it matters</h3>
+                <h3 className="text-xl font-semibold mb-3">Extension path</h3>
                 <p className="text-foreground/70 leading-relaxed">
-                  This is a small but real step toward agentic imaging pipelines for spaces. The same pattern can expand into
-                  multi-room property documentation, visual operations logs, maintenance context, before and after comparisons,
-                  and automated publishing flows where agents collect, label, place, and update spatial media with human review.
+                  The same pattern can support multi-room property documentation, visual operations logs, maintenance records,
+                  before and after comparisons, and agent-assisted publishing flows where new spatial media is collected, labeled,
+                  placed, optimized, and reviewed before it goes live.
                 </p>
               </div>
             </div>
