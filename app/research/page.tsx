@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import PanoramaViewer from '@/components/PanoramaViewer';
+import PanoramaTour from '@/components/PanoramaTour';
 
 export default function ResearchPage() {
   const tracks = [
@@ -81,8 +81,8 @@ export default function ResearchPage() {
               <p className="text-accent font-mono text-xs tracking-widest mb-3">RESEARCH EXAMPLE // AUTOMATED IMAGING PIPELINE</p>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Automating Imaging Pipelines: Matterport to Web Panorama</h2>
               <p className="text-foreground/70 leading-relaxed max-w-3xl">
-                We scanned this room in Matterport, captured a 360 image from the media library, and embedded it directly into
-                the web experience as an explorable panorama. This is a simple first step toward a broader imaging pipeline
+                We scanned this room in Matterport, captured 360 images from the media library, and embedded them directly into
+                the web experience as a small linked tour. This is a simple first step toward a broader imaging pipeline
                 where spatial capture, asset extraction, optimization, publishing, and interactive presentation can be
                 coordinated automatically by agents.
               </p>
@@ -93,19 +93,16 @@ export default function ResearchPage() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
-            <PanoramaViewer
-              imageSrc="/research/matterport-imaging-pipeline-360.jpg"
-              title="Interactive 360 panorama captured from a Matterport room scan"
-            />
+            <PanoramaTour />
 
             <div className="space-y-5">
               <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
                 <h3 className="text-xl font-semibold mb-3">Workflow</h3>
                 <ol className="space-y-3 text-foreground/70 leading-relaxed">
                   <li><span className="text-accent font-mono text-sm">01</span> Scan the room in Matterport.</li>
-                  <li><span className="text-accent font-mono text-sm">02</span> Capture or export the equirectangular 360 image from the Matterport media library.</li>
-                  <li><span className="text-accent font-mono text-sm">03</span> Store the optimized image asset with the site.</li>
-                  <li><span className="text-accent font-mono text-sm">04</span> Render the asset in a browser panorama viewer for click, drag, and zoom exploration.</li>
+                  <li><span className="text-accent font-mono text-sm">02</span> Capture or export equirectangular 360 images from each scan position.</li>
+                  <li><span className="text-accent font-mono text-sm">03</span> Store the optimized image assets with the site and label each scan node.</li>
+                  <li><span className="text-accent font-mono text-sm">04</span> Link nodes with visual hotspots so visitors understand how to move between positions.</li>
                 </ol>
               </div>
 

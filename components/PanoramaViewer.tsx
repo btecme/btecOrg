@@ -3,14 +3,27 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+export type PanoramaHotspot = {
+  id: string;
+  label: string;
+  targetSceneId: string;
+  position?: {
+    left: string;
+    top: string;
+  };
+};
+
 type PanoramaViewerProps = {
   imageSrc: string;
   title: string;
+  sceneLabel?: string;
+  hotspots?: PanoramaHotspot[];
+  onHotspotSelect?: (targetSceneId: string) => void;
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
-export default function PanoramaViewer({ imageSrc, title }: PanoramaViewerProps) {
+export default function PanoramaViewer({ imageSrc, title, sceneLabel, hotspots = [], onHotspotSelect }: PanoramaViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -191,7 +204,7 @@ export default function PanoramaViewer({ imageSrc, title }: PanoramaViewerProps)
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-2xl shadow-cyan-500/10">
       <div className="absolute left-4 top-4 z-20 rounded-full border border-white/15 bg-black/55 px-3 py-1 text-xs font-mono uppercase tracking-widest text-white/75 backdrop-blur">
-        Drag to orbit
+        {sceneLabel ? `${sceneLabel} · Drag to orbit` : 'Drag to orbit'}
       </div>
 
       <div className="absolute right-4 top-4 z-20 flex gap-2">
@@ -231,6 +244,28 @@ export default function PanoramaViewer({ imageSrc, title }: PanoramaViewerProps)
         onWheel={handleWheel}
         className={`relative h-[360px] w-full overflow-hidden bg-black [touch-action:none] md:h-[520px] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
       />
+
+      {hotspots.map((hotspot) => (
+        <button
+          key={hotspot.id}
+          type="button"
+          onClick={() => onHotspotSelect?.(hotspot.targetSceneId)}
+          className="group absolute z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2 rounded-full text-white transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/80"
+          style={{
+            left: hotspot.position?.left ?? '50%',
+            top: hotspot.position?.top ?? '72%',
+          }}
+          aria-label={hotspot.label}
+        >
+          <span className="relative flex h-16 w-16 items-center justify-center rounded-full border border-cyan-200/70 bg-cyan-400/25 shadow-[0_0_35px_rgba(34,211,238,0.45)] backdrop-blur-md">
+            <span className="absolute h-16 w-16 animate-ping rounded-full border border-cyan-200/40" />
+            <span className="relative text-2xl">➜</span>
+          </span>
+          <span className="rounded-full border border-white/15 bg-black/70 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/90 backdrop-blur transition group-hover:bg-black/85">
+            {hotspot.label}
+          </span>
+        </button>
+      ))}
 
       {initFailed && (
         <div className="absolute inset-x-4 bottom-4 z-20 rounded-xl border border-amber-400/25 bg-black/75 px-4 py-3 text-sm text-white/80 backdrop-blur">
