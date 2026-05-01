@@ -65,7 +65,7 @@ export default function PanoramaViewer({ imageSrc, title, sceneLabel, hotspots =
   const resetView = useCallback(() => {
     pointerRef.current.lon = -90;
     pointerRef.current.lat = 0;
-    applyView(-90, 0, 72);
+    applyView(-90, 0, 90);
   }, [applyView]);
 
   useEffect(() => {
