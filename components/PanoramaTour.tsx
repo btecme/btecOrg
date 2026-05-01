@@ -54,39 +54,40 @@ export default function PanoramaTour() {
 
   return (
     <div className="min-w-0 max-w-full space-y-4">
-      <PanoramaViewer
-        key={activeScene.id}
-        imageSrc={activeScene.imageSrc}
-        title={activeScene.title}
-        sceneLabel={activeScene.label}
-        hotspots={activeScene.hotspots}
-        onHotspotSelect={setActiveSceneId}
-      />
+      <div className="relative">
+        <PanoramaViewer
+          key={activeScene.id}
+          imageSrc={activeScene.imageSrc}
+          title={activeScene.title}
+          sceneLabel={activeScene.label}
+          hotspots={activeScene.hotspots}
+          onHotspotSelect={setActiveSceneId}
+        />
 
-      <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
-        <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs font-mono uppercase tracking-widest text-accent">Tour position</p>
-            <h3 className="mt-1 text-lg font-semibold">{activeScene.label}</h3>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {scenes.map((scene) => (
-              <button
-                key={scene.id}
-                type="button"
-                onClick={() => setActiveSceneId(scene.id)}
-                className={`rounded-full border px-4 py-2 text-sm transition ${
-                  scene.id === activeScene.id
-                    ? 'border-accent bg-accent text-background font-semibold'
-                    : 'border-white/15 bg-white/5 text-foreground/75 hover:bg-white/10 hover:text-foreground'
-                }`}
-                aria-pressed={scene.id === activeScene.id}
-              >
-                {scene.label}
-              </button>
-            ))}
+        <div className="pointer-events-none absolute inset-x-0 bottom-4 z-30 flex justify-center">
+          <div className="pointer-events-auto flex items-center gap-2 rounded-full border border-white/10 bg-black/45 px-3 py-2 backdrop-blur-sm">
+            {scenes.map((scene) => {
+              const isActive = scene.id === activeScene.id;
+              return (
+                <button
+                  key={scene.id}
+                  type="button"
+                  onClick={() => setActiveSceneId(scene.id)}
+                  className={`h-3 w-3 rounded-full transition ${
+                    isActive
+                      ? 'bg-accent ring-2 ring-accent/30'
+                      : 'border border-black bg-transparent hover:border-white/70'
+                  }`}
+                  aria-label={`View ${scene.label}`}
+                  aria-pressed={isActive}
+                />
+              );
+            })}
           </div>
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
         <p className="text-sm leading-relaxed text-foreground/70">{activeScene.description}</p>
       </div>
     </div>
