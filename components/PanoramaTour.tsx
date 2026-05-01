@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import PanoramaViewer, { type PanoramaHotspot } from '@/components/PanoramaViewer';
+import PanoramaViewer from '@/components/PanoramaViewer';
 
 type TourScene = {
   id: string;
@@ -9,7 +9,6 @@ type TourScene = {
   imageSrc: string;
   title: string;
   description: string;
-  hotspots: PanoramaHotspot[];
 };
 
 const scenes: TourScene[] = [
@@ -19,14 +18,6 @@ const scenes: TourScene[] = [
     imageSrc: '/research/matterport-imaging-pipeline-360.jpg',
     title: 'Interactive 360 panorama captured from inside the room',
     description: 'Interior capture from the Matterport media library, embedded directly as an explorable browser panorama.',
-    hotspots: [
-      {
-        id: 'to-hallway',
-        label: 'Step into hallway',
-        targetSceneId: 'hallway',
-        position: { left: '50%', top: '72%' },
-      },
-    ],
   },
   {
     id: 'hallway',
@@ -34,14 +25,6 @@ const scenes: TourScene[] = [
     imageSrc: '/research/matterport-imaging-pipeline-hallway-360.jpg',
     title: 'Interactive 360 panorama captured from the hallway outside the door',
     description: 'A second scan position just outside the doorway, showing how linked capture points can form a lightweight tour.',
-    hotspots: [
-      {
-        id: 'to-room',
-        label: 'Enter room',
-        targetSceneId: 'room',
-        position: { left: '50%', top: '70%' },
-      },
-    ],
   },
 ];
 
@@ -60,8 +43,6 @@ export default function PanoramaTour() {
           imageSrc={activeScene.imageSrc}
           title={activeScene.title}
           sceneLabel={activeScene.label}
-          hotspots={activeScene.hotspots}
-          onHotspotSelect={setActiveSceneId}
         />
 
         <div className="pointer-events-none absolute inset-x-0 bottom-4 z-30 flex justify-center">
