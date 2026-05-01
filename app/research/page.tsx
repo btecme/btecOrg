@@ -93,9 +93,11 @@ export default function ResearchPage() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
-            <PanoramaTour />
+            <div className="min-w-0">
+              <PanoramaTour />
+            </div>
 
-            <div className="space-y-5">
+            <div className="min-w-0 space-y-5">
               <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
                 <h3 className="text-xl font-semibold mb-3">Workflow</h3>
                 <ol className="space-y-3 text-foreground/70 leading-relaxed">

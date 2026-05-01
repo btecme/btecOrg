@@ -53,7 +53,7 @@ export default function PanoramaTour() {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="min-w-0 max-w-full space-y-4">
       <PanoramaViewer
         key={activeScene.id}
         imageSrc={activeScene.imageSrc}

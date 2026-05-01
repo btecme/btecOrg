@@ -202,7 +202,7 @@ export default function PanoramaViewer({ imageSrc, title, sceneLabel, hotspots =
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-2xl shadow-cyan-500/10">
+    <div className="relative min-w-0 max-w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-2xl shadow-cyan-500/10">
       <div className="absolute left-4 top-4 z-20 rounded-full border border-white/15 bg-black/55 px-3 py-1 text-xs font-mono uppercase tracking-widest text-white/75 backdrop-blur">
         {sceneLabel ? `${sceneLabel} · Drag to orbit` : 'Drag to orbit'}
       </div>
