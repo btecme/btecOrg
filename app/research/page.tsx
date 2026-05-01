@@ -79,16 +79,16 @@ export default function ResearchPage() {
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-accent font-mono text-xs tracking-widest mb-3">RESEARCH EXAMPLE // AUTOMATED IMAGING PIPELINE</p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Automating Imaging Pipelines: Matterport to Web Panorama</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Automating Imaging Pipelines: 360 Scan to Web Panorama</h2>
               <p className="text-foreground/70 leading-relaxed max-w-3xl">
-                We scanned this room in Matterport, captured 360 images from the media library, and embedded them directly into
-                the web experience as a small linked tour. This is a simple first step toward a broader imaging pipeline
+                For this simple PoC, a room was scanned into Matterport, 360 images from the media library were captured, and one of our digital agents embedded these images directly into
+                the web experience as a small linked tour that it built on this page. This is a simple first step toward a broader imaging pipeline
                 where spatial capture, asset extraction, optimization, publishing, and interactive presentation can be
-                coordinated automatically by agents.
+                coordinated automatically by agents. (Image capture could be from many other sources. VPiX, 3DVista, EyeSpy360, etc.)
               </p>
             </div>
             <div className="rounded-2xl border border-accent/25 bg-accent/10 px-4 py-3 text-sm text-foreground/75 lg:max-w-xs">
-              The implementation uses the actual 360 image asset, not a mockup, and renders it through a lightweight browser viewer.
+              The implementation uses the actual 360 image assets, not a mockup, and renders it through a lightweight browser viewer.
             </div>
           </div>
 
@@ -101,7 +101,7 @@ export default function ResearchPage() {
               <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
                 <h3 className="text-xl font-semibold mb-3">Workflow</h3>
                 <ol className="space-y-3 text-foreground/70 leading-relaxed">
-                  <li><span className="text-accent font-mono text-sm">01</span> Scan the room in Matterport.</li>
+                  <li><span className="text-accent font-mono text-sm">01</span> Scan the room.</li>
                   <li><span className="text-accent font-mono text-sm">02</span> Capture or export equirectangular 360 images from each scan position.</li>
                   <li><span className="text-accent font-mono text-sm">03</span> Store the optimized image assets with the site and label each scan node.</li>
                   <li><span className="text-accent font-mono text-sm">04</span> Link nodes with visual hotspots so visitors understand how to move between positions.</li>
