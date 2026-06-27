@@ -19,6 +19,9 @@ export default function About() {
                         <p>
                             With decades of experience spanning IT, architecture, digital design, and working with businesses across many sectors, b-tec brings a unique, cross-disciplinary perspective to technology challenges. We don&apos;t just fix computers; we understand the systems that power your organization.
                         </p>
+                        <p className="mt-6">
+                            b-tec also supports organizations that have outgrown informal technology management, helping leadership stabilize infrastructure, modernize cloud and endpoint operations, improve vendor accountability, and prepare systems for practical automation and AI.
+                        </p>
                     </section>
 
                     <section>

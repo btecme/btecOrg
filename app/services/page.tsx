@@ -26,6 +26,11 @@ export default function Services() {
             outcome: 'Issues resolved before they disrupt operations.',
         },
         {
+            title: 'Executive IT Stabilization & Modernization',
+            description: 'For organizations that have outgrown informal IT, b-tec helps stabilize, modernize, and secure technology environments across cloud productivity, identity, endpoints, vendors, backups, automation, and distributed operations. Practical coverage includes Microsoft 365, Google Workspace, identity and endpoint management, vendor accountability, backup and disaster recovery, and AI readiness for leadership teams and multi-site operations.',
+            outcome: 'Senior technology guidance without noise, hype, or unnecessary complexity.',
+        },
+        {
             title: 'AI Modernization / Alignment',
             description: 'Professional Alignment Services. Moving from unstructured data to AI-ready systems.',
             outcome: 'Operational readiness for the age of artificial intelligence.',
