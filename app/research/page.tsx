@@ -46,6 +46,37 @@ export default function ResearchPage() {
           </p>
         </div>
 
+        <section className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="relative">
+            <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT // PRIVATE BETA IN ACTIVE DEVELOPMENT</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">OSP — Open Storage Platform</h2>
+            <p className="text-foreground/80 leading-relaxed mb-5 max-w-3xl">
+              Storage management software a business can own instead of rent. Each client gets an isolated instance and
+              database, a contractual path to leave with the full repo and a complete database export, and a human UI,
+              REST API, and MCP/AI agent layer that all run through the same service, with server-enforced permissions
+              and audit trails on every action.
+            </p>
+            <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
+              Self-storage is the proving ground. The lock-in problem it solves is not specific to one industry.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/osp"
+                className="px-7 py-3 rounded-full bg-accent text-background font-bold hover:bg-accent-dim transition-all text-center"
+              >
+                Read the OSP Thesis
+              </Link>
+              <Link
+                href="/osp#interest"
+                className="px-7 py-3 rounded-full border border-white/20 text-foreground hover:bg-white/10 transition-all text-center"
+              >
+                Help Shape the Alternative
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="my-12 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
