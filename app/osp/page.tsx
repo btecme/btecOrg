@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -175,6 +176,25 @@ export default function OSPPage() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-10">
+            <p className="text-foreground/70 leading-relaxed max-w-3xl mb-6">
+              The map below lays out how this actually works end to end, from product definition through
+              incremental milestone development, adversarial red teaming, release validation, and the assurance
+              evidence produced along the way. We&apos;re sharing it publicly so anyone evaluating OSP, or evaluating
+              custom software development in general, can see the discipline behind the process rather than take our
+              word for it.
+            </p>
+            <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
+              <Image
+                src="/images/osp/public-assurance-map.png"
+                alt="Public Assurance Map: a disciplined, human-led software development process, accelerated by AI and verified at every milestone, from product definition through incremental development, advanced red teaming, release validation, and assurance evidence."
+                width={1672}
+                height={941}
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
         </section>
 
         {/* Current progress / private beta invitation */}
