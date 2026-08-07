@@ -179,11 +179,10 @@ export default function OSPPage() {
 
           <div className="mt-10">
             <p className="text-foreground/70 leading-relaxed max-w-3xl mb-6">
-              The map below lays out how this actually works end to end, from product definition through
+              The map below lays out how this was built end to end, from product definition through
               incremental milestone development, adversarial red teaming, release validation, and the assurance
               evidence produced along the way. We&apos;re sharing it publicly so anyone evaluating OSP, or evaluating
-              custom software development in general, can see the discipline behind the process rather than take our
-              word for it.
+              custom software development in general, can see the discipline behind the process.
             </p>
             <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
               <Image
