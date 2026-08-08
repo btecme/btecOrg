@@ -168,8 +168,7 @@ export default function OSPPage() {
           <p className="text-foreground/70 leading-relaxed max-w-3xl mb-8">
             The current build covers move-in and move-out workflows, lease and signature handling, Stripe payments
             and webhooks, and receipts. It has gone through multiple rounds of internal review and adversarial
-            red-team analysis by separate engineering passes. What we&apos;re not doing is calling unfinished work
-            done. Here is what has actually been built and tested:
+            red-team analysis by separate engineering passes. Here is what has actually been built and tested:
           </p>
           <ul className="grid md:grid-cols-2 gap-4">
             {builtFeatures.map((f) => (
