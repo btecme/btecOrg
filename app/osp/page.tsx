@@ -54,13 +54,16 @@ const thesisPoints = [
   },
 ];
 
-const evidence = [
-  'Append-only financial ledger with penny-accurate reconciliation',
-  'Tenant isolation enforced at the database and service layers',
-  'Resumable workflows designed to recover safely from failures',
-  'Real legacy-data import with a balance tie-out report',
-  'Compatibility and update testing across releases',
-  'Full export-and-restore drill proving the ownership promise',
+const builtFeatures = [
+  'Unit inventory and status board: full CRUD, search, and real-time availability across every facility',
+  'Tenant records and lease lifecycle: move-in and move-out run as resumable, auditable workflows, not simple status flags',
+  'Stripe card payments and manually recorded cash/check, both driven by a dedicated payment state machine so a failed or disputed charge never corrupts the books',
+  'Automated recurring billing: nightly rent charges, late fees, and prorated move-ins and move-outs',
+  'Append-only financial ledger, reconciled to the penny, with balances always computed and never stored',
+  'Delinquency tracking and end-of-day, occupancy, and receivables reporting, available through the API as well as the UI',
+  'Append-only audit log on every state change, human or agent-initiated, recording actor, action, and before/after values',
+  'Agent-native by design: every operation above is exposed as both a REST API and an MCP tool, so an AI agent runs the business through the identical service layer a staff member uses, not a bolted-on integration',
+  'Security enforced at the database, not just the app: row-level tenant isolation, idempotency keys on every money-moving action, and approval gates that route anything above a configurable threshold to a human review queue, even when an agent initiated it',
 ];
 
 export default function OSPPage() {
@@ -169,10 +172,10 @@ export default function OSPPage() {
             done. Here is what has actually been built and tested:
           </p>
           <ul className="grid md:grid-cols-2 gap-4">
-            {evidence.map((e) => (
-              <li key={e} className="flex gap-3 rounded-xl border border-white/10 bg-black/25 p-4 text-foreground/80 leading-relaxed">
+            {builtFeatures.map((f) => (
+              <li key={f} className="flex gap-3 rounded-xl border border-white/10 bg-black/25 p-4 text-foreground/80 leading-relaxed">
                 <span className="text-accent font-mono mt-0.5">&bull;</span>
-                <span>{e}</span>
+                <span>{f}</span>
               </li>
             ))}
           </ul>
