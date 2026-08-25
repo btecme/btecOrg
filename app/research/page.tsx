@@ -171,6 +171,15 @@ export default function ResearchPage() {
             OpenClaw stack, to see what a small team of specialized agents could actually get done unsupervised on
             real infrastructure.
           </p>
+          <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 bg-black/20 max-w-md">
+            <Image
+              src="/research/hermes-agentic-frameworks.png"
+              alt="Hermes, the winged messenger, representing the Hermes agentic framework running Alix and Bill"
+              width={1303}
+              height={1207}
+              className="w-full h-auto"
+            />
+          </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="rounded-2xl border border-white/10 bg-black/25 p-6">
               <p className="text-accent font-mono text-xs tracking-widest mb-2">AGENT 01</p>
