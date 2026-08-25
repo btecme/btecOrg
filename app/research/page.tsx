@@ -163,6 +163,42 @@ export default function ResearchPage() {
           </div>
         </section>
 
+        <section className="my-16 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/[0.03] to-transparent p-8 md:p-10">
+          <p className="text-accent font-mono text-xs tracking-widest mb-3">CASE STUDY // SUMMER 2026</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Hermes Agents: Alix &amp; Bill</h2>
+          <p className="text-foreground/80 leading-relaxed mb-8 max-w-3xl">
+            This summer we ran a live multi-agent experiment on the Hermes runtime (Nous Research), separate from our
+            OpenClaw stack, to see what a small team of specialized agents could actually get done unsupervised on
+            real infrastructure.
+          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-6">
+              <p className="text-accent font-mono text-xs tracking-widest mb-2">AGENT 01</p>
+              <h3 className="text-xl font-bold mb-3 text-foreground">Alix — Junior Dev &amp; White Hat</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Alix was built as a junior developer and white hat hacker: building internal tools and utilities,
+                and red teaming larger apps and websites to surface real vulnerabilities before they become real
+                problems.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-6">
+              <p className="text-accent font-mono text-xs tracking-widest mb-2">AGENT 02</p>
+              <h3 className="text-xl font-bold mb-3 text-foreground">Bill — Deployment &amp; Marketing</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Alix created Bill, a second Hermes instance on the same server, to help with deployment strategies
+                and marketing for{' '}
+                <Link href="/osp" className="text-accent hover:underline">OSP (Open Storage Platform)</Link>.
+                Bill runs a much newer model version than Alix.
+              </p>
+            </div>
+          </div>
+          <p className="text-foreground/70 leading-relaxed mt-8 max-w-3xl">
+            Alix and Bill are being run side by side as a live comparison: same runtime, different generations,
+            different jobs. We are testing and comparing their capabilities for pre-production applications, including
+            assisting clients with their own OSP deployments.
+          </p>
+        </section>
+
         <section className="my-16 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-10">
           <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT</p>
           <h2 className="text-3xl font-bold mb-4">Personal Digital Twins</h2>
