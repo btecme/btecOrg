@@ -1,47 +1,56 @@
 export default function Services() {
     const services = [
         {
+            id: 'cloud-it-solutions',
             title: 'Cloud & IT Solutions',
             description: 'Comprehensive cloud architecture, email migration, domain management, and robust backup strategies.',
             outcome: 'Scalable, secure infrastructure that grows with you.',
         },
         {
+            id: 'hardware-support',
             title: 'Hardware Support',
             description: 'Expert repair, installation, and upgrades for laptops, workstations, servers, and peripherals.',
             outcome: 'Extended hardware lifecycle and minimized downtime.',
         },
         {
+            id: 'security-consulting',
             title: 'Security Consulting',
             description: 'Network safety assessments, privacy audits, and implementation of best-practice security protocols.',
             outcome: 'Peace of mind and protection for critical assets.',
         },
         {
+            id: 'general-tech-consulting',
             title: 'General Tech Consulting',
             description: 'Vendor management, Virtual CIO services, and strategic technology planning.',
             outcome: 'Clear technology roadmap aligned with business goals.',
         },
         {
+            id: 'managed-endpoint-services',
             title: 'Managed Endpoint Services',
             description: 'Tiered remote support, automated software updates, and proactive system monitoring.',
             outcome: 'Issues resolved before they disrupt operations.',
         },
         {
+            id: 'executive-it-stabilization',
             title: 'Executive IT Stabilization & Modernization',
             description: 'For organizations that have outgrown informal IT, b-tec helps stabilize, modernize, and secure technology environments across cloud productivity, identity, endpoints, vendors, backups, automation, and distributed operations. Practical coverage includes Microsoft 365, Google Workspace, identity and endpoint management, vendor accountability, backup and disaster recovery, and AI readiness for leadership teams and multi-site operations.',
             outcome: 'Senior technology guidance without noise, hype, or unnecessary complexity.',
         },
         {
+            id: 'ai-modernization-alignment',
             title: 'AI Modernization / Alignment',
             description: 'Professional Alignment Services. Moving from unstructured data to AI-ready systems.',
             outcome: 'Operational readiness for the age of artificial intelligence.',
             highlight: true,
         },
         {
+            id: 'design-construction',
             title: 'Design & Construction',
             description: 'Architectural planning, material selection, and construction management for residential and light commercial projects. btec coordinates every phase - from design documentation and permitting through trade scheduling, quality control, and project closeout. We bring the same systematic, analytical approach to physical structures that we bring to digital infrastructure.',
             outcome: 'From blueprint to built - managed with precision.',
         },
         {
+            id: 'owner-claims-advocacy',
             title: 'Owner & Claims Advocacy',
             description: 'Owner representation, insurance claim support, and drone-assisted site assessment. We act as the owner\'s advocate through scope review, gap analysis, supplement preparation, and depreciation recovery for property damage claims. Our drone services provide detailed aerial documentation of rooflines, chimneys, gutters, and hard-to-access areas - giving owners and adjusters data they can\'t get from the ground.',
             outcome: 'Your advocate from damage assessment to final recovery.',
@@ -60,7 +69,8 @@ export default function Services() {
                 {services.map((service) => (
                     <div
                         key={service.title}
-                        className={`p-8 rounded-2xl border transition-all hover:-translate-y-1 ${service.cyan
+                        id={service.id}
+                        className={`scroll-mt-32 p-8 rounded-2xl border transition-all hover:-translate-y-1 ${service.cyan
                                 ? 'bg-cyan-400/5 border-cyan-300/20 hover:border-cyan-300/40 shadow-[0_0_30px_rgba(34,211,238,0.08)]'
                                 : service.highlight
                                     ? 'bg-accent/5 border-accent/20 hover:border-accent/40'

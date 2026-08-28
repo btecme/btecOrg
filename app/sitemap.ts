@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: 'https://www.b-tec.org/blog', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
         { url: 'https://www.b-tec.org/research', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
         { url: 'https://www.b-tec.org/osp', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+        { url: 'https://www.b-tec.org/first-principles', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
         ...posts,
     ];
 }
