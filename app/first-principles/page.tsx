@@ -129,7 +129,7 @@ export default function FirstPrinciplesPage() {
 
           <p className="text-center text-foreground/50 text-sm mt-12 max-w-xl mx-auto leading-relaxed">
             Transparency and invisible design pull in different directions. Balance is what keeps either one
-            from going too far: show enough to be understood, hide enough to stay out of the way.
+            from going too far: show enough to be understood, hide enough to stay out of the way and allow flow.
           </p>
         </div>
       </section>
@@ -138,8 +138,7 @@ export default function FirstPrinciplesPage() {
       <section className="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">Principles in Practice</h2>
         <p className="text-foreground/60 mb-12 max-w-2xl leading-relaxed">
-          These are not equal to Balance, Transparency, and Invisible Design. They are what those three
-          fundamentals look like once they meet an actual system.
+          This what those three fundamentals look like once they meet an actual system.
         </p>
         <div className="space-y-10">
           {derived.map((d) => (
@@ -193,7 +192,7 @@ export default function FirstPrinciplesPage() {
         </p>
         <p className="text-foreground/70 leading-relaxed mb-8">
           Visibility usually arrives before optimization. Once the sediment clears and inputs stabilize,
-          the system gets clearer, faster, and less dependent on hidden human effort.
+          the system gets clearer, faster, and less dependent on hidden manual effort, which improves flow.
         </p>
         <p className="text-foreground/90 leading-relaxed font-medium">
           Temporary turbulence is expected.
@@ -209,7 +208,7 @@ export default function FirstPrinciplesPage() {
         <div className="container mx-auto px-6 py-20 md:py-24 max-w-2xl text-center">
           <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mb-10">
             These principles guide how we design infrastructure, software, automation, and intelligent
-            systems. The tools will change. The fundamentals should survive them.
+            systems. The tools will change. These fundamentals will survive.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <Link href="/research" className="text-accent hover:text-accent-dim font-medium">
