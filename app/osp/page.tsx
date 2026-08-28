@@ -74,23 +74,22 @@ export default function OSPPage() {
         <div className="mb-16">
           <p className="text-accent font-mono text-sm tracking-widest mb-4">b-tec // OSP RESEARCH</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 leading-[1.1]">
-            Your storage business shouldn&apos;t be a tenant of its own software.
+            Stop being a tenant of your own software.
           </h1>
           <p className="text-lg md:text-xl text-foreground/70 max-w-3xl leading-relaxed mb-8">
-            b-tec is researching and building OSP, the Open Storage Platform: an owner-controlled, agent-native
-            alternative to rented storage-management SaaS. Self-storage is the proving ground. The problem it
-            solves is not limited to self-storage.
+            b-tec built OSP, the Open Storage Platform: an owner-controlled, agent-native, healthy
+            alternative to a rented storage-management SaaS.
           </p>
           <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-accent/30 bg-accent/10">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm font-mono text-foreground/80">Private beta in active development</span>
+            <span className="text-sm font-mono text-foreground/80">Private beta is active</span>
           </div>
         </div>
 
         {/* The category is overdue for a reset */}
         <section className="my-20">
           <div className="mb-4 text-accent font-mono text-xs tracking-widest">01 / THE RESET</div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">The category is overdue for a reset.</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">The storage software category is overdue for a reset.</h2>
           <p className="text-lg text-foreground/70 leading-relaxed max-w-3xl">
             Storage-management software became critical infrastructure for thousands of operators, and then quietly
             became a landlord over that infrastructure. Per-unit SaaS pricing, closed data, and structural lock-in
@@ -125,7 +124,7 @@ export default function OSPPage() {
               and technology aging in place because switching cost too much.
             </p>
             <p>
-              We kept waiting for a genuinely better option. It never arrived.
+              We kept waiting for a better option. It never arrived.
             </p>
             <p className="text-foreground font-medium">
               So we&apos;re building one: modern storage management software that businesses can own, understand, extend,
@@ -141,8 +140,8 @@ export default function OSPPage() {
           <p className="text-lg text-foreground/70 leading-relaxed max-w-3xl">
             Giving every client an isolated, portable instance used to be an operational cost a small technology
             company couldn&apos;t sustain. That is no longer true. AI-assisted engineering makes it economically
-            practical for a small, experienced team to maintain a secure upstream platform while each client runs a
-            fully separate, exportable system of their own. This is not a UI refresh with a chatbot bolted on. It
+            practical for a small, experienced, and competant team to maintain a secure upstream platform while each client runs a
+            fully separate, exportable system of their own. This is not a UI refresh with a chatbot bolted on (lipstick on a pig). It
             changes what the ownership model can look like.
           </p>
         </section>
@@ -204,15 +203,13 @@ export default function OSPPage() {
           className="my-20 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 text-center scroll-mt-28"
         >
           <p className="text-accent font-mono text-xs tracking-widest mb-3">07 / STATUS</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Private beta in active development.</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Private beta is now active.</h2>
           <p className="text-foreground/75 max-w-2xl mx-auto mb-2 leading-relaxed">
-            No firm date yet, and we&apos;d rather tell you that plainly than put up a countdown we can&apos;t stand behind.
           </p>
           <h3 className="text-2xl font-bold mt-10 mb-4">Help shape the alternative.</h3>
           <p className="text-foreground/70 max-w-2xl mx-auto mb-8 leading-relaxed">
             We&apos;re inviting a small number of storage operators who believe their software should work for them,
-            not own them. If that&apos;s you, tell us about your operation and we&apos;ll follow up as the private beta
-            opens.
+            not own them. If that&apos;s you, tell us about your operation and we&apos;ll follow up.
           </p>
           <Link
             href="/contact"
