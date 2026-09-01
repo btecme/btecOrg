@@ -86,13 +86,13 @@ export default function OSPPage() {
               <span className="text-sm font-mono text-foreground/80">Private beta is active</span>
             </div>
             <div className="w-full max-w-[220px] aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 bg-black/20">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/_aYQ77ontw0"
+              <video
+                className="w-full h-full object-cover"
+                src="https://media.b-tec.org/OSP/PreviewOSP.mp4"
                 title="OSP — 90 second preview"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
+                controls
+                playsInline
+                preload="metadata"
               />
             </div>
           </div>
