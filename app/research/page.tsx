@@ -168,7 +168,7 @@ export default function ResearchPage() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Hermes Agents: Alix &amp; Bill</h2>
           <p className="text-foreground/80 leading-relaxed mb-8 max-w-3xl">
             This summer we ran a live multi-agent experiment on the Hermes runtime (Nous Research), separate from our
-            OpenClaw stack, to see what a small team of specialized agents could actually get done unsupervised on
+            OpenClaw stacks, to see what a small team of specialized agents could actually get done unsupervised on
             real infrastructure.
           </p>
           <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 bg-black/20 max-w-md">
@@ -204,7 +204,7 @@ export default function ResearchPage() {
           <p className="text-foreground/70 leading-relaxed mt-8 max-w-3xl">
             Alix and Bill are being run side by side as a live comparison: same runtime, different generations,
             different jobs. We are testing and comparing their capabilities for pre-production applications, including
-            assisting clients with their own OSP deployments.
+            assisting clients with their own OSP deployments. Human communication channels: Discord & Telegram
           </p>
         </section>
 
