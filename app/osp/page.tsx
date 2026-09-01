@@ -80,9 +80,21 @@ export default function OSPPage() {
             b-tec built OSP, the Open Storage Platform: an owner-controlled, agent-native, healthy
             alternative to a rented storage-management SaaS.
           </p>
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-accent/30 bg-accent/10">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm font-mono text-foreground/80">Private beta is active</span>
+          <div className="flex flex-col md:flex-row md:items-center gap-6">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-accent/30 bg-accent/10 w-fit">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-sm font-mono text-foreground/80">Private beta is active</span>
+            </div>
+            <div className="w-full max-w-[220px] aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 bg-black/20">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/_aYQ77ontw0"
+                title="OSP — 90 second preview"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
 
