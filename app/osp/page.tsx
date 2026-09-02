@@ -54,6 +54,41 @@ const thesisPoints = [
   },
 ];
 
+const ownershipModel = [
+  {
+    title: 'Buy once, use forever',
+    body: 'A perpetual license. Remember those? Pay a one-time fee and the software is yours. No per-unit fees, no per-user fees, no annual renewal, no contract that expires and takes your operation offline with it. Four locations under one company, 100 units or 10,000, same price. There\u2019s no renewal date on your calendar and no new quote arriving every spring. Separate legal entities get separate purchases because they get separate books and separate customer data (healthy data boundaries by design). Security and feature updates keep coming at no cost, for as long as you want them.',
+  },
+  {
+    title: 'You own your software',
+    body: 'No new tier, no renegotiated contract, no end-of-life notice that quietly turns your license back into a subscription. No acquisition that changes your terms, no roadmap you have to absorb because a vendor decided your workflow wasn\u2019t worth keeping. On hosted instances, improvements and security patches arrive as we ship them, so you stay current without lifting a finger. What you own is the license and the code, and neither can be revoked, repriced, or taken away.',
+  },
+  {
+    title: 'You own your data',
+    body: 'Your instance, your database. Your tenants, leases, ledger, and payment history sit in a system that\u2019s yours alone, not in a shared table next to a competitor\u2019s. Your Stripe account stays yours, so rent moves through your infrastructure and never through ours. Every change is logged with who made it and what it changed, human or agent, so the audit trail belongs to you too. If you ever leave, you leave with a complete database export. No exit fee, no ransom, no hostage negotiation, no waiting on us to decide how much of your own operation you get back.',
+  },
+  {
+    title: 'Full source code included',
+    body: 'The complete source ships with your purchase. No black box, no vendor dependency. Audit it, review it, hand it to your own developer. You can read exactly how a late fee gets calculated, or how a payment posts to the ledger. You get a link to a snapshot of the codebase, refreshed as the platform evolves, so what you own stays current. If b-tec ever disappeared, your business keeps running on the code you already have.',
+  },
+  {
+    title: 'Subscription optional',
+    body: 'The license is yours outright. What\u2019s optional is everything after: support, customizations, automations, integration work. Take it if you want it, skip it if you don\u2019t, and the software works either way. Hosting is priced separately, and that\u2019s covered below.',
+  },
+  {
+    title: 'Hosted by us or by you',
+    body: 'Run OSP on b-tec\u2019s managed infrastructure with zero ops overhead. During beta that\u2019s the default and it\u2019s what most operators want. If you\u2019ve got the people and the accounts to run it yourself, we\u2019ll set you up with your own deployment and database and hand you the keys. Same software either way. You\u2019ll always know which infrastructure your data sits on and whose account it\u2019s in. Hybrid arrangements and a fully independent path are coming after beta.',
+  },
+  {
+    title: 'Built for independent operators',
+    body: 'OSP is built for the operator who runs the business and works the counter. The home screen opens on what needs attention today and the jobs you start most often. Bring your existing rent roll and the facilities create themselves out of the file. The feature list came from asking independent operators what they actually use, which is why there\u2019s nothing in here priced to justify an enterprise sales team. Per-user feature visibility is on the way, so the employee who keeps breaking the map can stop seeing the map.',
+  },
+  {
+    title: 'Live inventory on website',
+    body: 'Your website can show what\u2019s actually available, priced and updated in real time, because it can read from the same system you run the business on. Show exact units or just unit-type summaries, whichever you\u2019d rather publish. Connecting it to your website is an optional one-time setup we can handle, or your web developer can, working from the same API the platform itself runs on. No more price sheets from 2019 and no more phone tag over whether you\u2019ve got a 10x10. No more premiums to reveal your own data.',
+  },
+];
+
 const builtFeatures = [
   'Unit inventory and status board: full CRUD, search, and real-time availability across every facility',
   'Tenant records and lease lifecycle: move-in and move-out run as resumable, auditable workflows, not simple status flags',
@@ -172,9 +207,23 @@ export default function OSPPage() {
           </div>
         </section>
 
+        {/* What buying instead of renting means */}
+        <section id="ownership" className="my-20 scroll-mt-28">
+          <div className="mb-4 text-accent font-mono text-xs tracking-widest">06 / THE OWNERSHIP MODEL</div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-10">What buying instead of renting actually means.</h2>
+          <div className="space-y-6">
+            {ownershipModel.map((o) => (
+              <div key={o.title} className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 text-accent">{o.title}</h3>
+                <p className="text-foreground/75 leading-relaxed">{o.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* How we're proving it */}
         <section className="my-20 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-          <div className="mb-4 text-accent font-mono text-xs tracking-widest">06 / HOW WE&apos;RE PROVING IT</div>
+          <div className="mb-4 text-accent font-mono text-xs tracking-widest">07 / HOW WE&apos;RE PROVING IT</div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Disciplined engineering, not promises.</h2>
           <p className="text-foreground/70 leading-relaxed max-w-3xl mb-8">
             The current build covers move-in and move-out workflows, lease and signature handling, Stripe payments
@@ -214,7 +263,7 @@ export default function OSPPage() {
           id="interest"
           className="my-20 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 text-center scroll-mt-28"
         >
-          <p className="text-accent font-mono text-xs tracking-widest mb-3">07 / STATUS</p>
+          <p className="text-accent font-mono text-xs tracking-widest mb-3">08 / STATUS</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Private beta is now active.</h2>
           <p className="text-foreground/75 max-w-2xl mx-auto mb-2 leading-relaxed">
           </p>
