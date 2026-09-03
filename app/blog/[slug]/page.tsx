@@ -72,7 +72,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 </header>
 
                 {/* Content Body */}
-                <div className="prose prose-invert prose-lg max-w-none">
+                <div className="prose prose-invert prose-lg max-w-none [&_a]:text-accent [&_a]:no-underline hover:[&_a]:underline">
                     <MDXRemote source={props.content} />
                 </div>
 
