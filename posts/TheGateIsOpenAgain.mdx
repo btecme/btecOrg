@@ -1,0 +1,113 @@
+---
+title: "The Gate Is Open Again"
+date: "2026-09-03"
+description: "Software vendors spent a decade tightening the screws on customers who couldn't afford to leave. Then digital agents made building your own alternative faster than switching."
+---
+
+# The Gate Is Open Again
+
+In the nineties (or waaay back in the nineteen hundreds, if I'm going for a laugh;), if you could build it, you could ship it. No procurement cycle. No platform team. No roadmap committee deciding whether your idea fit the quarter. You had an idea on Friday and something running by Monday, and the only gatekeeper was reality. (Did your build work?)
+
+Then the industry professionalized, and building turned into something companies did to you.
+
+That era ended sometime in the last eighteen months, and I don't think most people have noticed yet.
+
+I'm writing this in late summer 2026 between sessions on [Open Storage Platform](https://www.b-tec.org/osp), a self-storage management system I built to replace one that gets rented back to its customers every month. Eight milestones, built and tested in three weeks of spare time, by me and a handful of digital agents. About 75,000 lines of TypeScript, running close to a one-to-one source-to-test ratio in the core. The week since has been deployment planning, documentation, and stress testing data imports against tens of thousands of records. Storage is incidental. It's just the problem that happened to land in front of me when I happened to be at my wits end with another SaaS company on one of their many "integration" calls.
+
+---
+
+## How the gate closed
+
+The closing happened slowly enough that most of us adjusted instead of objecting. (Us frogs woke up one morning in one of many pots on the stove.) I certainly did. I renewed software. I expensed it. I told myself the new terms were annoying but survivable, and then I did the same thing the following year, and the year after that. "But the convenience," they said.
+
+I've been inside these ecosystems for close to forty years now. Autodesk back when you bought the software on floppies and it was yours, in a box, on a shelf. Adobe before the cloud, when Acrobat was already overpriced but at least the overpricing had an end date. VMware for most of my career on the infrastructure side. And lately Yardi, where the alternatives are RealPage and Entrata and AppFolio, which is another way of saying there are no good alternatives.
+
+The pattern repeats because the math repeats. Vendors get embedded. Become the standard. Change the terms. Once switching costs exceed the price increase, they can charge nearly whatever they want, and the customer will grumble and pay, because leaving costs more than staying.
+
+Nobody had to coordinate that. It's what a "modern" company does when nobody can leave.
+
+And it worked, right up until the cost of building your own solution fell through the floor this year.
+
+---
+
+## The ones I paid for
+
+What follows isn't a timeline, and I'm not building a case that these companies moved together. Pick any five software vendors you've written checks to over the last decade and you'll assemble a list with the same shape. Same incentives, same spreadsheet, same conclusion, reached independently. These are some of the ones I lived with, so these are the ones I can describe honestly.
+
+Adobe ended perpetual Creative Suite sales in May 2013 and absorbed a Change.org petition of more than fifty thousand signatures as a cost of doing business. The stock dropped around seven percent. Revenue fell in the first full quarter of the transition, and critics called that proof of a strategic error. Revenue for fiscal 2012 was $4.4 billion. Fiscal 2025 was $23.8 billion. The backlash was real and it was survivable, and survivable is the only part anyone else took notes on.
+
+Autodesk stopped selling new perpetual licenses for most individual products after January 31, 2016, then took the Design and Creation Suites the same way six months later, and stopped selling maintenance plans entirely in 2017.
+
+Microsoft moved Office to subscription and mostly left Windows alone. Same company, same era, opposite answers depending on the product. Which tells you the whole thing was a pricing decision from the beginning. Nothing about the technology required it.
+
+Broadcom has been toxic with VMware, and that's the one I felt most recently. Perpetual sales ended after the November 2023 acquisition. Customers reported cost increases of three hundred percent and up, some considerably higher. Cease-and-desist letters went out in May 2025 to perpetual license holders whose support had lapsed, telling them to uninstall any patch applied after their expiration date. Formal audits began that June. The authorized cloud service provider program went from more than four thousand partners globally to an invitation-only list, with reporting since putting the US count somewhere around nineteen. At least one customer got a legal notice after they had already finished migrating off the platform.
+
+I got a few of those letters. First one I read twice, standing at my desk, trying to work out whether I was being threatened over software that had already been bought, on a perpetual license.
+
+DocuSign built a business charging per signature for what is, underneath all of it, a hash and a timestamp.
+
+Salesforce is the one I'd point to if I only got to pick one. Nine percent list price increase in 2023, their first in seven years. Another six percent average on August 1, 2025. Both explained by AI capabilities customers hadn't asked for. Then three Agentforce pricing models inside eighteen months: two dollars per conversation at launch in October 2024, then Flex Credits in May 2025 at five hundred dollars per hundred thousand credits, which works out to about ten cents per standard action, then per-user add-ons layered on top of the consumption pricing starting at $125 per user per month, for experimental tech. All of it sitting on a Service Cloud license underneath. You don't rewrite your pricing three times in a year and a half because you've figured something out. You do it because you're solving for revenue in public and shipping the result as product strategy. (If enshitification was a company.)
+
+Six examples, and finding them took no effort at all. The hard exercise would be naming a company that doesn't fit.
+
+It has gone far enough that the model detached from software entirely. Ransomware as a service. Heated seats billed monthly (is BMW still pushing this?). Driver assistance hardware physically installed in the car you own, sitting there switched off, waiting for your card to clear.
+
+Two things follow from all this, and they compound. Most of what ships is bloat, because features get added to justify the next increase rather than because anyone uses them. And when AI shows up, it gets bolted onto twenty years of legacy code that has to keep limping along, because too much is invested to start over.
+
+So when someone asks why the incumbents don't just build what one person now builds in three weeks: they'd have to remove the thing their revenue depends on, and their codebase is what stops them from removing it anyway. Also I've heard it's too hard to turn freight trains, or ocean liners, or something.
+
+---
+
+## What actually changed
+
+Code generation has been usable for a while, if you knew how to structure prompts and ground on a proper PRD (product requirements document, or specification, for the newbies). That's not the shift.
+
+The shift is orchestration. You can run several digital agents at once, across a stack you chose yourself, with no coordination overhead at all. No sprint planning. No handoffs. No ticket sitting in a queue for a week because the person who owns that file is in a different time zone with their own priorities.
+
+An incumbent can't adopt this in any meaningful way. Their advantage was coordination at scale, hundreds of developers moving one codebase forward together, plus every bit of process required to keep that from collapsing. Take the coordination cost out of the equation and the advantage inverts. The process becomes pure overhead. The codebase they spent twenty years building becomes the anchor.
+
+Their engineers are excellent. That was never in question. (Even though they each only wrote 30-50 mostly functional lines per day.) What stands between them and what we just shipped is twenty plus years of sunk cost, and sunk cost doesn't move.
+
+Wall Street worked this out before most builders did. Software valuations shed something like a trillion dollars over the first weeks of February 2026 on the theory that per-seat pricing stops working once digital agents do the work. The SaaS sector clawed most of it back by mid-summer, and the analysts explaining that rebound credit price increases on renewals rather than new customer growth, which is its own kind of confirmation. Whatever the market got wrong in the panic, it started the clock this spring.
+
+---
+
+## On slop
+
+The word showed up fast and it's doing a lot of work for people who need it to. Anything built with agents is slop. Anything the hater doesn't care for is slop. It's a verdict that saves you from reading anything.
+
+We've been maintaining and tolerating human slop for forty years. Everyone reading this has opened a file, found something indefensible, checked the blame, and learned that a person did that on purpose in 2009.
+
+This year made it measurable. AISLE found all twelve CVEs in OpenSSL's January coordinated release. Thirteen of fourteen across two releases. Bugs that had sat there for decades, through continuous fuzzing, linting, formal audits, thousands of researchers. The most scrutinized cryptographic code on earth. CVE disclosures are on pace for sixty-six thousand this year, driven mostly by digital tools that got good at looking. All of it was already in there.
+
+On the flip side, Veracode tested a hundred-plus AI models and found forty-five percent of generated samples ship an OWASP Top 10 vulnerability, with no improvement across cycles. Agents can write insecure code. That's why OSP's test ratio is what it is, and why a dependency supply chain policy went in after the ChainDrop worm in August. Humans write insecure code too, at scale, for forty years, and we called it the industry.
+
+What I want is to read the SaaS incumbent's source. The schema. How the ledger handles a partial payment. What happens on move-out when the gate controller times out. I'm never getting it. None of these companies open the curtain, and you can draw your own conclusion about why.
+
+So notice where the accusation lands. It only ever hits code somebody can read. Mine gets inspected by anyone who buys it. Theirs gets inspected by nobody. Only one of those is testable.
+
+---
+
+## What still holds
+
+None of this means the craft evaporated. Digital agents removed the typing, mostly. The final thinking is still yours.
+
+You still need to understand data modeling, because a bad schema will follow you around for years and no amount of generated code digs you out of it. You still need good architecture, because an agent will cheerfully build you a working system that can't be extended in any direction. And you still need good design judgment, which in practice mostly means restraint. Good design is invisible. It stays out of the user's way. The bloat you resent in enterprise software is there because somebody shipped every feature a committee asked for to justify a subscription price hike.
+
+What's different is that you no longer need permission to learn any of it, and building is still the fastest way in. Put the thing in front of real users. It either works or it doesn't. That test hasn't changed since 1994, and it's the only one that ever mattered.
+
+---
+
+## Start where you are
+
+If you buy software, understand that this year is different from last year. The alternatives that didn't exist twelve months ago are being built right now, in evenings and on weekends, by people who got tired of the bloat invoice. The leverage some of you thought you'd permanently given up is coming back.
+
+If you work at one of these companies and you already know the roadmap is bent, you can build too. Nobody is stopping you.
+
+Everyone else, start where you are. Forty years of accumulated knowledge is worth less than it used to be, and some of mine can get in the way. If you came up mobile-native and/or internet-native, you may already think in the shapes this new work style rewards. Build something small that solves a problem you actually have. Put it in front of one person.
+
+That's the whole method.
+
+---
+
+*The thing I built while writing this is* [*Open Storage Platform*](https://www.b-tec.org/osp)*. One purchase, every feature, no add-on pricing. It exists because the alternative had a subscription attached to it.*
