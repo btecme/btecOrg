@@ -188,8 +188,8 @@ export default function OSPPage() {
             Giving every client an isolated, portable instance used to be an operational cost a small technology
             company couldn&apos;t sustain. That is no longer true. AI-assisted engineering makes it economically
             practical for a small, experienced, and competent team to maintain a secure upstream platform while each client runs a
-            fully separate, exportable system of their own. This is not a UI refresh with a chatbot bolted on (lipstick on a pig). It
-            changes what the ownership model can look like.
+            fully separate, exportable system of their own. This changes what the ownership model can look like rather than just a UI refresh with a chatbot bolted on.
+            *For most operators, OSP will cost a company less than most traditional storage SaaS implementation fees. That's it*.
           </p>
         </section>
 
