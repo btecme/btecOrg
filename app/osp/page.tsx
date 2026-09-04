@@ -77,7 +77,7 @@ const ownershipModel = [
   },
   {
     title: 'Hosted by us or by you',
-    body: 'Run OSP on b-tec\u2019s managed infrastructure with zero ops overhead. During beta that\u2019s the default and it\u2019s what most operators want. If you\u2019ve got the people and the accounts to run it yourself, we\u2019ll set you up with your own deployment and database and hand you the keys. Same software either way. You\u2019ll always know which infrastructure your data sits on and whose account it\u2019s in. Hybrid arrangements and a fully independent path are coming after beta.',
+    body: 'Run OSP on b-tec\u2019s managed infrastructure with zero ops overhead. During beta that\u2019s the default and it\u2019s what most operators want. If you\u2019ve got the people and the accounts to run it yourself, we\u2019ll set you up with your own deployment and database and hand you the keys. Same software either way. You\u2019ll always know which infrastructure your data sits on and whose account it\u2019s in. Hybrid arrangements and a fully independent path are planned after beta.',
   },
   {
     title: 'Built for independent operators',
