@@ -257,6 +257,10 @@ export default function OSPPage() {
                 className="w-full h-auto"
               />
             </div>
+            <p className="text-foreground/70 leading-relaxed max-w-3xl mt-6">
+              Ask your current provider to share their Engineering Assurance Record (a documented account of how
+              their system was built, tested, and verified). Ours is in the repository.
+            </p>
           </div>
         </section>
 
