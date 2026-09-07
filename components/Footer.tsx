@@ -6,10 +6,10 @@ export default function Footer() {
                     &copy; {new Date().getFullYear()} btec LLC. All rights reserved.
                 </p>
                 <a
-                    href="mailto:b@btec.me"
+                    href="mailto:hello@b-tec.org"
                     className="block mt-2 text-sm text-foreground/60 hover:text-accent transition-colors"
                 >
-                    b@btec.me
+                    hello@b-tec.org
                 </a>
             </div>
         </footer>

@@ -55,7 +55,7 @@ export default function MemberPortalPage() {
                         Return to Homepage
                     </Link>
                     <a
-                        href="mailto:b@btec.me"
+                        href="mailto:hello@b-tec.org"
                         className="px-6 py-3 rounded-lg text-foreground/60 hover:text-foreground text-sm font-medium transition-colors text-center ml-auto"
                     >
                         Need Help?
