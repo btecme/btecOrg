@@ -49,6 +49,45 @@ export default function ResearchPage() {
         <section className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="relative">
+            <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT // LOCAL-FIRST VENDOR TOOL</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">SHOW — Vendor Market Logbook</h2>
+            <p className="text-foreground/80 leading-relaxed mb-5 max-w-3xl">
+              A vendor-first market logbook and local-first PWA that accepts gross, costs, hours, and optional booth fee
+              a vendor already tracks and surfaces per-market performance, seasonal comparisons, and year-over-year
+              change against the same show. The device is the system of record — every record is encrypted client-side
+              with an AEAD envelope and key hierarchy before anything touches storage. No bank connections, no
+              transaction ledger, no accounting setup.
+            </p>
+            <p className="text-foreground/70 leading-relaxed mb-5 max-w-3xl">
+              The architecture follows a strict domain-driven layering: pure domain types and calculation contracts
+              with no I/O dependencies, a typed IndexedDB store with a durable outbox for future sync, and a key
+              hierarchy that supports a recovery secret and multi-device patterns without server-side key access.
+              Money is tracked as integer-plus-currency to avoid float drift; missing values are explicitly
+              distinguished from zero through the FieldValue type. Built as a PWA targeting Safari 16.4+, Chrome 111+,
+              and Firefox 128+.
+            </p>
+            <ul className="space-y-2 text-foreground/70 mb-8 max-w-3xl">
+              <li>• Client-side AEAD encryption with hierarchical key model — server never has plaintext access</li>
+              <li>• Offline-first with IndexedDB as primary store, outbox pattern for eventual sync</li>
+              <li>• Domain/calc/repo/crypto/db layering — pure calculation contracts with zero I/O dependencies</li>
+              <li>• PWA with capture-latency budget targets for the 95th percentile on mid-range hardware</li>
+            </ul>
+            <div>
+              <a
+                href="https://theshowdata.com"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block px-7 py-3 rounded-full bg-accent text-background font-bold hover:bg-accent-dim transition-all text-center"
+              >
+                Try SHOW
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="relative">
             <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT // PRIVATE BETA IN ACTIVE DEVELOPMENT</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">OSP — Open Storage Platform</h2>
             <p className="text-foreground/80 leading-relaxed mb-5 max-w-3xl">
