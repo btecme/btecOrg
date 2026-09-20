@@ -52,10 +52,10 @@ export default function ResearchPage() {
             <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT // LOCAL-FIRST VENDOR TOOL</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">SHOW : Market Vendor Platform</h2>
             <p className="text-foreground/80 leading-relaxed mb-5 max-w-3xl">
-              A vendor-first market logbook and local-first PWA that accepts gross, costs, hours, and optional booth fee
+              A vendor-first market logbook and local-first Progressive Web App that accepts gross, costs, hours, and optional booth fee
               a vendor already tracks and surfaces per-market performance, seasonal comparisons, and year-over-year
-              change against the same show. The device is the system of record — every record is encrypted client-side
-              with an AEAD envelope and key hierarchy before anything touches storage. No bank connections, no
+              change against the same show. The device is the system of record (every record is encrypted client-side
+              with an AEAD envelope and key hierarchy before anything touches storage). No bank connections, no
               transaction ledger, no accounting setup.
             </p>
             <p className="text-foreground/70 leading-relaxed mb-5 max-w-3xl">
@@ -67,9 +67,9 @@ export default function ResearchPage() {
               and Firefox 128+.
             </p>
             <ul className="space-y-2 text-foreground/70 mb-8 max-w-3xl">
-              <li>• Client-side AEAD encryption with hierarchical key model — server never has plaintext access</li>
+              <li>• Client-side AEAD encryption with hierarchical key model (server never has plaintext access)</li>
               <li>• Offline-first with IndexedDB as primary store, outbox pattern for eventual sync</li>
-              <li>• Domain/calc/repo/crypto/db layering — pure calculation contracts with zero I/O dependencies</li>
+              <li>• Domain/calc/repo/crypto/db layering - pure calculation contracts with zero I/O dependencies</li>
               <li>• PWA with capture-latency budget targets for the 95th percentile on mid-range hardware</li>
             </ul>
             <div>
