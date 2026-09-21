@@ -107,7 +107,7 @@ export default function OSPPage() {
       <div className="max-w-5xl mx-auto">
         {/* Hero */}
         <div className="mb-16">
-          <p className="text-accent font-mono text-sm tracking-widest mb-4">b-tec // OSP RESEARCH</p>
+          <p className="text-accent font-mono text-sm tracking-widest mb-4">b-tec // OSP</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 leading-[1.1]">
             Stop being a tenant of your own software.
           </h1>
