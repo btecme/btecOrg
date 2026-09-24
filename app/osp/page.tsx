@@ -157,6 +157,20 @@ export default function OSPPage() {
               </div>
             ))}
           </div>
+          <div className="mt-10 max-w-md mx-auto">
+            <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
+              <Image
+                src="/images/osp/sitelink-meme.png"
+                alt="A therapist's couch meme captioned 'Show me on the doll where SiteLink hurt you,' referencing operator frustration with legacy storage-management software."
+                width={1536}
+                height={1024}
+                className="w-full h-auto"
+              />
+            </div>
+            <p className="text-center text-sm text-foreground/50 mt-3 font-mono">
+              If you&apos;ve run a facility on legacy storage software, you already know.
+            </p>
+          </div>
         </section>
 
         {/* Why we're building this */}
