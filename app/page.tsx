@@ -13,7 +13,7 @@ export default function Home() {
 
         <div className="container mx-auto px-6 relative z-20 text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50 pb-6">
-            Future systems for<br />the age of AI.
+            Future systems for<br />the age of digital intelligence.
           </h1>
           <p className="text-xl md:text-2xl text-foreground/60 max-w-2xl mx-auto mb-10 leading-relaxed">
             b-tec builds resilient infrastructure and professional alignment strategies for organizations that want to stay standing.
@@ -93,7 +93,7 @@ export default function Home() {
             <div className="text-accent text-sm font-bold tracking-widest mb-4">FLAGSHIP PRODUCT</div>
             <h3 className="text-3xl font-bold mb-4">BASE</h3>
             <p className="text-foreground/60 mb-8 max-w-md">
-              The Git for human-AI cognition. A sovereign archive for your digital history.
+              The Git for human and digital agent cognition. A sovereign archive for your digital history.
             </p>
             <Link href="/base" className="text-accent hover:text-accent-dim font-medium inline-flex items-center gap-2">
               Learn more <span className="text-xl">→</span>
@@ -108,7 +108,7 @@ export default function Home() {
             <div className="text-accent text-sm font-bold tracking-widest mb-4">PREMIUM SERVICE</div>
             <h3 className="text-3xl font-bold mb-4">Professional Alignment</h3>
             <p className="text-foreground/60 mb-8 max-w-md">
-              Move from unstructured chaos to AI-ready systems. Optimizing data & workflows to leverage synthetic intellegence.
+              Move from unstructured chaos to digital-agent-ready systems. Optimizing data & workflows to leverage synthetic intellegence.
             </p>
             <Link href="/alignment" className="text-accent hover:text-accent-dim font-medium inline-flex items-center gap-2">
               Learn more <span className="text-xl">→</span>

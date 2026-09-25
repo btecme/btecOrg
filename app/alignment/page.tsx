@@ -32,7 +32,7 @@ export default function AlignmentPage() {
                     <h2 className="text-4xl md:text-5xl font-bold mb-8">Systems Fail Suddenly.</h2>
                     <p className="text-xl text-foreground/60 leading-relaxed mb-8">
                         Most organizations are running on unstructured data and ad-hoc processes. A &quot;rat&apos;s nest&quot; of hidden dependencies.
-                        When you add high-speed AI agents to a chaotic system, you don&apos;t get efficiency. You get accelerated failure.
+                        When you add high-speed digital agents to a chaotic system, you don&apos;t get efficiency. You get accelerated failure.
                     </p>
                 </div>
             </section>
@@ -58,7 +58,7 @@ export default function AlignmentPage() {
                             <div>
                                 <h3 className="text-2xl font-bold mb-2">System Design</h3>
                                 <p className="text-foreground/60 leading-relaxed">
-                                    We build deterministic, mechanistic systems. Solid workflows that work without AI.
+                                    We build deterministic, mechanistic systems. Solid workflows that work without digital intelligence.
                                     If it doesn&apos;t work on paper, it won&apos;t work in code.
                                 </p>
                             </div>
@@ -68,7 +68,7 @@ export default function AlignmentPage() {
                             <div>
                                 <h3 className="text-2xl font-bold mb-2">Behavioral Intelligence</h3>
                                 <p className="text-foreground/60 leading-relaxed">
-                                    Only once the grid is stable do we layer on AI agents. They act as force multipliers on a solid foundation,
+                                    Only once the grid is stable do we layer on digital agents. They act as force multipliers on a solid foundation,
                                     not band-aids on a broken one. This greatly reduces dysfunction potential.
                                 </p>
                             </div>

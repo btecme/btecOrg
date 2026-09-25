@@ -40,7 +40,7 @@ const derived = [
   },
   {
     title: 'Automate What Should Exist',
-    body: "Automation is a force multiplier. It magnifies good workflows and dysfunctional ones equally, so we fix the workflow before automating it, and structure the data before asking automation or AI to reason over it. Deterministic software, automation, probabilistic AI, autonomous agents, and human judgment each have an appropriate role. There are no magic buttons.",
+    body: "Automation is a force multiplier. It magnifies good workflows and dysfunctional ones equally, so we fix the workflow before automating it, and structure the data before asking automation or digital intelligence to reason over it. Deterministic software, automation, probabilistic digital intelligence, autonomous agents, and human judgment each have an appropriate role. There are no magic buttons.",
   },
   {
     title: 'Design for Independence',
@@ -81,7 +81,7 @@ export default function FirstPrinciplesPage() {
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">First Principles</h1>
         <p className="text-lg md:text-xl text-foreground/70 leading-relaxed">
           Good systems begin with clear thinking. This is the thinking underneath everything b-tec builds:
-          software, infrastructure, automation, AI, and the products that come out of it.
+          software, infrastructure, automation, digital intelligence, and the products that come out of it.
         </p>
       </section>
 

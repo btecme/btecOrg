@@ -14,8 +14,8 @@ export default function BasePage() {
                         Your intelligence. Your infrastructure.
                     </p>
                     <p className="max-w-xl mx-auto text-lg text-foreground/80 leading-relaxed">
-                        A local-first, sovereign archive for your AI conversations and digital history.
-                        The Git for human-AI cognition.
+                        A local-first, sovereign archive for your conversations with digital agents, and your digital history.
+                        The Git for human and digital agent cognition.
                     </p>
                 </div>
 
@@ -30,7 +30,7 @@ export default function BasePage() {
                     <div className="mb-4 text-accent font-mono text-sm tracking-widest">01 / THE WAVES</div>
                     <h2 className="text-4xl md:text-5xl font-bold mb-8">The Internet is Darkening.</h2>
                     <p className="text-xl text-foreground/60 leading-relaxed mb-8">
-                        The waves started in 2022 and have been increasing in size. AI powered cyber threats, disinformation, scams, social attacks. Now the wind is picking up. In 2026, the majority of the internet will be AI-generated noise, persuasion, and predation.
+                        The waves started in 2022 and have been increasing in size. Digital-agent-powered cyber threats, disinformation, scams, social attacks. Now the wind is picking up. In 2026, the majority of the internet will be digital-agent-generated noise, persuasion, and predation.
                     </p>
                 </div>
             </section>
@@ -44,7 +44,7 @@ export default function BasePage() {
                         <div>
                             <h3 className="text-2xl font-bold mb-4">Local First</h3>
                             <p className="text-foreground/60 leading-relaxed">
-                                BASE pulls your history out of cloud AI tools and stores it locally on your own hardware. You own the bits.
+                                BASE pulls your history out of cloud digital-agent tools and stores it locally on your own hardware. You own the bits.
                             </p>
                         </div>
                         <div>
@@ -74,7 +74,7 @@ export default function BasePage() {
                         </div>
                         <div className="p-6 border border-white/10 rounded-xl bg-white/5">
                             <h3 className="text-xl font-bold mb-3">Your Digital Bodyguard</h3>
-                            <p className="text-sm text-foreground/60">Future versions will actively scan the web for you, blocking scams and predatory AI.</p>
+                            <p className="text-sm text-foreground/60">Future versions will actively scan the web for you, blocking scams and predatory digital agents.</p>
                         </div>
                     </div>
 

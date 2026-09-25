@@ -27,7 +27,7 @@ const failures = [
   },
   {
     title: 'Built for Clicking, Not for Agents',
-    body: 'Most platforms assume a human clicking through screens. Businesses are increasingly run through APIs, automation, and AI agents. The category has not caught up.',
+    body: 'Most platforms assume a human clicking through screens. Businesses are increasingly run through APIs, automation, and digital agents. The category has not caught up.',
   },
 ];
 
@@ -46,7 +46,7 @@ const thesisPoints = [
   },
   {
     title: 'Agent-Native',
-    body: 'The human UI, the REST API, and MCP/AI agents all run through the same service layer. Nothing is a second-class integration bolted on later. That\u2019s no longer just a design principle: it\u2019s something you can use today. The osp command line, published on npm as @b-tec/osp, connects Claude Code and Codex to that same service layer with one command: npx @b-tec/osp setup.',
+    body: 'The human UI, the REST API, and MCP/digital agents all run through the same service layer. Nothing is a second-class integration bolted on later. That\u2019s no longer just a design principle: it\u2019s something you can use today. The osp command line, published on npm as @b-tec/osp, connects Claude Code and Codex to that same service layer with one command: npx @b-tec/osp setup.',
   },
   {
     title: 'Governed Autonomy',
@@ -97,7 +97,7 @@ const builtFeatures = [
   'Append-only financial ledger, reconciled to the penny, with balances always computed and never stored',
   'Delinquency tracking and end-of-day, occupancy, and receivables reporting, available through the API as well as the UI',
   'Append-only audit log on every state change, human or agent-initiated, recording actor, action, and before/after values',
-  'Agent-native by design: every operation above is exposed as both a REST API and an MCP tool, so an AI agent runs the business through the identical service layer a staff member uses, not a bolted-on integration',
+  'Agent-native by design: every operation above is exposed as both a REST API and an MCP tool, so a digital agent runs the business through the identical service layer a staff member uses, not a bolted-on integration',
   'Command-line access for agents: osp (npm: @b-tec/osp) signs in through the browser, then connects Claude Code and Codex to this same service layer. The sign-in acts as that person, with exactly their role and facilities, and stops working if their role changes or their account is deactivated. The CLI itself is read-only; write actions run through the connected assistant, under the same approval thresholds and audit trail as everything else, and every sign-in is visible and revocable from OSP\u2019s Settings',
   'Security enforced at the database, not just the app: row-level tenant isolation, idempotency keys on every money-moving action, and approval gates that route anything above a configurable threshold to a human review queue, even when an agent initiated it',
 ];
@@ -198,10 +198,10 @@ export default function OSPPage() {
         {/* Why now */}
         <section className="my-20 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/[0.03] to-transparent p-6 md:p-10">
           <div className="mb-4 text-accent font-mono text-xs tracking-widest">04 / WHY NOW</div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">AI-assisted engineering changed the economics.</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Digital-agent-assisted engineering changed the economics.</h2>
           <p className="text-lg text-foreground/70 leading-relaxed max-w-3xl">
             Giving every client an isolated, portable instance used to be an operational cost a small technology
-            company couldn&apos;t sustain. That is no longer true. AI-assisted engineering makes it economically
+            company couldn&apos;t sustain. That is no longer true. Digital-agent-assisted engineering makes it economically
             practical for a small, experienced, and competent team to maintain a secure upstream platform while each client runs a
             fully separate, exportable system of their own. This changes what the ownership model can look like rather than just a UI refresh with a chatbot bolted on.
             </p>
@@ -266,7 +266,7 @@ export default function OSPPage() {
             <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
               <Image
                 src="/images/osp/public-assurance-map.png"
-                alt="Public Assurance Map: a disciplined, human-led software development process, accelerated by AI and verified at every milestone, from product definition through incremental development, advanced red teaming, release validation, and assurance evidence."
+                alt="Public Assurance Map: a disciplined, human-led software development process, accelerated by digital agents and verified at every milestone, from product definition through incremental development, advanced red teaming, release validation, and assurance evidence."
                 width={1672}
                 height={941}
                 className="w-full h-auto"

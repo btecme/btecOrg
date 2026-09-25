@@ -93,7 +93,7 @@ export default function ResearchPage() {
             <p className="text-foreground/80 leading-relaxed mb-5 max-w-3xl">
               Storage management software a business can own instead of rent. Each client gets an isolated instance and
               database, a contractual path to leave with the full repo and a complete database export, and a human UI,
-              REST API, and MCP/AI agent layer that all run through the same service, with server-enforced permissions
+              REST API, and MCP/digital agent layer that all run through the same service, with server-enforced permissions
               and audit trails on every action.
             </p>
             <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
@@ -121,7 +121,7 @@ export default function ResearchPage() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">A Command Line for an Agent-First Business Application</h2>
           <div className="max-w-3xl space-y-5 text-foreground/80 leading-relaxed mb-8">
             <p>
-              OSP was designed so a person and an AI agent use the exact same operations: look up units, record a
+              OSP was designed so a person and a digital agent use the exact same operations: look up units, record a
               payment, move a tenant in or out. That design choice only pays off once an actual agent can reach it
               from where an operator already works. So we built a command line, osp, published on npm as
               @b-tec/osp, that connects Claude Code and Codex to OSP through the same service layer the OSP screens
@@ -144,7 +144,7 @@ export default function ResearchPage() {
               For a self-storage company, this turns the software into a set of permissioned tools and turns the
               interface into a conversation. A manager&apos;s time shifts from clicking through screens toward
               deciding what to do about what the screens would have shown. One person can reasonably oversee more
-              sites. Nobody is locked into one AI vendor either: the same tools work with Claude, Codex, or any
+              sites. Nobody is locked into one digital-intelligence vendor either: the same tools work with Claude, Codex, or any
               assistant that speaks the Model Context Protocol (MCP). None of this changes who is accountable.
               Guardrails are enforced by the server, not by the assistant: it can never do more than the signed-in
               person could, every action lands in the audit log under that person&apos;s name, and refunds above the
@@ -242,7 +242,7 @@ export default function ResearchPage() {
             <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
               <Image
                 src="/research/openclaw-memu-hybrid.jpg"
-                alt="OpenClaw + memU Hybrid AI Architecture Diagram"
+                alt="OpenClaw + memU Hybrid Digital Intelligence Architecture Diagram"
                 width={1400}
                 height={900}
                 className="w-full h-auto"
@@ -369,7 +369,7 @@ export default function ResearchPage() {
               <ul className="space-y-2">
                 <li>• A human-steered digital system that helps execute, prioritize, and remember</li>
                 <li>• A spectrum: from lightweight assistant behavior to advanced multi-agent stack</li>
-                <li>• Built to solve current problems while preparing clients for rapid AI capability shifts</li>
+                <li>• Built to solve current problems while preparing clients for rapid digital intelligence capability shifts</li>
               </ul>
             </div>
             <div>
@@ -447,7 +447,7 @@ export default function ResearchPage() {
 
           <p className="text-foreground/70 leading-relaxed mb-4">
             Stack used for this page: Next.js app routing, GitHub repository commit pipeline, Vercel auto-deploy,
-            OpenClaw tool orchestration, and an AI-assisted content/layout pass driven by real-time instruction.
+            OpenClaw tool orchestration, and a digital-agent-assisted content/layout pass driven by real-time instruction.
           </p>
 
           <div className="rounded-xl border border-white/10 bg-black/30 p-4">
