@@ -46,7 +46,7 @@ const thesisPoints = [
   },
   {
     title: 'Agent-Native',
-    body: 'The human UI, the REST API, and MCP/AI agents all run through the same service layer. Nothing is a second-class integration bolted on later.',
+    body: 'The human UI, the REST API, and MCP/AI agents all run through the same service layer. Nothing is a second-class integration bolted on later. That\u2019s no longer just a design principle: it\u2019s something you can use today. The osp command line, published on npm as @b-tec/osp, connects Claude Code and Codex to that same service layer with one command: npx @b-tec/osp setup.',
   },
   {
     title: 'Governed Autonomy',
@@ -98,6 +98,7 @@ const builtFeatures = [
   'Delinquency tracking and end-of-day, occupancy, and receivables reporting, available through the API as well as the UI',
   'Append-only audit log on every state change, human or agent-initiated, recording actor, action, and before/after values',
   'Agent-native by design: every operation above is exposed as both a REST API and an MCP tool, so an AI agent runs the business through the identical service layer a staff member uses, not a bolted-on integration',
+  'Command-line access for agents: osp (npm: @b-tec/osp) signs in through the browser, then connects Claude Code and Codex to this same service layer. The sign-in acts as that person, with exactly their role and facilities, and stops working if their role changes or their account is deactivated. The CLI itself is read-only; write actions run through the connected assistant, under the same approval thresholds and audit trail as everything else, and every sign-in is visible and revocable from OSP\u2019s Settings',
   'Security enforced at the database, not just the app: row-level tenant isolation, idempotency keys on every money-moving action, and approval gates that route anything above a configurable threshold to a human review queue, even when an agent initiated it',
 ];
 
@@ -285,12 +286,44 @@ export default function OSPPage() {
         >
           <p className="text-accent font-mono text-xs tracking-widest mb-3">08 / STATUS</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Private beta is now active.</h2>
-          <p className="text-foreground/75 max-w-2xl mx-auto mb-2 leading-relaxed">
-          </p>
+
+          <div className="max-w-2xl mx-auto mt-6 mb-10 rounded-2xl border border-white/10 bg-black/20 p-6 text-left">
+            <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW: TALK TO OSP FROM A TERMINAL</p>
+            <p className="text-foreground/80 leading-relaxed mb-4">
+              Ask a connected assistant something like: &ldquo;Who is behind at FauxStore St. Charles, and by how
+              much?&rdquo; It answers from live OSP data in seconds, with a table of tenants, units, amounts and days
+              late. Or: &ldquo;What&apos;s available in 10x10 climate controlled at FauxStore Algonquin, and at what
+              rate?&rdquo;
+            </p>
+            <p className="text-foreground/70 leading-relaxed mb-4">
+              Setup is one command (Node.js 20 or later required):
+            </p>
+            <code className="block rounded-lg bg-black/40 border border-white/10 px-4 py-3 font-mono text-sm text-accent mb-4">
+              npx @b-tec/osp setup
+            </code>
+            <p className="text-sm text-foreground/60 leading-relaxed">
+              Published on npm as{' '}
+              <a
+                href="https://www.npmjs.com/package/@b-tec/osp"
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent hover:underline"
+              >
+                @b-tec/osp
+              </a>
+              . Live on the OSP demo during the private beta. FauxStore names, tenants, and dollar figures are
+              synthetic demo data, not real customer information. Want to see it live? Email{' '}
+              <a href="mailto:hello@b-tec.org" className="text-accent hover:underline">hello@b-tec.org</a>{' '}
+              and we&apos;ll set you up.
+            </p>
+          </div>
+
           <h3 className="text-2xl font-bold mt-10 mb-4">Help shape the alternative.</h3>
           <p className="text-foreground/70 max-w-2xl mx-auto mb-8 leading-relaxed">
             We&apos;re inviting a small number of storage operators who believe their software should work for them,
-            not own them. If that&apos;s you, tell us about your operation and we&apos;ll follow up.
+            not own them. If that&apos;s you, tell us about your operation, or just email{' '}
+            <a href="mailto:hello@b-tec.org" className="text-accent hover:underline">hello@b-tec.org</a>, and
+            we&apos;ll follow up.
           </p>
           <Link
             href="/contact"

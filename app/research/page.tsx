@@ -116,6 +116,113 @@ export default function ResearchPage() {
           </div>
         </section>
 
+        <section className="my-16 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+          <p className="text-accent font-mono text-xs tracking-widest mb-3">RESEARCH NOTE // AGENT-FIRST TOOLING</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">A Command Line for an Agent-First Business Application</h2>
+          <div className="max-w-3xl space-y-5 text-foreground/80 leading-relaxed mb-8">
+            <p>
+              OSP was designed so a person and an AI agent use the exact same operations: look up units, record a
+              payment, move a tenant in or out. That design choice only pays off once an actual agent can reach it
+              from where an operator already works. So we built a command line, osp, published on npm as
+              @b-tec/osp, that connects Claude Code and Codex to OSP through the same service layer the OSP screens
+              use. Setup is one command: npx @b-tec/osp setup (Node.js 20 or later). Signing in happens in the
+              browser: the person approves the sign-in while logged in to OSP, no password gets typed into a
+              terminal, and the command line then acts as that person, with exactly their role and facilities, for
+              as long as their account stays active.
+            </p>
+            <p>
+              In practice, a manager can ask a connected assistant, in plain words: &ldquo;Who is behind at FauxStore
+              St. Charles, and by how much?&rdquo; The assistant answers from live OSP data in seconds, with a table
+              of tenants, units, amounts and days late. Through that same connection, the assistant can also look up
+              occupancy and ledgers, move a tenant in or out, record a cash or check payment, mark a check returned,
+              charge a saved card, issue a refund, waive a fee, add or update a unit, and track where a portable unit
+              is, the same operations OSP&apos;s own screens use. The command line itself stays read-only (units,
+              occupancy, tenants, ledgers, who owes, end of day, with JSON output for scripts); anything that
+              changes a record runs through the assistant, under the guardrails below.
+            </p>
+            <p>
+              For a self-storage company, this turns the software into a set of permissioned tools and turns the
+              interface into a conversation. A manager&apos;s time shifts from clicking through screens toward
+              deciding what to do about what the screens would have shown. One person can reasonably oversee more
+              sites. Nobody is locked into one AI vendor either: the same tools work with Claude, Codex, or any
+              assistant that speaks the Model Context Protocol (MCP). None of this changes who is accountable.
+              Guardrails are enforced by the server, not by the assistant: it can never do more than the signed-in
+              person could, every action lands in the audit log under that person&apos;s name, and refunds above the
+              company&apos;s approval threshold, or beyond a daily budget for agents, wait for an owner to approve.
+            </p>
+          </div>
+
+          <p className="text-sm text-foreground/50 mb-4 max-w-3xl italic">
+            All facility names, tenants, and dollar figures below are synthetic demo data (FauxStore), not real
+            customer information.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
+              <h3 className="text-lg font-semibold mb-3 text-accent">Today</h3>
+              <p className="text-xs text-foreground/50 mb-3 uppercase tracking-wider">On a computer, with Claude Code or Codex</p>
+              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
+                <li>&bull; Morning check at FauxStore Elgin North: who&apos;s behind, what&apos;s overlocked, what last night&apos;s end-of-day report showed.</li>
+                <li>&bull; Collections call list for FauxStore St. Charles, oldest balances first, with the last contact note.</li>
+                <li>&bull; &ldquo;What&apos;s available in 10x10 climate controlled at FauxStore Algonquin, and at what rate?&rdquo;</li>
+                <li>&bull; Take a check over the phone for a tenant at FauxStore Schaumburg: record it with its number and the charges it pays.</li>
+                <li>&bull; A check bounced at FauxStore Elgin South: mark it returned, and the ledger and receipt say so.</li>
+                <li>&bull; Move a tenant into a unit at FauxStore Elgin North by describing it; the assistant walks the same steps OSP enforces.</li>
+                <li>&bull; Month-end across all five FauxStore locations: pull the end-of-day reports and reconcile against deposits.</li>
+                <li>&bull; Ask about any tenant&apos;s ledger, at any FauxStore location, in plain words.</li>
+                <li>&bull; Owners: review what&apos;s waiting for approval across the portfolio.</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
+              <h3 className="text-lg font-semibold mb-3 text-accent">Next (planned)</h3>
+              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
+                <li>&bull; Run the counter from a phone: a manager walking the property asks for a tenant&apos;s balance or updates a unit&apos;s status by chat.</li>
+                <li>&bull; Scheduled briefings and alerts.</li>
+                <li>&bull; Assistants that draft collection messages for a person to review and send.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-5 mb-8 max-w-3xl">
+            <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Candid notes</p>
+            <p className="text-foreground/70 text-sm leading-relaxed">
+              We publish what breaks. The first real run surfaced small rough edges on Windows: a command folder
+              missing from PATH, a leftover prompt line, both fixed the same day. npm took about a minute to serve
+              the newly published package. Phone access needs one more piece, the sign-in method the phone apps&apos;
+              connectors use, before it&apos;s real.
+            </p>
+          </div>
+
+          <p className="text-foreground/70 leading-relaxed max-w-3xl mb-6">
+            It&apos;s live on the OSP demo during the private beta. Want to try it? Email{' '}
+            <a href="mailto:hello@b-tec.org" className="text-accent hover:underline">hello@b-tec.org</a>{' '}
+            and we&apos;ll set you up, or install the command line yourself: published on npm as{' '}
+            <a
+              href="https://www.npmjs.com/package/@b-tec/osp"
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent hover:underline"
+            >
+              @b-tec/osp
+            </a>
+            .
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/osp"
+              className="px-7 py-3 rounded-full bg-accent text-background font-bold hover:bg-accent-dim transition-all text-center"
+            >
+              Read the OSP Thesis
+            </Link>
+            <Link
+              href="/osp#interest"
+              className="px-7 py-3 rounded-full border border-white/20 text-foreground hover:bg-white/10 transition-all text-center"
+            >
+              Request Private Beta Access
+            </Link>
+          </div>
+        </section>
+
         <section className="my-12 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
