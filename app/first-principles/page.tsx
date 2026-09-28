@@ -93,7 +93,7 @@ export default function FirstPrinciplesPage() {
           </p>
 
           <div className="mb-16 md:mb-20 text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold text-accent mb-6">Balance</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-accent mb-6"></h2>
             <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
               Every system exists among competing forces: security, usability, simplicity, control,
               freedom, performance, resilience, cost, speed, maintainability, automation, human judgment.
@@ -103,8 +103,7 @@ export default function FirstPrinciplesPage() {
             <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mt-6">
               Even good ideas become harmful without it. Transparency without restraint becomes noise.
               Security without regard for usability creates friction and workarounds. Automation without
-              judgment amplifies dysfunction. Redundancy without restraint creates complexity. The objective
-              is not maximum anything. The objective is the right balance.
+              judgment amplifies dysfunction. Redundancy without restraint creates complexity. The objective is the right balance.
             </p>
           </div>
 
