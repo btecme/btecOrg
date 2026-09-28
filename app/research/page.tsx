@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import PanoramaTour from '@/components/PanoramaTour';
+import ShowLaunchVideo from '@/components/ShowLaunchVideo';
 
 export default function ResearchPage() {
   const tracks = [
@@ -46,11 +47,12 @@ export default function ResearchPage() {
           </p>
         </div>
 
-        <section className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden">
+        <section id="show" className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden scroll-mt-28">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="relative">
             <p className="text-accent font-mono text-xs tracking-widest mb-3">NEW PROJECT // LOCAL-FIRST VENDOR TOOL</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">SHOW : Market Vendor Platform</h2>
+            <ShowLaunchVideo className="mb-6 max-w-3xl" />
             <p className="text-foreground/80 leading-relaxed mb-5 max-w-3xl">
               A vendor-first market logbook and local-first Progressive Web App that accepts gross, costs, hours, and optional booth fee
               a vendor already tracks and surfaces per-market performance, seasonal comparisons, and year-over-year
