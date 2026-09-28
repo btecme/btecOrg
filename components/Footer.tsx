@@ -1,4 +1,11 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
 export default function Footer() {
+    const pathname = usePathname();
+    const email = pathname?.startsWith('/show') ? 'hello@theshowdata.com' : 'hello@b-tec.org';
+
     return (
         <footer className="py-8 border-t border-white/5 bg-background text-center">
             <div className="container mx-auto px-6">
@@ -6,10 +13,10 @@ export default function Footer() {
                     &copy; {new Date().getFullYear()} btec LLC. All rights reserved.
                 </p>
                 <a
-                    href="mailto:hello@b-tec.org"
+                    href={`mailto:${email}`}
                     className="block mt-2 text-sm text-foreground/60 hover:text-accent transition-colors"
                 >
-                    hello@b-tec.org
+                    {email}
                 </a>
             </div>
         </footer>

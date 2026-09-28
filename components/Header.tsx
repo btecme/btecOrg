@@ -23,6 +23,7 @@ const navItems: NavItem[] = [
         links: [
           { name: 'BASE', href: '/base' },
           { name: 'Open Storage Platform (OSP)', href: '/osp' },
+          { name: 'SHOW', href: '/show' },
         ],
       },
       {
