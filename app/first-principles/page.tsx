@@ -137,7 +137,7 @@ export default function FirstPrinciplesPage() {
       <section className="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">Principles in Practice</h2>
         <p className="text-foreground/60 mb-12 max-w-2xl leading-relaxed">
-          This what those three fundamentals look like once they meet an actual system.
+          This is what those three fundamentals look like once they meet an actual system.
         </p>
         <div className="space-y-10">
           {derived.map((d) => (
