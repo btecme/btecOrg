@@ -108,7 +108,7 @@ export default function Home() {
             <div className="text-accent text-sm font-bold tracking-widest mb-4">PREMIUM SERVICE</div>
             <h3 className="text-3xl font-bold mb-4">Professional Alignment</h3>
             <p className="text-foreground/60 mb-8 max-w-md">
-              Move from unstructured chaos to digital-agent-ready systems. Optimizing data & workflows to leverage synthetic intellegence.
+              Move from unstructured chaos to digital-agent-ready systems. Optimizing data & workflows to leverage synthetic intelligence.
             </p>
             <Link href="/alignment" className="text-accent hover:text-accent-dim font-medium inline-flex items-center gap-2">
               Learn more <span className="text-xl">→</span>

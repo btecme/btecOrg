@@ -30,7 +30,7 @@ export default function BasePage() {
                     <div className="mb-4 text-accent font-mono text-sm tracking-widest">01 / THE WAVES</div>
                     <h2 className="text-4xl md:text-5xl font-bold mb-8">The Internet is Darkening.</h2>
                     <p className="text-xl text-foreground/60 leading-relaxed mb-8">
-                        The waves started in 2022 and have been increasing in size. Digital-agent-powered cyber threats, disinformation, scams, social attacks. Now the wind is picking up. In 2026, the majority of the internet will be digital-agent-generated noise, persuasion, and predation.
+                        The waves started in 2022 and have been increasing in size. Digital-agent-powered cyber threats, disinformation, scams, social attacks. Now the wind is picking up. A growing share of the internet is now digital-agent-generated noise, persuasion, and predation.
                     </p>
                 </div>
             </section>
