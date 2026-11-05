@@ -47,6 +47,85 @@ export default function ResearchPage() {
           </p>
         </div>
 
+        <section id="bdf" className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden scroll-mt-28">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="relative">
+            <p className="text-accent font-mono text-xs tracking-widest mb-3">IN DEVELOPMENT // WINDOWS PDF UTILITY</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">BDF: A PDF utility for you and your agents.</h2>
+            <p className="text-lg text-foreground/80 leading-relaxed mb-5 max-w-3xl">
+              A clean, fast, portable PDF utility with a familiar desktop interface, and tools your digital agents
+              can use directly.
+            </p>
+            <p className="text-foreground/70 leading-relaxed mb-5 max-w-3xl">
+              Open a document, find what you need, add comments, complete a form, organize pages and save your
+              work. We&apos;re building BDF around these common workflows, with a clear interface, familiar controls
+              and careful attention to responsiveness and reliable saving.
+            </p>
+            <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
+              Windows desktop comes first. Documents stay local, ordinary use requires no cloud account, and
+              portable delivery is being qualified so testing can be as straightforward as extracting a folder and
+              launching the app.
+            </p>
+            <ul className="space-y-2 text-foreground/70 mb-8 max-w-3xl">
+              <li>• Clean and familiar — intuitive controls that make common PDF tasks easy to find.</li>
+              <li>• Fast and dependable — responsive operation, careful saving and protection of working edits.</li>
+              <li>• Local and portable — a desktop utility designed for straightforward distribution and everyday use on your own computer.</li>
+            </ul>
+
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-5 md:p-6 mb-6 max-w-3xl">
+              <h3 className="text-xl font-semibold mb-3 text-accent">Your agent can work with your PDFs</h3>
+              <p className="text-foreground/70 leading-relaxed mb-4">
+                BDF is being built for both hands-on use and delegated work. Use the desktop interface yourself, run
+                repeatable workflows through its command-line interface, or connect a compatible digital assistant
+                through MCP.
+              </p>
+              <p className="text-foreground/70 leading-relaxed mb-4">
+                Supported agent operations include opening and inspecting PDFs, finding text, rendering pages,
+                rotating pages and saving results. This lets an assistant work through explicit application tools
+                without needing to click around the screen.
+              </p>
+              <p className="text-foreground/70 leading-relaxed">
+                Agent access is opt-in. Grants define which files and operations a connected agent may use, with
+                permissions enforced by BDF and activity recorded for review.
+              </p>
+            </div>
+            <p className="text-foreground/60 text-sm leading-relaxed mb-8 max-w-3xl">
+              The architectural goal is one consistent application service behind the desktop, CLI and agent
+              interfaces. That integration is still being completed and qualified in the private Windows preview.
+              Initial CLI/MCP capabilities exist; complete feature parity and a broadly qualified release are still
+              in progress.
+            </p>
+
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-5 mb-8 max-w-3xl">
+              <p className="text-xs font-mono text-foreground/50 mb-2 uppercase tracking-wider">Development note</p>
+              <p className="text-foreground/70 text-sm leading-relaxed">
+                BDF also demonstrates how we build with digital agents. Human product direction, agent
+                implementation, independent review and testing in the actual Windows application form a continuing
+                feedback loop. The objective is useful software people can work with, and each testing round informs
+                the next improvement.
+              </p>
+            </div>
+
+            <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
+              <strong>Status:</strong> Currently being tested in a private Windows 11 preview.
+              <br />
+              <strong>Origin:</strong> BDF builds on the open-source PdfCraft foundation and is being developed
+              further in b-tec&apos;s own direction.
+            </p>
+
+            <div>
+              <a
+                href="https://github.com/btecme/bdf"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block px-7 py-3 rounded-full bg-accent text-background font-bold hover:bg-accent-dim transition-all text-center"
+              >
+                View the BDF project
+              </a>
+            </div>
+          </div>
+        </section>
+
         <section id="show" className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden scroll-mt-28">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="relative">
