@@ -22,6 +22,7 @@ const navItems: NavItem[] = [
         heading: 'Products',
         links: [
           { name: 'BASE', href: '/base' },
+          { name: 'BDF', href: '/bdf' },
           { name: 'Open Storage Platform (OSP)', href: '/osp' },
           { name: 'SHOW', href: '/show' },
         ],
