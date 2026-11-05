@@ -62,14 +62,14 @@ export default function ResearchPage() {
               and careful attention to responsiveness and reliable saving.
             </p>
             <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
-              Windows desktop comes first. Documents stay local, ordinary use requires no cloud account, and
+              Windows desktop is the first testing ground. Documents stay local, ordinary use requires no cloud account, and
               portable delivery is being qualified so testing can be as straightforward as extracting a folder and
               launching the app.
             </p>
             <ul className="space-y-2 text-foreground/70 mb-8 max-w-3xl">
-              <li>• Clean and familiar — intuitive controls that make common PDF tasks easy to find.</li>
-              <li>• Fast and dependable — responsive operation, careful saving and protection of working edits.</li>
-              <li>• Local and portable — a desktop utility designed for straightforward distribution and everyday use on your own computer.</li>
+              <li>• Clean and familiar: intuitive controls that make common PDF tasks easy to find.</li>
+              <li>• Fast and dependable: responsive operation, careful saving and protection of working edits.</li>
+              <li>• Local and portable: a desktop utility designed for straightforward distribution and everyday use on your own computer.</li>
             </ul>
 
             <div className="rounded-2xl border border-white/10 bg-black/25 p-5 md:p-6 mb-6 max-w-3xl">
@@ -109,8 +109,8 @@ export default function ResearchPage() {
             <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
               <strong>Status:</strong> Currently being tested in a private Windows 11 preview.
               <br />
-              <strong>Origin:</strong> BDF builds on the open-source PdfCraft foundation and is being developed
-              further in b-tec&apos;s own direction.
+              <strong>Origin:</strong> BDF builds on the open-source PdfCraft project and is being developed
+              further in b-tec&apos;s first principles direction.
             </p>
 
             <div>
