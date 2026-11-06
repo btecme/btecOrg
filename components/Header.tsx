@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 type NavLink = { name: string; href: string };
@@ -62,250 +62,67 @@ function groupHrefs(group: NavGroup): string[] {
   return group.columns.flatMap((c) => c.links.map((l) => l.href.split('#')[0]));
 }
 
+function Chevron({ open }: { open: boolean }) {
+  return <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ transform: open ? 'rotate(180deg)' : undefined }}><path d="m6 9 6 6 6-6" strokeWidth="1.5" /></svg>;
+}
+
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [mobileOpenSection, setMobileOpenSection] = useState<string | null>(null);
   const pathname = usePathname();
-  const navRef = useRef<HTMLElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Reset transient nav state when the route changes. Done during render
-  // (React's documented pattern for "reset state on prop change") rather
-  // than in an effect, so it doesn't trigger cascading-render lint errors.
-  const [prevPathname, setPrevPathname] = useState(pathname);
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
-    setIsMobileMenuOpen(false);
-    setMobileOpenSection(null);
-    setOpenDropdown(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdown, setDropdown] = useState<string | null>(null);
+  const [mobileSection, setMobileSection] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [previousPath, setPreviousPath] = useState(pathname);
+  if (previousPath !== pathname) {
+    setPreviousPath(pathname);
+    setMobileOpen(false);
+    setMobileSection(null);
+    setDropdown(null);
   }
-
+  const closeMenus = () => { setMobileOpen(false); setDropdown(null); setMobileSection(null); };
+  const cancelClose = () => { if (timer.current) clearTimeout(timer.current); };
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null);
-      }
-    }
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === 'Escape') setOpenDropdown(null);
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
+    const outside = (event: PointerEvent) => { if (!headerRef.current?.contains(event.target as Node)) { setDropdown(null); setMobileOpen(false); } };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      const expanded = headerRef.current?.querySelector<HTMLButtonElement>('.nav-control[aria-expanded="true"]');
+      if (expanded) expanded.focus();
+      if (mobileOpen) toggleRef.current?.focus();
+      setDropdown(null); setMobileOpen(false);
     };
-  }, []);
-
-  const clearCloseTimer = () => {
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  };
-
-  const scheduleClose = () => {
-    clearCloseTimer();
-    closeTimer.current = setTimeout(() => setOpenDropdown(null), 150);
-  };
+    const wide = window.matchMedia('(min-width: 901px)');
+    const resize = () => { setMobileOpen(false); setDropdown(null); };
+    wide.addEventListener('change', resize);
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', escape);
+    return () => { wide.removeEventListener('change', resize); document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape); };
+  }, [mobileOpen]);
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'
-        }`}
-    >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="pb-4 hover:opacity-80 transition-opacity">
-          <Image src="/b-tecLogo-Transparency.png" alt="b-tec logo" width={220} height={70} className="h-20 w-auto" priority />
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav ref={navRef} className="hidden md:flex items-center space-x-8">
-          {navItems.map((item) => {
-            if (!isGroup(item)) {
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-accent ${pathname === item.href ? 'text-accent' : 'text-foreground/80'
-                    }`}
-                >
-                  {item.name}
-                </Link>
-              );
-            }
-
-            const isOpen = openDropdown === item.name;
-            const isActive = groupHrefs(item).includes(pathname);
-
-            return (
-              <div
-                key={item.name}
-                className="relative"
-                onMouseEnter={() => {
-                  clearCloseTimer();
-                  setOpenDropdown(item.name);
-                }}
-                onMouseLeave={scheduleClose}
-              >
-                <button
-                  type="button"
-                  aria-haspopup="true"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpenDropdown(isOpen ? null : item.name)}
-                  className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-accent ${isActive ? 'text-accent' : 'text-foreground/80'
-                    }`}
-                >
-                  {item.name}
-                  <svg
-                    className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {isOpen && (
-                  <div
-                    role="menu"
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-4"
-                  >
-                    <div className="flex gap-8 rounded-2xl border border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl p-6 min-w-[280px]">
-                      {item.columns.map((col, i) => (
-                        <div key={i} className="min-w-[160px]">
-                          {col.heading && (
-                            <p className="text-xs font-mono tracking-widest text-foreground/40 mb-3 uppercase">
-                              {col.heading}
-                            </p>
-                          )}
-                          <ul className="space-y-2">
-                            {col.links.map((link) => (
-                              <li key={link.name}>
-                                <Link
-                                  href={link.href}
-                                  role="menuitem"
-                                  className={`block text-sm transition-colors hover:text-accent whitespace-nowrap ${pathname === link.href.split('#')[0]
-                                      ? 'text-accent'
-                                      : 'text-foreground/80'
-                                    }`}
-                                  onClick={() => setOpenDropdown(null)}
-                                >
-                                  {link.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
+    <header className="site-header" ref={headerRef}>
+      <div className="site-shell header-frame">
+        <Link href="/" className="header-brand" aria-label="b-tec home" onClick={closeMenus}><Image src="/b-tecLogo-Transparency.png" alt="b-tec" width={165} height={65} className="header-logo" priority /></Link>
+        <nav className="desktop-navigation" aria-label="Main navigation">
+          {navItems.map(item => {
+            if (!isGroup(item)) return <Link key={item.name} href={item.href} aria-current={pathname === item.href ? 'page' : undefined} className={`nav-control ${item.name === 'Contact' ? 'contact-link' : ''}`}>{item.name}{item.name === 'Contact' && <span aria-hidden="true">↗</span>}</Link>;
+            const open = dropdown === item.name;
+            const id = `desktop-${item.name.toLowerCase()}`;
+            return <div key={item.name} className="nav-dropdown-wrap" onMouseEnter={() => { cancelClose(); setDropdown(item.name); }} onMouseLeave={() => { cancelClose(); timer.current = setTimeout(() => { if (!headerRef.current?.querySelector(`#${id}`)?.parentElement?.contains(document.activeElement)) setDropdown(null); }, 180); }} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setDropdown(null); }}>
+              <button type="button" className={`nav-control ${groupHrefs(item).includes(pathname) ? 'is-active' : ''}`} aria-expanded={open} aria-controls={id} onClick={() => { cancelClose(); setDropdown(open ? null : item.name); }} onKeyDown={event => { if (event.key === 'ArrowDown') { event.preventDefault(); setDropdown(item.name); requestAnimationFrame(() => document.getElementById(id)?.querySelector('a')?.focus()); } }}>{item.name}<Chevron open={open} /></button>
+              {open && <div id={id} className="nav-dropdown"><div className="nav-dropdown-panel">{item.columns.map((col,index) => <div key={index}>{col.heading && <h2>{col.heading}</h2>}<ul>{col.links.map(link => <li key={link.href}><Link href={link.href} aria-current={pathname === link.href.split('#')[0] ? 'page' : undefined} onClick={closeMenus}>{link.name}</Link></li>)}</ul></div>)}</div></div>}
+            </div>;
           })}
         </nav>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-foreground hover:text-accent focus:outline-none"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {isMobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        <button ref={toggleRef} type="button" className="mobile-toggle" aria-expanded={mobileOpen} aria-controls="mobile-navigation" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} onClick={() => setMobileOpen(!mobileOpen)}><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d={mobileOpen ? 'm6 6 12 12M6 18 18 6' : 'M4 7h16M4 12h16M4 17h16'} /></svg></button>
       </div>
-
-      {/* Mobile Nav */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col space-y-1 shadow-2xl max-h-[calc(100vh-5rem)] overflow-y-auto">
-          {navItems.map((item) => {
-            if (!isGroup(item)) {
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`py-3 text-lg font-medium transition-colors hover:text-accent ${pathname === item.href ? 'text-accent' : 'text-foreground/80'
-                    }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              );
-            }
-
-            const sectionOpen = mobileOpenSection === item.name;
-
-            return (
-              <div key={item.name} className="border-b border-white/5 last:border-0">
-                <button
-                  type="button"
-                  aria-expanded={sectionOpen}
-                  onClick={() => setMobileOpenSection(sectionOpen ? null : item.name)}
-                  className="w-full flex items-center justify-between py-3 text-lg font-medium text-foreground/80 hover:text-accent transition-colors"
-                >
-                  {item.name}
-                  <svg
-                    className={`w-4 h-4 transition-transform ${sectionOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {sectionOpen && (
-                  <div className="pb-3 pl-4 space-y-4">
-                    {item.columns.map((col, i) => (
-                      <div key={i}>
-                        {col.heading && (
-                          <p className="text-xs font-mono tracking-widest text-foreground/40 mb-2 uppercase">
-                            {col.heading}
-                          </p>
-                        )}
-                        <ul className="space-y-2">
-                          {col.links.map((link) => (
-                            <li key={link.name}>
-                              <Link
-                                href={link.href}
-                                className="block text-base text-foreground/70 hover:text-accent transition-colors"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                {link.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {mobileOpen && <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation">{navItems.map(item => {
+        if (!isGroup(item)) return <Link key={item.name} href={item.href} onClick={closeMenus} aria-current={pathname === item.href ? 'page' : undefined}>{item.name}</Link>;
+        const open = mobileSection === item.name;
+        return <div className="mobile-section" key={item.name}><button type="button" aria-expanded={open} aria-controls={`mobile-${item.name.toLowerCase()}`} onClick={() => setMobileSection(open ? null : item.name)}>{item.name}<Chevron open={open} /></button>{open && <div id={`mobile-${item.name.toLowerCase()}`} className="mobile-section-content">{item.columns.map((col,index) => <div key={index}>{col.heading && <h2>{col.heading}</h2>}{col.links.map(link => <Link key={link.href} href={link.href} onClick={closeMenus} aria-current={pathname === link.href.split('#')[0] ? 'page' : undefined}>{link.name}</Link>)}</div>)}</div>}</div>;
+      })}</nav>}
     </header>
   );
 }

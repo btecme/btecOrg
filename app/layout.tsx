@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description: "b-tec is a boutique technology practice focused on public-good civil defense and professional alignment services.",
 };
 
-import CircuitBackground from "@/components/CircuitBackground";
+
 
 export default function RootLayout({
   children,
@@ -37,12 +37,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} antialiased min-h-screen flex flex-col`}
       >
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <Header />
-        <main className="flex-grow pt-20">
+        <main id="main-content" className="flex-grow site-main" tabIndex={-1}>
           {children}
         </main>
         <Footer />
-        <CircuitBackground />
       </body>
     </html>
   );

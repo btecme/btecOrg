@@ -1,24 +1,23 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Footer() {
-    const pathname = usePathname();
-    const email = pathname?.startsWith('/show') ? 'hello@theshowdata.com' : 'hello@b-tec.org';
-
-    return (
-        <footer className="py-8 border-t border-white/5 bg-background text-center">
-            <div className="container mx-auto px-6">
-                <p className="text-sm text-foreground/40">
-                    &copy; {new Date().getFullYear()} btec LLC. All rights reserved.
-                </p>
-                <a
-                    href={`mailto:${email}`}
-                    className="block mt-2 text-sm text-foreground/60 hover:text-accent transition-colors"
-                >
-                    {email}
-                </a>
-            </div>
-        </footer>
-    );
+  const pathname = usePathname();
+  const email = pathname?.startsWith('/show') ? 'hello@theshowdata.com' : 'hello@b-tec.org';
+  return (
+    <footer className="site-footer">
+      <div className="site-shell">
+        <div className="footer-main">
+          <div className="footer-brand"><Link href="/" aria-label="b-tec home"><Image src="/b-tecLogo-Transparency.png" alt="b-tec" width={160} height={64} className="footer-logo" /></Link><p>Independent thinking.<br />Practical technology.</p><a href={`mailto:${email}`}>{email} <span aria-hidden="true">↗</span></a></div>
+          <div><h2>Products</h2><Link href="/base">BASE</Link><Link href="/bdf">BDF</Link><Link href="/osp">OSP</Link><Link href="/show">SHOW</Link></div>
+          <div><h2>Practice</h2><Link href="/services">Services</Link><Link href="/alignment">Alignment</Link><Link href="/first-principles">First Principles</Link><Link href="/contact">Contact</Link></div>
+          <div><h2>Explore</h2><Link href="/about">About b-tec</Link><Link href="/research">Research</Link><Link href="/blog">Blog</Link></div>
+        </div>
+        <div className="footer-bottom"><p>&copy; {new Date().getFullYear()} btec LLC. All rights reserved.</p><span>Human direction. Lasting value.</span></div>
+      </div>
+    </footer>
+  );
 }
