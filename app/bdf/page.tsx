@@ -91,13 +91,19 @@ export default function BdfPage() {
           <h2 className="text-2xl md:text-3xl font-bold mb-4">We Don&rsquo;t Need to Make Money on Everything</h2>
           <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-4">
             People ask why we&rsquo;re just giving BDF away. Fair question, and an honest one deserves an honest
-            answer: we don&rsquo;t need to monetize every single thing we build.
+            answer.
+          </p>
+          <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-4">
+            We&rsquo;ve spent decades supporting bad PDF software, in every environment we&rsquo;ve worked in.
+            Everyone who&rsquo;s ever fought with a PDF has felt it: the &ldquo;Portable&rdquo; in Portable Document
+            Format has rarely meant portable, or easy. Giving BDF away is the least we can do for a tech community
+            that&rsquo;s been owed a better option for a long time, and now there is one.
           </p>
           <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-6">
-            A PDF utility doesn&rsquo;t need to be a profit center to be worth building well. What it needs to be is
-            the one PDF tool an organization can standardize on, instead of juggling several different licenses,
-            patch schedules, and renewal dates across departments. One utility. One support surface. One less piece
-            of tech debt nobody budgeted for.
+            It also doesn&rsquo;t need to be a profit center to be worth building well. The practical case is just
+            as real: BDF is the one PDF tool an organization can standardize on, instead of juggling several
+            different licenses, patch schedules, and renewal dates across departments. One utility. One support
+            surface. One less piece of tech debt nobody budgeted for.
           </p>
           <p className="text-foreground/90 font-medium">
             Free isn&rsquo;t the strategy. Less overhead for the people using it is.
