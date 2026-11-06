@@ -50,7 +50,7 @@ export default function ResearchPage() {
         <section id="bdf" className="my-12 rounded-3xl border border-accent/30 bg-accent/5 p-8 md:p-12 relative overflow-hidden scroll-mt-28">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="relative">
-            <p className="text-accent font-mono text-xs tracking-widest mb-3">IN DEVELOPMENT // WINDOWS PDF UTILITY</p>
+            <p className="text-accent font-mono text-xs tracking-widest mb-3">BETA // WINDOWS PDF UTILITY</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">BDF: A PDF utility for you and your agents.</h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-5 max-w-3xl">
               A clean, fast, portable PDF utility with a familiar desktop interface, and tools your digital agents
@@ -63,7 +63,7 @@ export default function ResearchPage() {
             </p>
             <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
               Windows desktop is the first testing ground. Documents stay local, ordinary use requires no cloud account, and
-              portable delivery is being qualified so testing can be as straightforward as extracting a folder and
+              portable delivery means getting started is as straightforward as extracting a folder and
               launching the app.
             </p>
             <ul className="space-y-2 text-foreground/70 mb-8 max-w-3xl">
@@ -91,9 +91,8 @@ export default function ResearchPage() {
             </div>
             <p className="text-foreground/60 text-sm leading-relaxed mb-8 max-w-3xl">
               The architectural goal is one consistent application service behind the desktop, CLI and agent
-              interfaces. That integration is still being completed and qualified in the private Windows preview.
-              Initial CLI/MCP capabilities exist; complete feature parity and a broadly qualified release are still
-              in progress.
+              interfaces. That integration is live in the current Beta. CLI/MCP capabilities continue to expand
+              toward full feature parity across all three.
             </p>
 
             <div className="rounded-2xl border border-white/10 bg-black/20 p-5 mb-8 max-w-3xl">
@@ -107,7 +106,8 @@ export default function ResearchPage() {
             </div>
 
             <p className="text-foreground/70 leading-relaxed mb-8 max-w-3xl">
-              <strong>Status:</strong> Currently being tested in a private Windows 11 preview.
+              <strong>Status:</strong> Beta. Private testing is complete; BDF is now in its portable deployment
+              phase and used in production.
               <br />
               <strong>Origin:</strong> BDF builds on the open-source PdfCraft project and is being developed
               further in b-tec&apos;s first principles direction.
