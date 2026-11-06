@@ -39,7 +39,7 @@ const fundamentals = [
   },
   {
     title: 'Local by Default',
-    body: 'Documents stay on your computer. Ordinary use requires no cloud account, and portable delivery is being qualified so testing can be as straightforward as extracting a folder and launching the app.',
+    body: 'Documents stay on your computer. Ordinary use requires no cloud account, and portable delivery means getting started is as straightforward as extracting a folder and launching the app.',
   },
   {
     title: 'Agent Access, Not a Bolt-On',
@@ -52,7 +52,7 @@ export default function BdfPage() {
     <div className="min-h-screen bg-background text-foreground py-24 px-6">
       {/* Hero */}
       <div className="max-w-3xl mx-auto text-center mb-16">
-        <p className="text-accent font-mono text-sm tracking-widest mb-4">IN DEVELOPMENT // WINDOWS PDF UTILITY</p>
+        <p className="text-accent font-mono text-sm tracking-widest mb-4">BETA // WINDOWS PDF UTILITY</p>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-5">BDF</h1>
         <p className="text-xl md:text-2xl text-foreground/80 font-medium leading-snug mb-4">
           A PDF utility for people and agents.
@@ -62,6 +62,27 @@ export default function BdfPage() {
           them is a second-class way to work with your documents.
         </p>
       </div>
+
+      {/* The b-tec Approach */}
+      <section className="max-w-4xl mx-auto mb-16 text-center">
+        <p className="text-accent font-mono text-xs tracking-widest mb-3">THE B-TEC APPROACH</p>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">User Value First</h2>
+        <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-6">
+          Legacy SaaS adds features to justify the next price increase and asks you to live with its roadmap. b-tec
+          builds the opposite way: software judged by the value it gives the person using it, not the subscription
+          it protects.
+        </p>
+        <ul className="flex flex-wrap items-center justify-center gap-3">
+          {['No bloat', 'Fast', 'Resilient', 'Portable', 'Smart', 'Dynamic'].map((trait) => (
+            <li
+              key={trait}
+              className="px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 text-sm text-foreground/80"
+            >
+              {trait}
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* The Fundamentals */}
       <section className="max-w-5xl mx-auto mb-16">
@@ -88,16 +109,16 @@ export default function BdfPage() {
               <li>&bull; Clean, familiar controls for the common work: open, find, comment, fill a form, organize pages, save.</li>
               <li>&bull; Careful attention to responsiveness and reliable saving, protecting your working edits.</li>
               <li>&bull; Local and portable: documents stay on your computer, with no cloud account for ordinary use.</li>
-              <li>&bull; Initial command-line and MCP tools for connecting a compatible digital agent.</li>
+              <li>&bull; Command-line and MCP tools for connecting a compatible digital agent.</li>
             </ul>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
             <h3 className="text-lg font-semibold mb-3 text-accent">Status</h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
-              Currently being tested in a private Windows 11 preview, built on the open-source PdfCraft foundation
-              and developed further in b-tec&rsquo;s own direction. Initial CLI/MCP capabilities exist; complete
-              feature parity across the desktop, CLI, and agent interfaces, and a broadly qualified release, are
-              still in progress.
+              <strong className="text-foreground">Beta.</strong> Private testing is complete, and BDF has moved into
+              its portable deployment phase, used in production on the open-source PdfCraft foundation and developed
+              further in b-tec&rsquo;s own direction. CLI/MCP capabilities continue to expand toward full feature
+              parity across the desktop, CLI, and agent interfaces.
             </p>
           </div>
         </div>
@@ -135,9 +156,9 @@ export default function BdfPage() {
       {/* Closing */}
       <section className="max-w-2xl mx-auto text-center">
         <p className="text-foreground/70 leading-relaxed mb-8">
-          BDF is still early, and it&rsquo;s being built the way most of what we publish here is built: with agents,
-          in view of what works and what&rsquo;s still being proven. The research log tracks where it goes next, and
-          the project itself is open to look at.
+          BDF is in Beta, and it&rsquo;s being built the way most of what we publish here is built: with agents, in
+          view of what works and what&rsquo;s still being proven as it moves toward a broader release. The research
+          log tracks where it goes next, and the project itself is open to look at.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
