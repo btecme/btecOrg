@@ -137,7 +137,9 @@ export default function AgentPresence() {
       const saved = localStorage.getItem(storageKey);
       if (saved === 'on' || saved === 'off') motionChoice = saved === 'on';
     } catch { /* Motion still works when browser storage is unavailable. */ }
-    const motionEnabled = () => motionChoice ?? true;
+    // CSS selects the Gecko small-screen fallback, including before hydration.
+    let staticFallback = false;
+    const motionEnabled = () => !staticFallback && (motionChoice ?? true);
     let width = 0, height = 0, frame = 0, lastTime = 0;
     let glitchTimer = 0, glitchStart = 0, glitchDuration = 0, glitchCount = 0;
     let glitchSlices: { y: number; h: number; shift: number }[] = [];
@@ -154,7 +156,7 @@ export default function AgentPresence() {
     const clamp = (n: number, bound: number) => Math.max(-bound, Math.min(bound, n));
 
     function render(time = performance.now()) {
-      if (!ctx || !canvas || !root) return;
+      if (!ctx || !canvas || !root || staticFallback) return;
       ctx.clearRect(0, 0, width, height);
       const scale = Math.min(height * .235, width * (width < 641 ? .55 : .26));
       const { x: cx, y: cy } = center();
@@ -291,7 +293,7 @@ export default function AgentPresence() {
       render(time);
       if ((canGlitch() && time - glitchStart < glitchDuration) || Math.abs(targetX - x) + Math.abs(targetY - y) + Math.abs(targetScroll - scroll) > .001) schedule();
     }
-    function schedule() { if (!frame && !document.hidden) frame = requestAnimationFrame(tick); }
+    function schedule() { if (!frame && !document.hidden && !staticFallback) frame = requestAnimationFrame(tick); }
     function queueGlitch() {
       window.clearTimeout(glitchTimer); glitchTimer = 0;
       if (!canGlitch()) return;
@@ -309,11 +311,23 @@ export default function AgentPresence() {
       }, 4200 + Math.random() * 6800);
     }
     function resize() {
+      const wasStatic = staticFallback;
+      staticFallback = getComputedStyle(root!).getPropertyValue('--agent-static').trim() === '1';
+      if (staticFallback) {
+        cancelAnimationFrame(frame); frame = 0;
+        window.clearTimeout(glitchTimer); glitchTimer = 0;
+        canvas!.width = canvas!.height = glitchBuffer.width = glitchBuffer.height = 0;
+        root!.dataset.ready = 'false';
+        root!.dataset.motion = root!.dataset.scrollMotion = 'static';
+        if (motionButton) motionButton.hidden = true;
+        return;
+      }
       width = root!.clientWidth; height = root!.clientHeight;
       const dpr = Math.min(devicePixelRatio || 1, 1.5);
       canvas!.width = Math.round(width * dpr); canvas!.height = Math.round(height * dpr);
       glitchBuffer.width = canvas!.width; glitchBuffer.height = canvas!.height;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0); aim(); render(); schedule();
+      if (wasStatic) preference();
     }
     function aim() {
       if (!canMove() || !pointerPosition) { targetX = -.18; targetY = 0; return; }
@@ -336,7 +350,7 @@ export default function AgentPresence() {
       const enabled = motionEnabled();
       glitchStart = 0; queueGlitch();
       if (motionButton) {
-        motionButton.hidden = false;
+        motionButton.hidden = staticFallback;
         motionButton.textContent = enabled ? 'Motion: on' : 'Motion: off';
         motionButton.setAttribute('aria-pressed', String(enabled));
         motionButton.setAttribute('aria-label', enabled ? 'Pause background motion' : 'Enable background motion');

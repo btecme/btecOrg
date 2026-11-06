@@ -215,6 +215,19 @@ body { isolation: isolate; }
   .agent-fallback { top: 50%; width: min(100%, 440px); height: auto; max-height: 78svh; aspect-ratio: 2 / 3; transform: translate(-50%, -50%); }
   .header-frame { backdrop-filter: none; }
 }
+/* Gecko phone/tablet fallback: avoid a viewport-fixed decorative surface and
+   a document-height foreground stacking context during asynchronous scrolling.
+   CSS owns the fallback, so it also works before hydration or without scripts. */
+@supports (-moz-appearance: none) {
+  @media (max-width: 900px) {
+    body { isolation: auto; }
+    .site-main, .site-footer { z-index: auto; }
+    .agent-presence { --agent-static: 1; position: absolute; inset: 0 0 auto; height: 100svh; contain: none; mask-image: none; opacity: .5; }
+    .agent-canvas, .agent-halo, .agent-motion-control { display: none; }
+    .agent-presence .agent-fallback, .agent-presence[data-ready="true"] .agent-fallback { display: block; left: 72%; top: 50%; width: min(100%, 440px); height: auto; max-height: 78svh; aspect-ratio: 2 / 3; transform: translate(-50%, -50%); }
+    .header-frame { backdrop-filter: none; }
+  }
+}
 @media (prefers-reduced-motion: reduce) { .agent-canvas { transform: none !important; } }
 
 /* A real, local-only transparency readout, open by default. */
