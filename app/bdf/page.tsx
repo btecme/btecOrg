@@ -58,8 +58,8 @@ export default function BdfPage() {
           A PDF utility for people and agents.
         </p>
         <p className="text-foreground/60 max-w-xl mx-auto leading-relaxed">
-          Built by b-tec on one architecture behind the desktop app, the command line, and agent access, so none of
-          them is a second-class way to work with your documents.
+          Built by b-tec on one architecture behind the desktop app, the command line, and agent access, to bring you
+          a first-class experience without hooks, bargaining, or tantrums.
         </p>
       </div>
 
