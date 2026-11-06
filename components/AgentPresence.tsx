@@ -29,6 +29,51 @@ function shell() {
   return panels;
 }
 
+type BodyPanel = { points: Vector[]; normal: Vector; depth: number };
+
+// A continuous rounded bust, not a flat shoulder cutout. The cross sections
+// narrow into the neck and roll out over the trapezius and shoulder caps.
+function torso(): BodyPanel[] {
+  const rings = [
+    [.30, .28], [.33, .32], [.44, .37], [.82, .46],
+    [1.32, .55], [1.78, .65], [2.02, .73], [2.17, .78],
+    [2.18, .80], [2.27, .82],
+  ];
+  const profile = (v: number, axis: number) => {
+    const t = Math.max(0, Math.min(1, v)) * (rings.length - 1);
+    const i = Math.min(rings.length - 2, Math.floor(t)), f = t - i;
+    const a = rings[Math.max(0, i - 1)][axis], b = rings[i][axis];
+    const c = rings[i + 1][axis], d = rings[Math.min(rings.length - 1, i + 2)][axis];
+    return .5 * (2 * b + (-a + c) * f + (2 * a - 5 * b + 4 * c - d) * f * f + (-a + 3 * b - 3 * c + d) * f * f * f);
+  };
+  const point = (v: number, a: number): Vector => {
+    const y = -.84 - v * 2.28, x = Math.sin(a) * profile(v, 0);
+    const front = Math.max(0, Math.cos(a));
+    const tendonX = .16 + Math.max(0, -y - 1.05) * .30;
+    const tendons = .065 * Math.exp(-1 * ((Math.abs(x) - tendonX) / .095) ** 2) * Math.exp(-1 * ((y + 1.32) / .38) ** 2);
+    const collar = .085 * Math.exp(-1 * ((y + 1.78 + Math.abs(x) * .16) / .065) ** 2) * Math.exp(-1 * (x / 1.45) ** 4);
+    const sternum = -.055 * Math.exp(-1 * (x / .18) ** 2) * Math.exp(-1 * ((y + 2.03) / .48) ** 2);
+    return { x, y, z: -.19 + Math.cos(a) * profile(v, 1) + front ** 3 * (tendons + collar + sternum) };
+  };
+  const panels: BodyPanel[] = [];
+  for (let row = 0; row < 72; row++) {
+    for (let col = 0; col < 80; col++) {
+      const v = (row + .5) / 72, a = (col + .5) / 80 * Math.PI * 2;
+      const u0 = point(v, a - .001), u1 = point(v, a + .001);
+      const v0 = point(v - .001, a), v1 = point(v + .001, a);
+      const u = { x: u1.x - u0.x, y: u1.y - u0.y, z: u1.z - u0.z };
+      const w = { x: v1.x - v0.x, y: v1.y - v0.y, z: v1.z - v0.z };
+      const n = { x: w.y * u.z - w.z * u.y, y: w.z * u.x - w.x * u.z, z: w.x * u.y - w.y * u.x };
+      const length = Math.hypot(n.x, n.y, n.z) || 1;
+      panels.push({
+        points: [point(row / 72, col / 80 * Math.PI * 2), point(row / 72, (col + 1) / 80 * Math.PI * 2), point((row + 1) / 72, (col + 1) / 80 * Math.PI * 2), point((row + 1) / 72, col / 80 * Math.PI * 2)],
+        normal: { x: n.x / length, y: n.y / length, z: n.z / length }, depth: point(v, a).z,
+      });
+    }
+  }
+  return panels.sort((a, b) => a.depth - b.depth);
+}
+
 function plate(w: number, h: number, z: number) {
   return Array.from({ length: 128 }, (_, i): Vector => {
     const a = i / 128 * Math.PI * 2;
@@ -49,6 +94,10 @@ export default function AgentPresence() {
     const ctx = canvas?.getContext('2d');
     if (!root || !canvas || !ctx) return;
     const panels = shell();
+    const bodyPanels = torso();
+    // Reused only during a short glitch burst; no image decoding or network work.
+    const glitchBuffer = document.createElement('canvas');
+    const glitchCtx = glitchBuffer.getContext('2d');
     const bezel = plate(.65, 1.18, .71);
     const screen = plate(.56, 1.09, .733);
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -62,6 +111,11 @@ export default function AgentPresence() {
     } catch { /* Motion still works when browser storage is unavailable. */ }
     const motionEnabled = () => motionChoice ?? true;
     let width = 0, height = 0, frame = 0, lastTime = 0;
+    let glitchTimer = 0, glitchStart = 0, glitchDuration = 0, glitchCount = 0;
+    let glitchSlices: { y: number; h: number; shift: number }[] = [];
+    // The site's motion choice stays authoritative. System reduced motion also
+    // suppresses unsolicited glitch bursts, while retaining the approved gaze.
+    const canGlitch = () => motionEnabled() && !reduced.matches && !document.hidden;
     let x = -.18, y = 0, targetX = -.18, targetY = 0, scroll = 0, targetScroll = window.scrollY;
     let pointerPosition: { x: number; y: number } | null = null;
     // A real mouse/pen event is stronger evidence than device media queries,
@@ -71,28 +125,23 @@ export default function AgentPresence() {
     const center = () => ({ x: width * (width < 641 ? .72 : .77) + drift(), y: height * .56 });
     const clamp = (n: number, bound: number) => Math.max(-bound, Math.min(bound, n));
 
-    function render() {
+    function render(time = performance.now()) {
       if (!ctx || !canvas || !root) return;
       ctx.clearRect(0, 0, width, height);
       const scale = Math.min(height * .235, width * (width < 641 ? .55 : .26));
       const { x: cx, y: cy } = center();
       const yaw = x, pitch = y;
       const project = (px: number, py: number, pz: number, head = true) => {
-        const turn = head ? yaw : 0, tilt = head ? pitch : 0;
+        const turn = head ? yaw : yaw * .16, tilt = head ? pitch : 0;
         const rx = px * Math.cos(turn) + pz * Math.sin(turn);
         const rz = -px * Math.sin(turn) + pz * Math.cos(turn);
         const ry = py * Math.cos(tilt) - rz * Math.sin(tilt);
         const depth = 4 / (4 - (py * Math.sin(tilt) + rz * Math.cos(tilt)));
         return { x: cx + rx * scale * depth, y: cy - ry * scale * depth, depth };
       };
-      const outline = (vertices: Vector[]) => {
+      const outline = (vertices: Vector[], head = true) => {
         ctx.beginPath();
-        vertices.forEach((p, i) => { const q = project(p.x, p.y, p.z); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
-        ctx.closePath();
-      };
-      const contour = (vertices: number[][]) => {
-        ctx.beginPath();
-        vertices.forEach(([px, py, pz], i) => { const q = project(px, py, pz, false); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+        vertices.forEach((p, i) => { const q = project(p.x, p.y, p.z, head); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
         ctx.closePath();
       };
       ctx.save();
@@ -100,12 +149,23 @@ export default function AgentPresence() {
       const atmosphere = ctx.createRadialGradient(cx, cy, scale * .45, cx, cy, scale * 2.5);
       atmosphere.addColorStop(0, 'rgba(0,151,229,.10)'); atmosphere.addColorStop(1, 'rgba(0,118,229,0)');
       ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
-      // Shoulders and a tapered articulated neck, receding behind the head.
-      contour([[-2.05,-2.4,-.3],[-1.98,-2.17,-.3],[-1.43,-1.94,-.23],[-.66,-1.63,-.16],[-.34,-1.4,-.14],[-.30,-.88,-.2],[.34,-.88,-.2],[.38,-1.43,-.14],[.69,-1.64,-.16],[1.48,-1.97,-.23],[2.0,-2.2,-.3],[2.05,-2.4,-.3]]);
-      const body = ctx.createLinearGradient(cx - scale * 1.6, cy, cx + scale * 1.6, cy + scale * 2);
-      body.addColorStop(0, '#17303b'); body.addColorStop(.32, '#07141c'); body.addColorStop(.7, '#060e16'); body.addColorStop(1, '#10232e');
-      ctx.fillStyle = body; ctx.shadowColor = '#00b9ff'; ctx.shadowBlur = scale * .035; ctx.fill();
-      ctx.strokeStyle = 'rgba(59,188,236,.20)'; ctx.lineWidth = 1; ctx.stroke(); ctx.shadowBlur = 0;
+      // Surface normals light the actual rounded neck, collarbones and shoulders.
+      // Wide highlights describe volume; the opposite cyan rim separates the
+      // dark material from the page without outlining a flat silhouette.
+      const bodyTurn = yaw * .16;
+      for (const panel of bodyPanels) {
+        const n = panel.normal;
+        const nx = n.x * Math.cos(bodyTurn) + n.z * Math.sin(bodyTurn);
+        const nz = -n.x * Math.sin(bodyTurn) + n.z * Math.cos(bodyTurn);
+        if (nz < -.12) continue;
+        const key = Math.max(0, nx * -.58 + n.y * .57 + nz * .58);
+        const specular = Math.max(0, nx * -.32 + n.y * .32 + nz * .89) ** 22;
+        const rim = Math.max(0, nx * .83 + n.y * .16 - nz * .53) ** 3;
+        const edge = Math.max(0, 1 - Math.max(0, nz)) ** 3;
+        outline(panel.points, false);
+        ctx.fillStyle = `rgb(${Math.round(8 + key * 38 + specular * 39 + rim * 13)},${Math.round(18 + key * 52 + specular * 60 + rim * 63 + edge * 8)},${Math.round(26 + key * 62 + specular * 72 + rim * 85 + edge * 14)})`;
+        ctx.fill(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = .65; ctx.stroke();
+      }
       // Depth-sort the rounded shell to preserve real head rotation.
       const ordered = panels.map(p => ({ ...p, depth: p.points.reduce((d, v) => d - v.x * Math.sin(yaw) + v.z * Math.cos(yaw), 0) / 4 })).sort((a, b) => a.depth - b.depth);
       for (const p of ordered) {
@@ -135,6 +195,29 @@ export default function AgentPresence() {
       const sheen = ctx.createLinearGradient(cx - scale * .8, cy, cx + scale * .7, cy);
       sheen.addColorStop(0, 'rgba(214,249,255,.20)'); sheen.addColorStop(.19, 'rgba(214,249,255,0)'); sheen.addColorStop(.8, 'rgba(0,36,71,.07)'); sheen.addColorStop(1, 'rgba(0,36,71,.25)');
       ctx.fillStyle = sheen; ctx.fillRect(0, 0, width, height); ctx.restore();
+      // A few displaced scanline fragments, never a full-page flash. Capture
+      // once per painted frame so slices do not accumulate or smear over time.
+      const glitching = canGlitch() && glitchStart > 0 && time - glitchStart < glitchDuration;
+      if (glitching && glitchCtx) {
+        glitchCtx.clearRect(0, 0, glitchBuffer.width, glitchBuffer.height);
+        glitchCtx.drawImage(canvas, 0, 0);
+        const envelope = Math.sin(Math.PI * (time - glitchStart) / glitchDuration);
+        for (const slice of glitchSlices) {
+          const sy = Math.max(0, Math.min(height - 1, cy + slice.y * scale));
+          const sh = Math.max(1, Math.min(height - sy, slice.h * scale));
+          const left = Math.max(0, cx - scale * 2.35), span = Math.min(width - left, scale * 4.7);
+          const dpr = canvas.width / width;
+          ctx.globalAlpha = .70 * envelope;
+          ctx.clearRect(left, sy, span, sh);
+          ctx.drawImage(glitchBuffer, left * dpr, sy * dpr, span * dpr, sh * dpr, left + slice.shift * scale * envelope, sy, span, sh);
+          // A dim cyan echo at the displaced seam, not a bright strobe.
+          ctx.globalAlpha = .12 * envelope;
+          ctx.drawImage(glitchBuffer, left * dpr, sy * dpr, span * dpr, sh * dpr, left - slice.shift * scale * .5, sy, span, sh);
+        }
+        ctx.globalAlpha = 1;
+      }
+      root.dataset.glitch = glitching ? 'active' : 'idle';
+      root.dataset.glitchCount = String(glitchCount);
       // Fade the sculpture into the page instead of ending at a hard cutout.
       ctx.globalCompositeOperation = 'destination-in';
       const fade = ctx.createLinearGradient(0, cy + scale * 1.35, 0, cy + scale * 2.45);
@@ -160,14 +243,31 @@ export default function AgentPresence() {
       scroll += (targetScroll - scroll) * step;
       aim();
       x += (targetX - x) * step; y += (targetY - y) * step;
-      render();
-      if (Math.abs(targetX - x) + Math.abs(targetY - y) + Math.abs(targetScroll - scroll) > .001) schedule();
+      render(time);
+      if ((canGlitch() && time - glitchStart < glitchDuration) || Math.abs(targetX - x) + Math.abs(targetY - y) + Math.abs(targetScroll - scroll) > .001) schedule();
     }
     function schedule() { if (!frame && !document.hidden) frame = requestAnimationFrame(tick); }
+    function queueGlitch() {
+      window.clearTimeout(glitchTimer); glitchTimer = 0;
+      if (!canGlitch()) return;
+      // Sleep between bursts. There is no perpetual idle rendering loop.
+      glitchTimer = window.setTimeout(() => {
+        glitchTimer = 0;
+        if (!canGlitch()) return;
+        glitchStart = performance.now(); glitchDuration = 120 + Math.random() * 90;
+        glitchCount++;
+        glitchSlices = Array.from({ length: 2 + Math.floor(Math.random() * 2) }, () => ({
+          y: -1.7 + Math.random() * 3.7, h: .012 + Math.random() * .045,
+          shift: (Math.random() < .5 ? -1 : 1) * (.018 + Math.random() * .035),
+        }));
+        schedule(); queueGlitch();
+      }, 4200 + Math.random() * 6800);
+    }
     function resize() {
       width = root!.clientWidth; height = innerHeight;
       const dpr = Math.min(devicePixelRatio || 1, 1.5);
       canvas!.width = Math.round(width * dpr); canvas!.height = Math.round(height * dpr);
+      glitchBuffer.width = canvas!.width; glitchBuffer.height = canvas!.height;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0); aim(); render(); schedule();
     }
     function aim() {
@@ -189,6 +289,7 @@ export default function AgentPresence() {
     function onScroll() { if (motionEnabled()) { targetScroll = window.scrollY; schedule(); } }
     function preference() {
       const enabled = motionEnabled();
+      glitchStart = 0; queueGlitch();
       if (motionButton) {
         motionButton.hidden = false;
         motionButton.textContent = enabled ? 'Motion: on' : 'Motion: off';
@@ -204,7 +305,11 @@ export default function AgentPresence() {
       try { localStorage.setItem(storageKey, motionChoice ? 'on' : 'off'); } catch { /* Optional persistence. */ }
       preference();
     }
-    function visibility() { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; } else schedule(); }
+    function visibility() {
+      window.clearTimeout(glitchTimer); glitchTimer = 0; glitchStart = 0;
+      if (document.hidden) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; }
+      else { schedule(); queueGlitch(); }
+    }
     window.addEventListener('pointermove', pointer, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', resize);
@@ -217,7 +322,7 @@ export default function AgentPresence() {
     sizeObserver.observe(root);
     resize(); preference();
     return () => {
-      cancelAnimationFrame(frame);
+      cancelAnimationFrame(frame); window.clearTimeout(glitchTimer);
       sizeObserver.disconnect();
       window.removeEventListener('pointermove', pointer); window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', resize); window.removeEventListener('blur', reset);
