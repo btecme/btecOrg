@@ -309,7 +309,7 @@ export default function AgentPresence() {
       }, 4200 + Math.random() * 6800);
     }
     function resize() {
-      width = root!.clientWidth; height = innerHeight;
+      width = root!.clientWidth; height = root!.clientHeight;
       const dpr = Math.min(devicePixelRatio || 1, 1.5);
       canvas!.width = Math.round(width * dpr); canvas!.height = Math.round(height * dpr);
       glitchBuffer.width = canvas!.width; glitchBuffer.height = canvas!.height;
@@ -323,7 +323,7 @@ export default function AgentPresence() {
       const currentX = liveWidth * (liveWidth < 641 ? .72 : .77)
         - Math.min(Math.max(scroll, 0) * .12, liveWidth * .48);
       targetX = clamp(Math.atan2(pointerPosition.x - currentX, liveWidth * .42), .78);
-      targetY = clamp(Math.atan2(pointerPosition.y - innerHeight * .56, innerHeight * .72), .46);
+      targetY = clamp(Math.atan2(pointerPosition.y - height * .56, height * .72), .46);
     }
     function pointer(event: PointerEvent) {
       if (event.pointerType === 'touch') return;

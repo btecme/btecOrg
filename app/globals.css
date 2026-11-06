@@ -205,8 +205,15 @@ body { isolation: isolate; }
 .system-map { background-color: #0b182252; }
 .product-panel { background-color: #0c151ce8; }
 @media (max-width: 640px) {
-  .agent-canvas { opacity: .30; }
+  /* Keep phone compositing viewport-sized, independent of document length and
+     collapsing browser chrome. Avoid a masked/filtered fixed surface over the
+     entire scrolling page; keep foreground content on ordinary scroll layers. */
+  body { isolation: auto; }
+  .agent-presence { bottom: auto; height: 100svh; contain: strict; mask-image: none; opacity: .5; }
+  .agent-canvas { opacity: .30; filter: none; }
   .agent-halo, .agent-fallback { left: 72%; }
+  .agent-fallback { top: 50%; width: min(100%, 440px); height: auto; max-height: 78svh; aspect-ratio: 2 / 3; transform: translate(-50%, -50%); }
+  .header-frame { backdrop-filter: none; }
 }
 @media (prefers-reduced-motion: reduce) { .agent-canvas { transform: none !important; } }
 
