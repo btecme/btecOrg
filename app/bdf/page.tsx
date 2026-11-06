@@ -42,7 +42,7 @@ const fundamentals = [
     body: 'Documents stay on your computer. Ordinary use requires no cloud account, and portable delivery means getting started is as straightforward as extracting a folder and launching the app.',
   },
   {
-    title: 'Agent Access, Not a Bolt-On',
+    title: 'Agent Access by Design',
     body: 'A connected agent calls explicit tools (open, find text, render a page, rotate, save) instead of clicking around the screen. Access is opt-in, grants are scoped, and every action is enforced and logged by BDF itself.',
   },
 ];
@@ -69,8 +69,7 @@ export default function BdfPage() {
         <h2 className="text-2xl md:text-3xl font-bold mb-4">User Value First</h2>
         <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-6">
           Legacy SaaS adds features to justify the next price increase and asks you to live with its roadmap. b-tec
-          builds the opposite way: software judged by the value it gives the person using it, not the subscription
-          it protects.
+          builds software judged by the value it gives the person using it.
         </p>
         <ul className="flex flex-wrap items-center justify-center gap-3">
           {['No bloat', 'Fast', 'Resilient', 'Portable', 'Smart', 'Dynamic'].map((trait) => (
@@ -82,33 +81,6 @@ export default function BdfPage() {
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* Why Free */}
-      <section className="max-w-4xl mx-auto mb-16">
-        <div className="rounded-2xl border border-accent/30 bg-accent/5 p-8 md:p-10 text-center">
-          <p className="text-accent font-mono text-xs tracking-widest mb-3">WHY FREE?</p>
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">We Don&rsquo;t Need to Make Money on Everything</h2>
-          <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-4">
-            People ask why we&rsquo;re just giving BDF away. Fair question, and an honest one deserves an honest
-            answer.
-          </p>
-          <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-4">
-            We&rsquo;ve spent decades supporting bad PDF software, in every environment we&rsquo;ve worked in.
-            Everyone who&rsquo;s ever fought with a PDF has felt it: the &ldquo;Portable&rdquo; in Portable Document
-            Format has rarely meant portable, or easy. Giving BDF away is the least we can do for a tech community
-            that&rsquo;s been owed a better option for a long time, and now there is one.
-          </p>
-          <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-6">
-            It also doesn&rsquo;t need to be a profit center to be worth building well. The practical case is just
-            as real: BDF is the one PDF tool an organization can standardize on, instead of juggling several
-            different licenses, patch schedules, and renewal dates across departments. One utility. One support
-            surface. One less piece of tech debt nobody budgeted for.
-          </p>
-          <p className="text-foreground/90 font-medium">
-            Free isn&rsquo;t the strategy. Less overhead for the people using it is.
-          </p>
-        </div>
       </section>
 
       {/* The Fundamentals */}
@@ -186,6 +158,10 @@ export default function BdfPage() {
           BDF is in Beta, and it&rsquo;s being built the way most of what we publish here is built: with agents, in
           view of what works and what&rsquo;s still being proven as it moves toward a broader release. The research
           log tracks where it goes next, and the project itself is open to look at.
+        </p>
+        <p className="text-foreground/50 text-sm leading-relaxed mb-8 max-w-xl mx-auto">
+          One more thing: BDF is free. Good software doesn&rsquo;t need a subscription attached to it, and after
+          decades of bad PDF tools, giving this one away felt like the least we could do.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
