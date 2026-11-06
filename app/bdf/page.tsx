@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 const TITLE = 'BDF — A PDF utility for people and agents';
 const DESCRIPTION =
-  'BDF is a Windows PDF utility built on one consistent service behind its desktop app, command line, and agent access. Local-first, and built by b-tec.';
+  'BDF is a free Windows PDF utility built on one consistent service behind its desktop app, command line, and agent access. Local-first, and built by b-tec.';
 const PAGE_URL = 'https://www.b-tec.org/bdf';
 const OG_IMAGE = 'https://www.b-tec.org/images/bdf/bdf-og-1200x630.jpg';
 
@@ -82,6 +82,27 @@ export default function BdfPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* Why Free */}
+      <section className="max-w-4xl mx-auto mb-16">
+        <div className="rounded-2xl border border-accent/30 bg-accent/5 p-8 md:p-10 text-center">
+          <p className="text-accent font-mono text-xs tracking-widest mb-3">WHY FREE?</p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">We Don&rsquo;t Need to Make Money on Everything</h2>
+          <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-4">
+            People ask why we&rsquo;re just giving BDF away. Fair question, and an honest one deserves an honest
+            answer: we don&rsquo;t need to monetize every single thing we build.
+          </p>
+          <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-6">
+            A PDF utility doesn&rsquo;t need to be a profit center to be worth building well. What it needs to be is
+            the one PDF tool an organization can standardize on, instead of juggling several different licenses,
+            patch schedules, and renewal dates across departments. One utility. One support surface. One less piece
+            of tech debt nobody budgeted for.
+          </p>
+          <p className="text-foreground/90 font-medium">
+            Free isn&rsquo;t the strategy. Less overhead for the people using it is.
+          </p>
+        </div>
       </section>
 
       {/* The Fundamentals */}
