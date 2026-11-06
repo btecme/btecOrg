@@ -29,15 +29,15 @@ function shell() {
   return panels;
 }
 
-type BodyPanel = { points: Vector[]; normal: Vector; depth: number };
+type BodyPanel = { points: Vector[]; normal: Vector; depth: number; material: 'cloth' | 'collar' | 'inner' };
 
-// A continuous rounded bust, not a flat shoulder cutout. The cross sections
-// narrow into the neck and roll out over the trapezius and shoulder caps.
-function torso(): BodyPanel[] {
+// An original tailored jacket: relaxed shoulder caps, a matte front and a
+// separate rolled stand collar. Cloth replaces the exposed anatomical bust.
+function torso(): { panels: BodyPanel[]; collarEdge: Vector[] } {
   const rings = [
-    [.30, .28], [.33, .32], [.44, .37], [.82, .46],
-    [1.32, .55], [1.78, .65], [2.02, .73], [2.17, .78],
-    [2.18, .80], [2.27, .82],
+    [.30, .27], [.45, .33], [.92, .42], [1.49, .51],
+    [1.90, .59], [2.08, .68], [2.14, .75], [2.17, .79],
+    [2.18, .80], [2.18, .80],
   ];
   const profile = (v: number, axis: number) => {
     const t = Math.max(0, Math.min(1, v)) * (rings.length - 1);
@@ -47,31 +47,59 @@ function torso(): BodyPanel[] {
     return .5 * (2 * b + (-a + c) * f + (2 * a - 5 * b + 4 * c - d) * f * f + (-a + 3 * b - 3 * c + d) * f * f * f);
   };
   const point = (v: number, a: number): Vector => {
-    const y = -.84 - v * 2.28, x = Math.sin(a) * profile(v, 0);
+    const y = -.99 - v * 2.28, x = Math.sin(a) * profile(v, 0);
     const front = Math.max(0, Math.cos(a));
-    const tendonX = .16 + Math.max(0, -y - 1.05) * .30;
-    const tendons = .065 * Math.exp(-1 * ((Math.abs(x) - tendonX) / .095) ** 2) * Math.exp(-1 * ((y + 1.32) / .38) ** 2);
-    const collar = .085 * Math.exp(-1 * ((y + 1.78 + Math.abs(x) * .16) / .065) ** 2) * Math.exp(-1 * (x / 1.45) ** 4);
-    const sternum = -.055 * Math.exp(-1 * (x / .18) ** 2) * Math.exp(-1 * ((y + 2.03) / .48) ** 2);
-    return { x, y, z: -.19 + Math.cos(a) * profile(v, 1) + front ** 3 * (tendons + collar + sternum) };
+    // Broad, shallow folds follow the armholes instead of imitating muscles.
+    const armhole = -.025 * Math.exp(-1 * ((Math.abs(x) - 1.43 - v * .32) / .07) ** 2) * Math.exp(-1 * ((v - .47) / .23) ** 2);
+    const drape = .012 * Math.sin(x * 9 + v * 3) * Math.exp(-1 * ((v - .58) / .33) ** 2);
+    return { x, y, z: -.18 + Math.cos(a) * profile(v, 1) + front ** 4 * (armhole + drape) };
   };
   const panels: BodyPanel[] = [];
-  for (let row = 0; row < 72; row++) {
-    for (let col = 0; col < 80; col++) {
-      const v = (row + .5) / 72, a = (col + .5) / 80 * Math.PI * 2;
-      const u0 = point(v, a - .001), u1 = point(v, a + .001);
-      const v0 = point(v - .001, a), v1 = point(v + .001, a);
-      const u = { x: u1.x - u0.x, y: u1.y - u0.y, z: u1.z - u0.z };
-      const w = { x: v1.x - v0.x, y: v1.y - v0.y, z: v1.z - v0.z };
-      const n = { x: w.y * u.z - w.z * u.y, y: w.z * u.x - w.x * u.z, z: w.x * u.y - w.y * u.x };
-      const length = Math.hypot(n.x, n.y, n.z) || 1;
-      panels.push({
-        points: [point(row / 72, col / 80 * Math.PI * 2), point(row / 72, (col + 1) / 80 * Math.PI * 2), point((row + 1) / 72, (col + 1) / 80 * Math.PI * 2), point((row + 1) / 72, col / 80 * Math.PI * 2)],
-        normal: { x: n.x / length, y: n.y / length, z: n.z / length }, depth: point(v, a).z,
-      });
+  const surface = (sample: (u: number, v: number) => Vector, rows: number, cols: number, material: BodyPanel['material'] | ((u: number, v: number) => BodyPanel['material'])) => {
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const u = (col + .5) / cols, v = (row + .5) / rows;
+        const u0 = sample(u - .0001, v), u1 = sample(u + .0001, v);
+        const v0 = sample(u, v - .0001), v1 = sample(u, v + .0001);
+        const du = { x: u1.x - u0.x, y: u1.y - u0.y, z: u1.z - u0.z };
+        const dv = { x: v1.x - v0.x, y: v1.y - v0.y, z: v1.z - v0.z };
+        const n = { x: dv.y * du.z - dv.z * du.y, y: dv.z * du.x - dv.x * du.z, z: dv.x * du.y - dv.y * du.x };
+        const length = Math.hypot(n.x, n.y, n.z) || 1;
+        panels.push({
+          points: [sample(col / cols, row / rows), sample((col + 1) / cols, row / rows), sample((col + 1) / cols, (row + 1) / rows), sample(col / cols, (row + 1) / rows)],
+          normal: { x: n.x / length, y: n.y / length, z: n.z / length }, depth: sample(u, v).z,
+          material: typeof material === 'function' ? material(u, v) : material,
+        });
+      }
     }
-  }
-  return panels.sort((a, b) => a.depth - b.depth);
+  };
+  surface((u, v) => point(v, u * Math.PI * 2), 72, 80, (u, v) => {
+    const p = point(v, u * Math.PI * 2);
+    const opening = Math.max(.025, .28 - Math.max(0, v - .14) * .58);
+    return Math.cos(u * Math.PI * 2) > .65 && Math.abs(p.x) < opening ? 'inner' : 'cloth';
+  });
+  // The collar is a curved, folded fabric band, with its own thickness and
+  // a small asymmetric opening. It wraps in 3D rather than being a flat V.
+  const collarPoint = (u: number, v: number): Vector => {
+    const a = .16 + u * (Math.PI * 2 - .32), front = Math.max(0, Math.cos(a));
+    const roll = Math.sin(v * Math.PI) * .055;
+    const x = Math.sin(a) * (.38 + .28 * v + roll);
+    const y = -1.06 - front ** 4 * .24 - v * (.64 - front ** 4 * .17);
+    const bodyV = (-y - .99) / 2.28;
+    const clothFront = -.18 + Math.sqrt(Math.max(0, 1 - (x / profile(bodyV, 0)) ** 2)) * profile(bodyV, 1);
+    const wrap = -.16 + Math.cos(a) * (.34 + .28 * v + roll) + .025;
+    // Keep the folded front above the coat at every height. Intersecting
+    // independently sampled meshes otherwise leave a serrated collar edge.
+    const blend = Math.min(1, front * 4);
+    return { x, y, z: wrap * (1 - blend) + (clothFront + .055 + roll) * blend };
+  };
+  // Only the two visible front folds are needed; the hidden rear wrap can
+  // otherwise cross the front at oblique poses in a painter's-algorithm mesh.
+  const leftFold = (u: number, v: number) => collarPoint((Math.PI * 2 - 1.30 + u * 1.14 - .16) / (Math.PI * 2 - .32), v);
+  const rightFold = (u: number, v: number) => collarPoint(u * 1.14 / (Math.PI * 2 - .32), v);
+  surface(leftFold, 20, 32, 'collar');
+  surface(rightFold, 20, 32, 'collar');
+  return { panels, collarEdge: Array.from({ length: 65 }, (_, i) => collarPoint(i / 64, 0)).filter(p => p.z > -.13) };
 }
 
 function plate(w: number, h: number, z: number) {
@@ -94,7 +122,7 @@ export default function AgentPresence() {
     const ctx = canvas?.getContext('2d');
     if (!root || !canvas || !ctx) return;
     const panels = shell();
-    const bodyPanels = torso();
+    const { panels: bodyPanels, collarEdge } = torso();
     // Reused only during a short glitch burst; no image decoding or network work.
     const glitchBuffer = document.createElement('canvas');
     const glitchCtx = glitchBuffer.getContext('2d');
@@ -149,23 +177,40 @@ export default function AgentPresence() {
       const atmosphere = ctx.createRadialGradient(cx, cy, scale * .45, cx, cy, scale * 2.5);
       atmosphere.addColorStop(0, 'rgba(0,151,229,.10)'); atmosphere.addColorStop(1, 'rgba(0,118,229,0)');
       ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
-      // Surface normals light the actual rounded neck, collarbones and shoulders.
-      // Wide highlights describe volume; the opposite cyan rim separates the
-      // dark material from the page without outlining a flat silhouette.
+      // Matte cloth has a broad softbox highlight, restrained cyan bounce and
+      // a brighter folded collar edge. Depth sorting keeps the layers attached
+      // as the body turns independently of the luminous faceplate. The folded
+      // collar is a top garment layer, so the coat cannot cut across its rim.
       const bodyTurn = yaw * .16;
-      for (const panel of bodyPanels) {
+      const orderedBody = bodyPanels.map(panel => ({ ...panel,
+        depth: panel.points.reduce((d, p) => d - p.x * Math.sin(bodyTurn) + p.z * Math.cos(bodyTurn), 0) / 4,
+      })).sort((a, b) => Number(a.material === 'collar') - Number(b.material === 'collar') || a.depth - b.depth);
+      for (const panel of orderedBody) {
         const n = panel.normal;
         const nx = n.x * Math.cos(bodyTurn) + n.z * Math.sin(bodyTurn);
         const nz = -n.x * Math.sin(bodyTurn) + n.z * Math.cos(bodyTurn);
         if (nz < -.12) continue;
         const key = Math.max(0, nx * -.58 + n.y * .57 + nz * .58);
-        const specular = Math.max(0, nx * -.32 + n.y * .32 + nz * .89) ** 22;
+        const soft = Math.max(0, nx * -.32 + n.y * .32 + nz * .89) ** 7;
         const rim = Math.max(0, nx * .83 + n.y * .16 - nz * .53) ** 3;
-        const edge = Math.max(0, 1 - Math.max(0, nz)) ** 3;
+        const inner = panel.material === 'inner', collar = panel.material === 'collar';
+        const shade = inner ? .36 : collar ? 1.12 : 1;
         outline(panel.points, false);
-        ctx.fillStyle = `rgb(${Math.round(8 + key * 38 + specular * 39 + rim * 13)},${Math.round(18 + key * 52 + specular * 60 + rim * 63 + edge * 8)},${Math.round(26 + key * 62 + specular * 72 + rim * 85 + edge * 14)})`;
+        ctx.fillStyle = `rgb(${Math.round((9 + key * 31 + soft * 8 + rim * 9) * shade)},${Math.round((17 + key * 39 + soft * 12 + rim * 43) * shade)},${Math.round((23 + key * 45 + soft * 15 + rim * 59) * shade)})`;
         ctx.fill(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = .65; ctx.stroke();
       }
+      // Subtle construction details: shoulder yokes and the collar's rolled
+      // top edge. These project with the jacket, not with the head.
+      const seam = (points: Vector[], color: string, weight: number) => {
+        ctx.beginPath();
+        points.forEach((p, i) => { const q = project(p.x, p.y, p.z, false); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+        ctx.strokeStyle = color; ctx.lineWidth = scale * weight; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
+      };
+      for (const side of [-1, 1]) {
+        seam([{ x: side * .67, y: -1.37, z: .27 }, { x: side * 1.03, y: -1.48, z: .26 }, { x: side * 1.43, y: -1.60, z: .17 }, { x: side * 1.72, y: -1.77, z: .13 }], 'rgba(114,151,166,.20)', .006);
+        seam([{ x: side * .065, y: -1.55, z: .49 }, { x: side * .05, y: -1.94, z: .55 }, { x: side * .025, y: -2.5, z: .64 }], 'rgba(105,144,160,.25)', .006);
+      }
+      seam(collarEdge, 'rgba(146,185,198,.42)', .009);
       // Depth-sort the rounded shell to preserve real head rotation.
       const ordered = panels.map(p => ({ ...p, depth: p.points.reduce((d, v) => d - v.x * Math.sin(yaw) + v.z * Math.cos(yaw), 0) / 4 })).sort((a, b) => a.depth - b.depth);
       for (const p of ordered) {
@@ -340,6 +385,10 @@ export default function AgentPresence() {
         <linearGradient id="agent-shell" x1="80" y1="100" x2="330" y2="470" gradientUnits="userSpaceOnUse"><stop stopColor="#25414e" /><stop offset=".6" stopColor="#07141c" /><stop offset="1" stopColor="#10232e" /></linearGradient>
       </defs>
       <path d="M12 590 35 545 143 488 161 452 159 395Q96 372 91 286L91 174Q91 65 195 57 305 57 309 170L310 292Q309 369 245 398L245 455 263 488 367 548 389 590Z" fill="url(#agent-shell)" stroke="#2986ab" strokeOpacity=".35" />
+      <path d="M12 590Q27 550 72 535L146 493 160 454 179 479 199 501 222 479 246 455 262 492 338 535Q373 552 389 590Z" fill="#182b35" />
+      <path d="M160 454 179 479 199 501 184 552 147 494Z" fill="#2b414c" stroke="#7096a5" strokeOpacity=".35" />
+      <path d="M246 455 222 479 199 501 215 552 262 492Z" fill="#223843" stroke="#7096a5" strokeOpacity=".35" />
+      <path d="M199 501 199 590M72 535 146 508M262 508 338 535" stroke="#7096a5" strokeOpacity=".3" strokeWidth="2" />
       <path d="M140 105Q143 89 166 88L235 90Q259 92 261 115L260 342Q257 368 233 371L163 368Q141 366 139 341Z" fill="url(#agent-glass)" />
     </svg>
     <canvas className="agent-canvas" ref={canvasRef} />
