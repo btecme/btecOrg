@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="home-refresh">
       <section className="home-hero site-shell" aria-labelledby="home-title">
-        <div className="hero-topline"><p className="eyebrow">Independent thinking. Practical technology.</p><span className="technical-note">b-tec / future systems</span></div>
+        <div className="hero-topline"><p className="eyebrow">Adding Value. Building Trust.</p><span className="technical-note">b-tec / future systems</span></div>
         <div className="hero-composition">
           <div className="hero-copy">
             <h1 id="home-title">Future systems for the age of <span>digital intelligence.</span></h1>
