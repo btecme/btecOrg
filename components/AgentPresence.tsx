@@ -60,7 +60,7 @@ export default function AgentPresence() {
       const saved = localStorage.getItem(storageKey);
       if (saved === 'on' || saved === 'off') motionChoice = saved === 'on';
     } catch { /* Motion still works when browser storage is unavailable. */ }
-    const motionEnabled = () => motionChoice ?? !reduced.matches;
+    const motionEnabled = () => motionChoice ?? true;
     let width = 0, height = 0, frame = 0, lastTime = 0;
     let x = -.18, y = 0, targetX = -.18, targetY = 0, scroll = 0, targetScroll = window.scrollY;
     let pointerPosition: { x: number; y: number } | null = null;
@@ -147,7 +147,7 @@ export default function AgentPresence() {
       root.dataset.centerX = cx.toFixed(2);
       root.dataset.centerY = cy.toFixed(2);
       root.dataset.scrollMotion = motionEnabled() ? 'drifting' : 'static';
-      root.dataset.motionPreference = motionChoice === null ? 'system' : motionChoice ? 'on' : 'off';
+      root.dataset.motionPreference = motionChoice === null ? 'default-on' : motionChoice ? 'on' : 'off';
       root.dataset.reducedMotion = String(reduced.matches);
       root.dataset.yaw = yaw.toFixed(4); root.dataset.pitch = pitch.toFixed(4);
       root.dataset.motion = canMove() ? 'interactive' : 'static';
@@ -165,7 +165,7 @@ export default function AgentPresence() {
     }
     function schedule() { if (!frame && !document.hidden) frame = requestAnimationFrame(tick); }
     function resize() {
-      width = innerWidth; height = innerHeight;
+      width = root!.clientWidth; height = innerHeight;
       const dpr = Math.min(devicePixelRatio || 1, 1.5);
       canvas!.width = Math.round(width * dpr); canvas!.height = Math.round(height * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0); aim(); render(); schedule();
@@ -174,9 +174,10 @@ export default function AgentPresence() {
       if (!canMove() || !pointerPosition) { targetX = -.18; targetY = 0; return; }
       // Gaze is relative to the current, drifting head, not the viewport center.
       // Live dimensions also cover pointer events arriving before resize handling.
-      const currentX = innerWidth * (innerWidth < 641 ? .72 : .77)
-        - Math.min(Math.max(scroll, 0) * .12, innerWidth * .48);
-      targetX = clamp(Math.atan2(pointerPosition.x - currentX, innerWidth * .42), .78);
+      const liveWidth = root!.clientWidth;
+      const currentX = liveWidth * (liveWidth < 641 ? .72 : .77)
+        - Math.min(Math.max(scroll, 0) * .12, liveWidth * .48);
+      targetX = clamp(Math.atan2(pointerPosition.x - currentX, liveWidth * .42), .78);
       targetY = clamp(Math.atan2(pointerPosition.y - innerHeight * .56, innerHeight * .72), .46);
     }
     function pointer(event: PointerEvent) {
@@ -193,8 +194,7 @@ export default function AgentPresence() {
         motionButton.textContent = enabled ? 'Motion: on' : 'Motion: off';
         motionButton.setAttribute('aria-pressed', String(enabled));
         motionButton.setAttribute('aria-label', enabled ? 'Pause background motion' : 'Enable background motion');
-        motionButton.title = enabled ? 'Pause background motion' : reduced.matches && motionChoice === null
-          ? 'Your system prefers reduced motion. Enable it here if you want.' : 'Enable background motion';
+        motionButton.title = enabled ? 'Pause background motion' : 'Enable background motion';
       }
       if (!enabled) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; x = targetX = -.18; y = targetY = 0; scroll = targetScroll = 0; render(); }
       else { targetScroll = window.scrollY; aim(); schedule(); }
@@ -213,9 +213,12 @@ export default function AgentPresence() {
     document.addEventListener('visibilitychange', visibility);
     reduced.addEventListener('change', preference); fine.addEventListener('change', preference);
     motionButton?.addEventListener('click', toggleMotion);
+    const sizeObserver = new ResizeObserver(resize);
+    sizeObserver.observe(root);
     resize(); preference();
     return () => {
       cancelAnimationFrame(frame);
+      sizeObserver.disconnect();
       window.removeEventListener('pointermove', pointer); window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', resize); window.removeEventListener('blur', reset);
       document.documentElement.removeEventListener('pointerleave', reset); document.removeEventListener('visibilitychange', visibility);
