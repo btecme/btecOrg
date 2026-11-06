@@ -2,59 +2,40 @@
 
 import { useEffect, useRef } from 'react';
 
-type Point = { x: number; y: number; z: number; light: number; size: number };
-const gaussian = (x: number, y: number, cx: number, cy: number, sx: number, sy: number) =>
-  Math.exp(-(((x - cx) / sx) ** 2) - ((y - cy) / sy) ** 2);
+type Vector = { x: number; y: number; z: number };
+type Panel = { points: Vector[]; light: number };
+const signedPower = (n: number, power: number) => Math.sign(n) * Math.abs(n) ** power;
 
-// An original sculpted point field: brow, recessed eyes, nose, cheeks, lips and jaw.
-function face(x: number, y: number) {
-  return .46 * Math.sqrt(Math.max(0, 1 - (x / .92) ** 2 - (y / 1.6) ** 2))
-    + .30 * gaussian(x, y, 0, .02, .14, .48)
-    + .26 * gaussian(x, y, 0, -.17, .17, .15)
-    + .08 * gaussian(x, y, 0, -.57, .34, .10)
-    + .09 * gaussian(x, y, 0, -.86, .28, .16)
-    + .11 * gaussian(x, y, -.38, -.18, .25, .23)
-    + .11 * gaussian(x, y, .38, -.18, .25, .23)
-    + .10 * gaussian(x, y, -.31, .42, .29, .12)
-    + .10 * gaussian(x, y, .31, .42, .29, .12)
-    - .17 * gaussian(x, y, -.32, .23, .22, .13)
-    - .17 * gaussian(x, y, .32, .23, .22, .13)
-    - .06 * gaussian(x, y, 0, -.62, .28, .025);
-}
-
-function sculpt() {
-  const points: Point[] = [];
-  let seed = 71;
-  const random = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-  for (let row = 0; row < 115; row++) {
-    const y = -1.13 + row / 114 * 2.62;
-    const jaw = y < -.30 ? 1 - (-y - .30) * .28 : 1;
-    const width = .87 * Math.sqrt(Math.max(0, 1 - ((y - .16) / 1.35) ** 2)) * jaw;
-    for (let col = 0; col < 67; col++) {
-      const x = (col / 66 * 2 - 1) * width;
-      if (random() < .15) continue;
-      const jx = x + (random() - .5) * .013;
-      const jy = y + (random() - .5) * .012;
-      const edge = Math.abs(x) / Math.max(width, .01);
-      const dx = (face(jx + .015, jy) - face(jx - .015, jy)) / .03;
-      const dy = (face(jx, jy + .015) - face(jx, jy - .015)) / .03;
-      const lighting = Math.max(.08, (-dx * -.55 - dy * .45 + .75) / Math.hypot(dx, dy, 1));
-      points.push({ x: jx, y: jy, z: face(jx, jy), light: (.30 + random() * .35) * lighting + edge * .1, size: random() > .97 ? 1.7 : .65 + random() * .65 });
+// Original featureless agent shell. The front is a single luminous faceplate,
+// deliberately without anatomical features, eyes, text or a character logo.
+function shell() {
+  const panels: Panel[] = [];
+  const point = (row: number, col: number): Vector => {
+    const v = row / 48 * Math.PI;
+    const a = col / 64 * Math.PI * 2;
+    const y = .21 + 1.43 * Math.cos(v);
+    const r = Math.sin(v) ** .8;
+    const taper = y < -.35 ? 1 - (-y - .35) * .13 : 1;
+    return { x: Math.sin(a) * .91 * r * taper, y, z: Math.cos(a) * .66 * r };
+  };
+  for (let row = 0; row < 48; row++) {
+    for (let col = 0; col < 64; col++) {
+      const a = (col + .5) / 64 * Math.PI * 2;
+      const v = (row + .5) / 48 * Math.PI;
+      const light = Math.max(0, Math.sin(a) * -.55 + Math.cos(v) * .25 + Math.cos(a) * .20);
+      panels.push({ points: [point(row, col), point(row, col + 1), point(row + 1, col + 1), point(row + 1, col)], light });
     }
   }
-  // A receding cranial shell and fragmented neck give the face actual volume.
-  for (let i = 0; i < 1300; i++) {
-    const a = random() * Math.PI * 2;
-    const y = random() * 2.5 - 1.05;
-    const radius = Math.sqrt(Math.max(0, 1 - ((y - .2) / 1.35) ** 2));
-    points.push({ x: Math.sin(a) * .84 * radius, y, z: -Math.abs(Math.cos(a)) * .62 * radius, light: .025 + random() * .07, size: .7 });
-  }
-  for (let i = 0; i < 500; i++) {
-    const y = -1.05 - random() * .7;
-    const x = (random() - .5) * (.58 + Math.max(0, -y - 1.4) * 2.7);
-    points.push({ x, y, z: -.10 + random() * .18, light: .08 + random() * .20, size: .7 });
-  }
-  return points.sort((a, b) => a.z - b.z);
+  return panels;
+}
+
+function plate(w: number, h: number, z: number) {
+  return Array.from({ length: 128 }, (_, i): Vector => {
+    const a = i / 128 * Math.PI * 2;
+    const x = w * signedPower(Math.cos(a), .43);
+    const y = .22 + h * signedPower(Math.sin(a), .43);
+    return { x, y, z: z - .12 * (x / w) ** 2 - .035 * ((y - .22) / h) ** 2 };
+  });
 }
 
 export default function AgentPresence() {
@@ -66,7 +47,9 @@ export default function AgentPresence() {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!root || !canvas || !ctx) return;
-    const points = sculpt();
+    const panels = shell();
+    const bezel = plate(.65, 1.18, .71);
+    const screen = plate(.56, 1.09, .733);
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const fine = matchMedia('(any-hover: hover) and (any-pointer: fine)');
     let width = 0, height = 0, frame = 0, lastTime = 0;
@@ -77,9 +60,9 @@ export default function AgentPresence() {
     function render() {
       if (!ctx || !canvas || !root) return;
       ctx.clearRect(0, 0, width, height);
-      const scale = Math.min(height * .255, width * (width < 641 ? .55 : .26));
+      const scale = Math.min(height * .235, width * (width < 641 ? .55 : .26));
       const cx = width * (width < 641 ? .72 : .77);
-      const cy = height * .51 + Math.sin(scroll / 1200) * 22;
+      const cy = height * .56 + Math.sin(scroll / 1200) * 22;
       const yaw = x, pitch = y;
       const project = (px: number, py: number, pz: number) => {
         const rx = px * Math.cos(yaw) + pz * Math.sin(yaw);
@@ -88,56 +71,61 @@ export default function AgentPresence() {
         const depth = 4 / (4 - (py * Math.sin(pitch) + rz * Math.cos(pitch)));
         return { x: cx + rx * scale * depth, y: cy - ry * scale * depth, depth };
       };
-      for (const p of points) {
-        const q = project(p.x, p.y, p.z);
-        ctx.fillStyle = `rgba(42,188,231,${p.light * .90})`;
-        ctx.beginPath(); ctx.arc(q.x, q.y, p.size * q.depth, 0, Math.PI * 2); ctx.fill();
-      }
-      // Broken contour strokes suggest a scanned sculpture rather than a solid mask.
-      ctx.lineWidth = .6;
-      for (let row = 0; row < 39; row++) {
-        const py = -1.07 + row * .065;
-        const jaw = py < -.30 ? 1 - (-py - .30) * .28 : 1;
-        const span = .87 * Math.sqrt(Math.max(0, 1 - ((py - .16) / 1.35) ** 2)) * jaw;
-        ctx.strokeStyle = `rgba(75,203,240,${row % 4 === 0 ? .16 : .07})`;
+      const outline = (vertices: Vector[]) => {
         ctx.beginPath();
-        for (let col = 0; col <= 80; col++) {
-          const px = (col / 80 * 2 - 1) * span;
-          const q = project(px, py, face(px, py));
-          if (col === 0 || (col + row * 3) % 23 === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
-        }
-        ctx.stroke();
-      }
-      // Sparse anatomical accents retain the impression of a calm human face.
-      const trace = (coordinates: number[][], alpha: number) => {
-        ctx.strokeStyle = `rgba(89,214,251,${alpha})`; ctx.lineWidth = .8; ctx.beginPath();
-        coordinates.forEach(([px, py], i) => {
-          const q = project(px, py, face(px, py) + .008);
-          if (!i) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
-        }); ctx.stroke();
+        vertices.forEach((p, i) => { const q = project(p.x, p.y, p.z); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+        ctx.closePath();
       };
-      trace([[-.12,.31],[-.13,.11],[-.17,-.14],[-.13,-.23],[0,-.28],[.13,-.23],[.17,-.14]], .30);
-      trace([[-.26,-.59],[-.14,-.56],[0,-.58],[.14,-.56],[.26,-.59]], .31);
-      trace([[-.23,-.64],[-.12,-.68],[.02,-.69],[.15,-.67],[.23,-.63]], .14);
-      for (const side of [-1, 1]) {
-        trace([[side*.14,.42],[side*.27,.47],[side*.42,.45],[side*.55,.37]], .25);
-        trace([[side*.50,.05],[side*.58,-.11],[side*.52,-.29]], .13);
+      const contour = (vertices: number[][]) => {
+        ctx.beginPath();
+        vertices.forEach(([px, py, pz], i) => { const q = project(px, py, pz); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+        ctx.closePath();
+      };
+      ctx.save();
+      // Soft light spill separates the obsidian bust from the page's dark ground.
+      const atmosphere = ctx.createRadialGradient(cx, cy, scale * .45, cx, cy, scale * 2.5);
+      atmosphere.addColorStop(0, 'rgba(0,151,229,.10)'); atmosphere.addColorStop(1, 'rgba(0,118,229,0)');
+      ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
+      // Shoulders and a tapered articulated neck, receding behind the head.
+      contour([[-2.05,-2.4,-.3],[-1.98,-2.17,-.3],[-1.43,-1.94,-.23],[-.66,-1.63,-.16],[-.34,-1.4,-.14],[-.30,-.88,-.2],[.34,-.88,-.2],[.38,-1.43,-.14],[.69,-1.64,-.16],[1.48,-1.97,-.23],[2.0,-2.2,-.3],[2.05,-2.4,-.3]]);
+      const body = ctx.createLinearGradient(cx - scale * 1.6, cy, cx + scale * 1.6, cy + scale * 2);
+      body.addColorStop(0, '#17303b'); body.addColorStop(.32, '#07141c'); body.addColorStop(.7, '#060e16'); body.addColorStop(1, '#10232e');
+      ctx.fillStyle = body; ctx.shadowColor = '#00b9ff'; ctx.shadowBlur = scale * .035; ctx.fill();
+      ctx.strokeStyle = 'rgba(59,188,236,.20)'; ctx.lineWidth = 1; ctx.stroke(); ctx.shadowBlur = 0;
+      // Depth-sort the rounded shell to preserve real head rotation.
+      const ordered = panels.map(p => ({ ...p, depth: p.points.reduce((d, v) => d - v.x * Math.sin(yaw) + v.z * Math.cos(yaw), 0) / 4 })).sort((a, b) => a.depth - b.depth);
+      for (const p of ordered) {
+        outline(p.points);
+        const l = p.light;
+        ctx.fillStyle = `rgb(${Math.round(5+l*24)},${Math.round(15+l*42)},${Math.round(23+l*48)})`;
+        ctx.fill(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = .6; ctx.stroke();
       }
-      // Quiet almond-shaped eyes; pupils move a little beyond the head's turn.
-      for (const side of [-1, 1]) {
-        const ex = side * .32, ey = .23;
-        ctx.strokeStyle = 'rgba(114,222,255,.48)'; ctx.lineWidth = .85; ctx.beginPath();
-        for (let i = 0; i <= 40; i++) {
-          const a = i / 40 * Math.PI * 2;
-          const px = ex + Math.cos(a) * .15;
-          const py = ey + Math.sin(a) * .045;
-          const q = project(px, py, face(px, py) + .015);
-          if (!i) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
-        }
-        ctx.stroke();
-        const pupil = project(ex + yaw * .055, ey - pitch * .06, face(ex, ey) + .028);
-        ctx.fillStyle = 'rgba(156,235,255,.72)'; ctx.beginPath(); ctx.arc(pupil.x, pupil.y, scale * .016, 0, Math.PI * 2); ctx.fill();
+      outline(bezel);
+      ctx.fillStyle = '#030e17'; ctx.fill();
+      ctx.strokeStyle = 'rgba(85,200,245,.18)'; ctx.lineWidth = scale * .022; ctx.stroke();
+      outline(screen);
+      const glass = ctx.createLinearGradient(cx - scale * .7, cy - scale * 1.1, cx + scale * .7, cy + scale * 1.1);
+      glass.addColorStop(0, '#65d8ff'); glass.addColorStop(.22, '#28b8ed'); glass.addColorStop(.65, '#0598d2'); glass.addColorStop(1, '#43cefa');
+      ctx.fillStyle = glass; ctx.shadowColor = '#00c8ff'; ctx.shadowBlur = scale * .055; ctx.fill(); ctx.shadowBlur = 0;
+      ctx.strokeStyle = 'rgba(160,234,255,.42)'; ctx.lineWidth = 1.2; ctx.stroke();
+      // Diffused, vertical brushwork gives the glass an impressionistic finish.
+      ctx.save(); ctx.clip();
+      for (let i = 0; i < 96; i++) {
+        const px = (i / 95 * 2 - 1) * .56;
+        const top = project(px, 1.34, .733 - .12 * (px / .56) ** 2);
+        const bottom = project(px, -.9, .733 - .12 * (px / .56) ** 2);
+        ctx.beginPath(); ctx.moveTo(top.x, top.y); ctx.lineTo(bottom.x, bottom.y);
+        ctx.strokeStyle = `rgba(184,239,255,${.012 + (Math.sin(i * 19.71) + 1) * .018})`;
+        ctx.lineWidth = scale * (.003 + (i % 3) * .002); ctx.stroke();
       }
+      const sheen = ctx.createLinearGradient(cx - scale * .8, cy, cx + scale * .7, cy);
+      sheen.addColorStop(0, 'rgba(214,249,255,.20)'); sheen.addColorStop(.19, 'rgba(214,249,255,0)'); sheen.addColorStop(.8, 'rgba(0,36,71,.07)'); sheen.addColorStop(1, 'rgba(0,36,71,.25)');
+      ctx.fillStyle = sheen; ctx.fillRect(0, 0, width, height); ctx.restore();
+      // Fade the sculpture into the page instead of ending at a hard cutout.
+      ctx.globalCompositeOperation = 'destination-in';
+      const fade = ctx.createLinearGradient(0, cy + scale * 1.35, 0, cy + scale * 2.45);
+      fade.addColorStop(0, '#fff'); fade.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = fade; ctx.fillRect(0, 0, width, height); ctx.restore();
       root.style.setProperty('--agent-halo-x', `${-x * 35}px`);
       root.style.setProperty('--agent-halo-y', `${-y * 28 + Math.sin(scroll / 1200) * 40}px`);
       canvas.style.transform = `translate3d(${x * 10}px, ${y * 8}px, 0)`;
@@ -165,7 +153,7 @@ export default function AgentPresence() {
       // Track the pointer relative to the visible head, including over links/nav.
       // Pointer events can precede the queued resize event: use current viewport dimensions.
       targetX = clamp((event.clientX / innerWidth - (innerWidth < 641 ? .72 : .77)) * .95, .55);
-      targetY = clamp((event.clientY / innerHeight - .51) * .65, .28); schedule();
+      targetY = clamp((event.clientY / innerHeight - .56) * .65, .28); schedule();
     }
     function reset() { targetX = -.18; targetY = 0; schedule(); }
     function onScroll() { if (canMove()) { targetScroll = window.scrollY; schedule(); } }
@@ -194,8 +182,12 @@ export default function AgentPresence() {
   return <div className="agent-presence" ref={rootRef} aria-hidden="true">
     <div className="agent-halo" />
     <svg className="agent-fallback" viewBox="0 0 400 600" fill="none">
-      <path d="M128 548 153 440 119 381 96 274 102 171 144 105 206 78 267 104 302 172 308 275 286 376 251 438 276 548M153 440Q203 481 251 438M123 239Q153 218 177 244M229 244Q253 218 282 239M199 232 181 314 207 328 221 313M167 373Q204 391 242 370" stroke="currentColor" strokeWidth="1.2" />
-      <ellipse cx="203" cy="275" rx="140" ry="211" stroke="currentColor" strokeDasharray="1 12" />
+      <defs>
+        <linearGradient id="agent-glass" x1="125" y1="70" x2="270" y2="370" gradientUnits="userSpaceOnUse"><stop stopColor="#65d8ff" /><stop offset="1" stopColor="#079bd5" /></linearGradient>
+        <linearGradient id="agent-shell" x1="80" y1="100" x2="330" y2="470" gradientUnits="userSpaceOnUse"><stop stopColor="#25414e" /><stop offset=".6" stopColor="#07141c" /><stop offset="1" stopColor="#10232e" /></linearGradient>
+      </defs>
+      <path d="M12 590 35 545 143 488 161 452 159 395Q96 372 91 286L91 174Q91 65 195 57 305 57 309 170L310 292Q309 369 245 398L245 455 263 488 367 548 389 590Z" fill="url(#agent-shell)" stroke="#2986ab" strokeOpacity=".35" />
+      <path d="M140 105Q143 89 166 88L235 90Q259 92 261 115L260 342Q257 368 233 371L163 368Q141 366 139 341Z" fill="url(#agent-glass)" />
     </svg>
     <canvas className="agent-canvas" ref={canvasRef} />
   </div>;
