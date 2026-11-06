@@ -53,22 +53,25 @@ export default function AgentPresence() {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const fine = matchMedia('(any-hover: hover) and (any-pointer: fine)');
     let width = 0, height = 0, frame = 0, lastTime = 0;
-    let x = -.18, y = 0, targetX = -.18, targetY = 0, scroll = window.scrollY, targetScroll = scroll;
+    let x = -.18, y = 0, targetX = -.18, targetY = 0, scroll = 0, targetScroll = window.scrollY;
+    let pointerPosition: { x: number; y: number } | null = null;
     const canMove = () => !reduced.matches && fine.matches;
+    const drift = () => -Math.min(Math.max(scroll, 0) * .12, width * .48);
+    const center = () => ({ x: width * (width < 641 ? .72 : .77) + drift(), y: height * .56 });
     const clamp = (n: number, bound: number) => Math.max(-bound, Math.min(bound, n));
 
     function render() {
       if (!ctx || !canvas || !root) return;
       ctx.clearRect(0, 0, width, height);
       const scale = Math.min(height * .235, width * (width < 641 ? .55 : .26));
-      const cx = width * (width < 641 ? .72 : .77);
-      const cy = height * .56 + Math.sin(scroll / 1200) * 22;
+      const { x: cx, y: cy } = center();
       const yaw = x, pitch = y;
-      const project = (px: number, py: number, pz: number) => {
-        const rx = px * Math.cos(yaw) + pz * Math.sin(yaw);
-        const rz = -px * Math.sin(yaw) + pz * Math.cos(yaw);
-        const ry = py * Math.cos(pitch) - rz * Math.sin(pitch);
-        const depth = 4 / (4 - (py * Math.sin(pitch) + rz * Math.cos(pitch)));
+      const project = (px: number, py: number, pz: number, head = true) => {
+        const turn = head ? yaw : 0, tilt = head ? pitch : 0;
+        const rx = px * Math.cos(turn) + pz * Math.sin(turn);
+        const rz = -px * Math.sin(turn) + pz * Math.cos(turn);
+        const ry = py * Math.cos(tilt) - rz * Math.sin(tilt);
+        const depth = 4 / (4 - (py * Math.sin(tilt) + rz * Math.cos(tilt)));
         return { x: cx + rx * scale * depth, y: cy - ry * scale * depth, depth };
       };
       const outline = (vertices: Vector[]) => {
@@ -78,7 +81,7 @@ export default function AgentPresence() {
       };
       const contour = (vertices: number[][]) => {
         ctx.beginPath();
-        vertices.forEach(([px, py, pz], i) => { const q = project(px, py, pz); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+        vertices.forEach(([px, py, pz], i) => { const q = project(px, py, pz, false); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
         ctx.closePath();
       };
       ctx.save();
@@ -126,9 +129,13 @@ export default function AgentPresence() {
       const fade = ctx.createLinearGradient(0, cy + scale * 1.35, 0, cy + scale * 2.45);
       fade.addColorStop(0, '#fff'); fade.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = fade; ctx.fillRect(0, 0, width, height); ctx.restore();
-      root.style.setProperty('--agent-halo-x', `${-x * 35}px`);
-      root.style.setProperty('--agent-halo-y', `${-y * 28 + Math.sin(scroll / 1200) * 40}px`);
-      canvas.style.transform = `translate3d(${x * 10}px, ${y * 8}px, 0)`;
+      // The whole sculpture travels left; the halo lags behind for depth.
+      root.style.setProperty('--agent-halo-x', `${drift() * .65 - x * 35}px`);
+      root.style.setProperty('--agent-halo-y', `${-y * 28}px`);
+      root.dataset.offsetX = drift().toFixed(2);
+      root.dataset.centerX = cx.toFixed(2);
+      root.dataset.centerY = cy.toFixed(2);
+      root.dataset.scrollMotion = reduced.matches ? 'static' : 'drifting';
       root.dataset.yaw = yaw.toFixed(4); root.dataset.pitch = pitch.toFixed(4);
       root.dataset.motion = canMove() ? 'interactive' : 'static';
       root.dataset.ready = 'true';
@@ -137,7 +144,9 @@ export default function AgentPresence() {
       frame = 0;
       const step = 1 - Math.exp(-Math.min(time - (lastTime || time - 16), 64) / 115);
       lastTime = time;
-      x += (targetX - x) * step; y += (targetY - y) * step; scroll += (targetScroll - scroll) * step;
+      scroll += (targetScroll - scroll) * step;
+      aim();
+      x += (targetX - x) * step; y += (targetY - y) * step;
       render();
       if (Math.abs(targetX - x) + Math.abs(targetY - y) + Math.abs(targetScroll - scroll) > .001) schedule();
     }
@@ -146,20 +155,27 @@ export default function AgentPresence() {
       width = innerWidth; height = innerHeight;
       const dpr = Math.min(devicePixelRatio || 1, 1.5);
       canvas!.width = Math.round(width * dpr); canvas!.height = Math.round(height * dpr);
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0); render();
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0); aim(); render(); schedule();
+    }
+    function aim() {
+      if (!canMove() || !pointerPosition) { targetX = -.18; targetY = 0; return; }
+      // Gaze is relative to the current, drifting head, not the viewport center.
+      // Live dimensions also cover pointer events arriving before resize handling.
+      const currentX = innerWidth * (innerWidth < 641 ? .72 : .77)
+        - Math.min(Math.max(scroll, 0) * .12, innerWidth * .48);
+      targetX = clamp(Math.atan2(pointerPosition.x - currentX, innerWidth * .42), .78);
+      targetY = clamp(Math.atan2(pointerPosition.y - innerHeight * .56, innerHeight * .72), .46);
     }
     function pointer(event: PointerEvent) {
-      if (!canMove() || event.pointerType === 'touch') return;
-      // Track the pointer relative to the visible head, including over links/nav.
-      // Pointer events can precede the queued resize event: use current viewport dimensions.
-      targetX = clamp((event.clientX / innerWidth - (innerWidth < 641 ? .72 : .77)) * .95, .55);
-      targetY = clamp((event.clientY / innerHeight - .56) * .65, .28); schedule();
+      if (event.pointerType === 'touch') return;
+      pointerPosition = { x: event.clientX, y: event.clientY };
+      if (canMove()) { aim(); schedule(); }
     }
-    function reset() { targetX = -.18; targetY = 0; schedule(); }
-    function onScroll() { if (canMove()) { targetScroll = window.scrollY; schedule(); } }
+    function reset() { pointerPosition = null; aim(); schedule(); }
+    function onScroll() { if (!reduced.matches) { targetScroll = window.scrollY; schedule(); } }
     function preference() {
-      if (!canMove()) { cancelAnimationFrame(frame); frame = 0; x = targetX = -.18; y = targetY = 0; scroll = targetScroll = 0; render(); }
-      else { targetScroll = window.scrollY; schedule(); }
+      if (reduced.matches) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; x = targetX = -.18; y = targetY = 0; scroll = targetScroll = 0; render(); }
+      else { targetScroll = window.scrollY; aim(); schedule(); }
     }
     function visibility() { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; } else schedule(); }
     window.addEventListener('pointermove', pointer, { passive: true });

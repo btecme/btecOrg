@@ -194,7 +194,7 @@ html { scroll-padding-top: 120px; }
 /* Atmospheric agent presence: decorative, fixed behind every page, never a hit target. */
 body { isolation: isolate; }
 .site-main, .site-footer { position: relative; z-index: 1; }
-.agent-presence { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: #00d4ff; mask-image: linear-gradient(90deg, #0002, #0006 40%, #000 64%); }
+.agent-presence { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: #00d4ff; mask-image: linear-gradient(90deg, #0008, #000c 40%, #000 64%); }
 .agent-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .58; filter: blur(.65px); }
 .agent-halo { position: absolute; left: 77%; top: 49%; width: min(70vw, 900px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(ellipse, #00bfff0e, #0085d508 40%, transparent 68%); transform: translate(calc(-50% + var(--agent-halo-x, 0px)), calc(-50% + var(--agent-halo-y, 0px))); }
 .agent-fallback { position: absolute; height: 88%; width: auto; top: 8%; left: 77%; transform: translateX(-50%); opacity: .45; }
