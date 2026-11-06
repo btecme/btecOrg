@@ -41,6 +41,7 @@ function plate(w: number, h: number, z: number) {
 export default function AgentPresence() {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const motionButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -52,10 +53,20 @@ export default function AgentPresence() {
     const screen = plate(.56, 1.09, .733);
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const fine = matchMedia('(any-hover: hover) and (any-pointer: fine)');
+    const motionButton = motionButtonRef.current;
+    const storageKey = 'btec-background-motion';
+    let motionChoice: boolean | null = null;
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved === 'on' || saved === 'off') motionChoice = saved === 'on';
+    } catch { /* Motion still works when browser storage is unavailable. */ }
+    const motionEnabled = () => motionChoice ?? !reduced.matches;
     let width = 0, height = 0, frame = 0, lastTime = 0;
     let x = -.18, y = 0, targetX = -.18, targetY = 0, scroll = 0, targetScroll = window.scrollY;
     let pointerPosition: { x: number; y: number } | null = null;
-    const canMove = () => !reduced.matches && fine.matches;
+    // A real mouse/pen event is stronger evidence than device media queries,
+    // which can misreport the available pointer in remote or hybrid sessions.
+    const canMove = () => motionEnabled() && (fine.matches || pointerPosition !== null);
     const drift = () => -Math.min(Math.max(scroll, 0) * .12, width * .48);
     const center = () => ({ x: width * (width < 641 ? .72 : .77) + drift(), y: height * .56 });
     const clamp = (n: number, bound: number) => Math.max(-bound, Math.min(bound, n));
@@ -135,7 +146,9 @@ export default function AgentPresence() {
       root.dataset.offsetX = drift().toFixed(2);
       root.dataset.centerX = cx.toFixed(2);
       root.dataset.centerY = cy.toFixed(2);
-      root.dataset.scrollMotion = reduced.matches ? 'static' : 'drifting';
+      root.dataset.scrollMotion = motionEnabled() ? 'drifting' : 'static';
+      root.dataset.motionPreference = motionChoice === null ? 'system' : motionChoice ? 'on' : 'off';
+      root.dataset.reducedMotion = String(reduced.matches);
       root.dataset.yaw = yaw.toFixed(4); root.dataset.pitch = pitch.toFixed(4);
       root.dataset.motion = canMove() ? 'interactive' : 'static';
       root.dataset.ready = 'true';
@@ -172,10 +185,24 @@ export default function AgentPresence() {
       if (canMove()) { aim(); schedule(); }
     }
     function reset() { pointerPosition = null; aim(); schedule(); }
-    function onScroll() { if (!reduced.matches) { targetScroll = window.scrollY; schedule(); } }
+    function onScroll() { if (motionEnabled()) { targetScroll = window.scrollY; schedule(); } }
     function preference() {
-      if (reduced.matches) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; x = targetX = -.18; y = targetY = 0; scroll = targetScroll = 0; render(); }
+      const enabled = motionEnabled();
+      if (motionButton) {
+        motionButton.hidden = false;
+        motionButton.textContent = enabled ? 'Motion: on' : 'Motion: off';
+        motionButton.setAttribute('aria-pressed', String(enabled));
+        motionButton.setAttribute('aria-label', enabled ? 'Pause background motion' : 'Enable background motion');
+        motionButton.title = enabled ? 'Pause background motion' : reduced.matches && motionChoice === null
+          ? 'Your system prefers reduced motion. Enable it here if you want.' : 'Enable background motion';
+      }
+      if (!enabled) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; x = targetX = -.18; y = targetY = 0; scroll = targetScroll = 0; render(); }
       else { targetScroll = window.scrollY; aim(); schedule(); }
+    }
+    function toggleMotion() {
+      motionChoice = !motionEnabled();
+      try { localStorage.setItem(storageKey, motionChoice ? 'on' : 'off'); } catch { /* Optional persistence. */ }
+      preference();
     }
     function visibility() { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; } else schedule(); }
     window.addEventListener('pointermove', pointer, { passive: true });
@@ -185,6 +212,7 @@ export default function AgentPresence() {
     document.documentElement.addEventListener('pointerleave', reset);
     document.addEventListener('visibilitychange', visibility);
     reduced.addEventListener('change', preference); fine.addEventListener('change', preference);
+    motionButton?.addEventListener('click', toggleMotion);
     resize(); preference();
     return () => {
       cancelAnimationFrame(frame);
@@ -192,10 +220,11 @@ export default function AgentPresence() {
       window.removeEventListener('resize', resize); window.removeEventListener('blur', reset);
       document.documentElement.removeEventListener('pointerleave', reset); document.removeEventListener('visibilitychange', visibility);
       reduced.removeEventListener('change', preference); fine.removeEventListener('change', preference);
+      motionButton?.removeEventListener('click', toggleMotion);
     };
   }, []);
 
-  return <div className="agent-presence" ref={rootRef} aria-hidden="true">
+  return <><div className="agent-presence" ref={rootRef} aria-hidden="true">
     <div className="agent-halo" />
     <svg className="agent-fallback" viewBox="0 0 400 600" fill="none">
       <defs>
@@ -206,5 +235,7 @@ export default function AgentPresence() {
       <path d="M140 105Q143 89 166 88L235 90Q259 92 261 115L260 342Q257 368 233 371L163 368Q141 366 139 341Z" fill="url(#agent-glass)" />
     </svg>
     <canvas className="agent-canvas" ref={canvasRef} />
-  </div>;
+  </div>
+    <button className="agent-motion-control" ref={motionButtonRef} type="button" hidden aria-label="Enable background motion" aria-pressed="false">Motion: off</button>
+  </>;
 }

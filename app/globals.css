@@ -199,6 +199,9 @@ body { isolation: isolate; }
 .agent-halo { position: absolute; left: 77%; top: 49%; width: min(70vw, 900px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(ellipse, #00bfff0e, #0085d508 40%, transparent 68%); transform: translate(calc(-50% + var(--agent-halo-x, 0px)), calc(-50% + var(--agent-halo-y, 0px))); }
 .agent-fallback { position: absolute; height: 88%; width: auto; top: 8%; left: 77%; transform: translateX(-50%); opacity: .45; }
 .agent-presence[data-ready="true"] .agent-fallback { display: none; }
+.agent-motion-control { position: fixed; right: 16px; bottom: 16px; z-index: 40; min-height: 44px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; background: #0b1822f2; color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: 11px; }
+.agent-motion-control:hover { color: var(--accent); border-color: var(--accent); }
+.agent-motion-control:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .system-map { background-color: #0b182252; }
 .product-panel { background-color: #0c151ce8; }
 @media (max-width: 640px) {
