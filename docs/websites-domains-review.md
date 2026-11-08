@@ -1,10 +1,10 @@
-# Websites & Domains — review candidate
+# Websites & Domains: review candidate
 
 Date: 2026-11-08. Branch: `service/websites-domains-review`.
 
 ## Boundary and route
 
-Nonproduction review only. Do not merge or push to `main`: that branch auto-deploys. No production configuration, DNS, purchases, or client communication is part of this change.
+Originally prepared for nonproduction review. On 2026-11-08, Brian approved production publication after removal of em dashes. Push to `main` is now authorized and auto-deploys to Vercel. DNS, purchases, client communication and unrelated production configuration remain outside scope.
 
 New dedicated route: `/services/websites-domains`. The existing `/services` directory is retained and gains a linked card. There was no existing dedicated website/domain route to redirect; existing service anchors remain intact. Homepage Practice, shared Offerings → Services, shared footer, and sitemap now discover the new child route.
 
@@ -33,3 +33,9 @@ New dedicated route: `/services/websites-domains`. The existing `/services` dire
 ## Scope conversations, not public promises
 
 Exact pages, content, commerce/portal capabilities, migrations/repairs, ongoing responsibilities and fees are deliberately left to an agreed quote. No factual gap requires a blanket invented inclusion.
+
+## Production approval
+
+- 2026-11-08: Brian requested no em dashes and approved pushing the reviewed page live after removal.
+- Replaced the three em dashes in the new service page with natural punctuation. Dated blog posts and unrelated pages were not rewritten.
+- Production candidate after punctuation edits: webpack production build passed, including TypeScript and generation of all 37 static pages.

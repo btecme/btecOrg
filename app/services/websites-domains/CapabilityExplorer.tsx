@@ -35,6 +35,6 @@ export default function CapabilityExplorer() {
         <div className="wd-cms-strip"><span className="wd-cms-icon">✎</span><span><strong>Your content. Your control.</strong><br />CMS editing starts with Inform.</span><span>Included</span></div>
       </div>
     </div>
-    <p className="wd-scope-note">Sell and Operate show examples of what can be scoped—not everything included in every build. Payment-provider and transaction fees are separate considerations. Hosting, domain services and care are quoted separately at every level.</p>
+    <p className="wd-scope-note">Sell and Operate show examples of what can be scoped, not everything included in every build. Payment-provider and transaction fees are separate considerations. Hosting, domain services and care are quoted separately at every level.</p>
   </fieldset>;
 }
