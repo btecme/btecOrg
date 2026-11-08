@@ -31,6 +31,7 @@ const navItems: NavItem[] = [
         heading: 'Services',
         links: [
           { name: 'Alignment', href: '/alignment' },
+          { name: 'Websites & Domains', href: '/services/websites-domains' },
           { name: 'Cloud & IT Solutions', href: '/services#cloud-it-solutions' },
           { name: 'Security Consulting', href: '/services#security-consulting' },
           { name: 'Hardware Support', href: '/services#hardware-support' },

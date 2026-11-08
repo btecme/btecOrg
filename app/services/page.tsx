@@ -1,5 +1,15 @@
+import Link from 'next/link';
+
 export default function Services() {
     const services = [
+        {
+            id: 'websites-domains',
+            title: 'Websites & Domains',
+            description: 'Your website. Your domain. Handled. Professional informational websites from $400, with CMS editing included. One-time build; ongoing services quoted separately.',
+            outcome: 'A professional online presence. One trusted contact.',
+            href: '/services/websites-domains',
+            cyan: true,
+        },
         {
             id: 'cloud-it-solutions',
             title: 'Cloud & IT Solutions',
@@ -86,6 +96,7 @@ export default function Services() {
                         <div className={`text-sm font-medium border-t pt-4 ${service.cyan ? 'text-cyan-200/80 border-cyan-300/10' : 'text-foreground/40 border-white/5'}`}>
                             {service.outcome}
                         </div>
+                        {service.href && <Link href={service.href} className="button-text mt-6">Explore websites &amp; domains <span aria-hidden="true">↗</span></Link>}
                     </div>
                 ))}
             </div>
