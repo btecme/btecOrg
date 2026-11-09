@@ -1,0 +1,64 @@
+{
+  "retrievedAt": "2026-11-09T12:50:16.595968+00:00",
+  "catalog": {
+    "dateReleased": "2026-11-06T19:44:45.1797Z",
+    "vulnerabilities": [
+      {
+        "cveID": "CVE-2026-119977",
+        "vendorProject": "WordPress",
+        "product": "WordPress Core",
+        "vulnerabilityName": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability",
+        "shortDescription": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to predictable, web-accessible staging paths used during full-package core upgrades.",
+        "dateAdded": "2026-11-03"
+      },
+      {
+        "cveID": "CVE-2026-87902",
+        "vendorProject": "WordPress",
+        "product": "Core",
+        "vulnerabilityName": "WordPress Core Remote File Inclusion Vulnerability",
+        "shortDescription": "WordPress Core contains a remote file inclusion vulnerability which could allow an unauthenticated attacker to make page-template resolution include a chosen readable local `.php` file outside the active theme directories, leading to remote code execution.",
+        "dateAdded": "2026-09-25"
+      },
+      {
+        "cveID": "CVE-2026-63030",
+        "vendorProject": "WordPress",
+        "product": "Core",
+        "vulnerabilityName": "WordPress Core Interpretation Conflict Vulnerability",
+        "shortDescription": "WordPress Core contains an interpretation conflict vulnerability that could allow an attacker to perform SQL Injection and achieve Remote Code Execution. This vulnerability can be chained with CVE-2026-60137.",
+        "dateAdded": "2026-07-21"
+      },
+      {
+        "cveID": "CVE-2026-19868",
+        "vendorProject": "SonicWall",
+        "product": "SonicOS SSLVPN",
+        "vulnerabilityName": "SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability",
+        "shortDescription": "SonicWall SonicOS SSLVPN contains a use of single-factor authentication vulnerability that may allow a user with valid credentials for an alternate authentication method to bypass SAML authentication controls. Successful exploitation may also bypass SAML-enforced multi-factor authentication (MFA).",
+        "dateAdded": "2026-11-06"
+      },
+      {
+        "cveID": "CVE-2026-118527",
+        "vendorProject": "Ivanti",
+        "product": "Connect Secure",
+        "vulnerabilityName": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability",
+        "shortDescription": "Ivanti Connect Secure contains a generation of predictable numbers or identifiers vulnerability that allows a remote authenticated attacker to upload files with attacker-controlled content to a known location on disk. This vulnerability can be chained with CVE-2026-104935 and CVE-2026-111357.",
+        "dateAdded": "2026-10-30"
+      },
+      {
+        "cveID": "CVE-2026-111357",
+        "vendorProject": "Ivanti",
+        "product": "Connect Secure",
+        "vulnerabilityName": "Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability",
+        "shortDescription": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with CVE-2026-104935 and CVE-2026-118527.",
+        "dateAdded": "2026-10-30"
+      },
+      {
+        "cveID": "CVE-2026-97229",
+        "vendorProject": "GitLab",
+        "product": "Community Edition and Enterprise Edition",
+        "vulnerabilityName": "GitLab Community Edition and Enterprise Edition Integer Overflow or Wraparound Vulnerability",
+        "shortDescription": "GitLab Community Edition and Enterprise Edition contain a integer overflow or wraparound vulnerability that could allow an unauthenticated user to execute arbitrary code on the GitLab server via a specially crafted regular expression in a CI/CD configuration, due to insufficient regular expression validation.",
+        "dateAdded": "2026-10-29"
+      }
+    ]
+  }
+}

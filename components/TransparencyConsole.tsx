@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import SecurityFeed from './SecurityFeed';
 
 type Snapshot = { viewport: string; language: string; timezone: string; connection: string; pointer: string; scroll: string; motion: string; resources: number; hosts: string[] };
 
@@ -9,6 +10,25 @@ export default function TransparencyConsole() {
   const pathname = usePathname();
   const [open, setOpen] = useState(true);
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
+
+  useEffect(() => {
+    const revealSecurity = () => {
+      setOpen(true);
+      requestAnimationFrame(() => {
+        const heading = document.getElementById('console-security');
+        heading?.focus({ preventScroll: true });
+        heading?.scrollIntoView({ block: 'nearest' });
+      });
+    };
+    const onHash = () => { if (window.location.hash === '#console-security') revealSecurity(); };
+    const onClick = (event: MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest('a[href="#console-security"]')) revealSecurity();
+    };
+    onHash();
+    window.addEventListener('hashchange', onHash);
+    document.addEventListener('click', onClick);
+    return () => { window.removeEventListener('hashchange', onHash); document.removeEventListener('click', onClick); };
+  }, []);
 
   useEffect(() => {
     let pointer = 'Not used yet';
@@ -63,10 +83,12 @@ export default function TransparencyConsole() {
       </button>
     </div>
     <div id="transparency-content" hidden={!open} className="transparency-content">
-      <p className="console-status"><span aria-hidden="true">●</span> This visit · live, not simulated</p>
-      <p>A window into what this page can see, use and send. These readings stay in your browser; this console does not upload them.</p>
+      <p className="console-status"><span aria-hidden="true">●</span> Public security + local transparency</p>
+      <p>Published vulnerability reports, plus a window into what this page can see, use and send.</p>
+      <SecurityFeed />
       <section>
-        <h2><span aria-hidden="true">01 / </span>In your browser</h2>
+        <h2><span aria-hidden="true">02 / </span>In your browser · live</h2>
+        <p>These readings stay in your browser; this console does not upload them.</p>
         <dl>
           <div><dt>Page</dt><dd>{pathname}</dd></div>
           <div><dt>Viewport</dt><dd>{snapshot?.viewport ?? 'Reading…'}</dd></div>
@@ -80,19 +102,20 @@ export default function TransparencyConsole() {
         <p>Pointer and scroll drive the background locally. Only your motion choice is saved by this feature, under <code>btec-background-motion</code>. No visit history or console readings are saved.</p>
       </section>
       <section>
-        <h2><span aria-hidden="true">02 / </span>Network activity</h2>
+        <h2><span aria-hidden="true">03 / </span>Network activity</h2>
         <p><strong>{snapshot?.resources ?? '…'}</strong> resource requests observed during this visit. Includes assets and page prefetches, not a visitor count.</p>
         <ul>{snapshot?.hosts.map(host => <li key={host}><code>{host}</code></li>)}</ul>
         <p>Hostnames only; request paths, query strings, form values and response bodies are not displayed or saved by this console. Browser timing data is partial and does not reveal server-to-server traffic or whether a request used cache.</p>
       </section>
       <section>
-        <h2><span aria-hidden="true">03 / </span>What leaves this device</h2>
+        <h2><span aria-hidden="true">04 / </span>What leaves this device</h2>
         <p>Page and asset requests reach the site host (Vercel). Servers can receive your IP address, browser headers and requested URL. Their logs and retention are not visible here.</p>
         <p>No analytics SDK or advertising pixel is installed in the site code. This is not a guarantee about browser extensions, hosting infrastructure or third-party services.</p>
+        <p>The security feed requests <code>/api/security-feed</code> from this site. The server retrieves public CISA data; your browser does not contact CISA unless you follow a source link. No browser readings are included in the feed request.</p>
         <p>Submitting Contact sends your name, email, company, sector, message and tolerance selection to <strong>Formspree</strong>. This console never reads those values. An older <code>/api/contact</code> endpoint logs messages sent directly to it; the current form does not use it.</p>
         <p>BASE loads a texture from <code>raw.githubusercontent.com</code>; OSP video loads from <code>media.b-tec.org</code>. Those servers receive the corresponding requests. Following external links shares a request with that destination.</p>
       </section>
-      <p className="console-footnote">Your session only. No cross-visitor feed, identity lookup, IP lookup, location permission or added tracking.</p>
+      <p className="console-footnote">Public CVE reports are shared information. Browser readings are your session only. No identity lookup, IP lookup, location permission or added tracking.</p>
     </div>
   </aside>;
 }

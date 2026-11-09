@@ -81,6 +81,15 @@
 .wd-why { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8%; }.wd-why h2, .wd-faq h2 { font-size: clamp(34px,3.4vw,50px); line-height: 1.12; margin-top: 22px; }.wd-why h2 > span, .wd-faq h2 > span { color: var(--muted); }.wd-why-copy { padding-top: 30px; }.wd-why-copy p { color: #b6c9d4; font-size: 15px; line-height: 1.85; margin-bottom: 20px; }.wd-why-copy .technical-note { display: block; margin-top: 28px; font-size: 9px; }
 .wd-faq { border-top: 1px solid var(--line); display: grid; grid-template-columns: .85fr 1.4fr; gap: 8%; }.wd-faq details { border-bottom: 1px solid var(--line); }.wd-faq details:first-child { border-top: 1px solid var(--line); }.wd-faq summary { min-height: 68px; padding: 20px 4px; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 18px; font-size: 15px; line-height: 1.5; }.wd-faq summary::-webkit-details-marker { display: none; }.wd-faq summary > span { color: var(--accent); font-size: 24px; }.wd-faq details[open] summary > span { transform: rotate(45deg); }.wd-faq details p { font-size: 14px; line-height: 1.85; color: #b6c9d4; padding: 0 24px 24px 4px; }
 .wd-final { padding-bottom: 88px; }.wd-final-panel { border: 1px solid #00d4ff55; border-top: 3px solid var(--accent); padding: 50px; background: #0a1b27f5; }.wd-final h2 { font-size: clamp(38px,4.8vw,66px); line-height: 1.08; margin-top: 26px; }.wd-final h2 > span { color: var(--accent); }.wd-final-panel > p:not(.eyebrow) { color: #b6c9d4; font-size: 16px; line-height: 1.8; max-width: 44ch; margin-block: 26px; }
+.wd-platform { border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.2fr; gap: 8%; scroll-margin-top: 100px; }
+.wd-platform h2 { font-size: clamp(34px,3.4vw,50px); line-height: 1.12; margin-block: 22px; }
+.wd-platform h2 > span { color: var(--muted); }
+.wd-platform-copy p { color: #b6c9d4; font-size: 14px; line-height: 1.85; margin-bottom: 20px; }
+.wd-platform-copy a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.wd-security-link { display: inline-block; padding-block: 12px; margin-bottom: 20px; font-size: 14px; line-height: 1.7; }
+.wd-platform-copy .wd-platform-sources { font-size: 12px; }
+.wd-platform a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+@media (max-width: 760px) { .wd-platform { grid-template-columns: 1fr; gap: 24px; }.wd-platform h2 { font-size: 38px; } }
 @media (max-width: 1100px) {
   .wd-hero-grid { gap: 5%; }.wd-hero h1 { font-size: 62px; }.wd-offer { padding: 24px; }.wd-level { padding: 20px; }.wd-stage { padding: 32px; gap: 6%; }.wd-level-name { font-size: 30px; }.wd-connection { gap: 8px; }.wd-connection > div { padding: 20px; }.wd-connection .technical-note { font-size: 8px; }.wd-connection strong { font-size: 23px; }.wd-connection .wd-contact-node strong { font-size: 36px; }
 }
