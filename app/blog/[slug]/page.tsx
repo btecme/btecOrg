@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import Markdown from '@/components/Markdown';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
@@ -73,7 +73,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
                 {/* Content Body */}
                 <div className="prose prose-invert prose-lg max-w-none [&_a]:text-accent [&_a]:no-underline hover:[&_a]:underline">
-                    <MDXRemote source={props.content} />
+                    <Markdown source={props.content} />
                 </div>
 
             </div>

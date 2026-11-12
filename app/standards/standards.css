@@ -1,0 +1,57 @@
+/* Uses the site's shared typography, palette, shell, navigation and focus styles. */
+.standards-page { padding-block: 48px 88px; max-width: 1120px; background: #080e13f5; box-shadow: 0 0 0 16px #080e13f5; border-radius: 4px; }
+.standards-page h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.12; letter-spacing: -.035em; font-weight: 600; }
+.standards-page h2 { font-size: 1.4rem; line-height: 1.35; font-weight: 600; }
+.standards-page p { line-height: 1.8; }
+.standards-page a:not(.standards-list h3 a) { text-decoration: underline; text-underline-offset: .2em; }
+.standards-page a:hover { color: var(--accent); }
+.standards-intro { max-width: 760px; margin-bottom: 52px; }
+.standards-intro h1 { margin: 16px 0 24px; }
+.standards-intro > p:not(.eyebrow) { color: #c2d0d9; margin-block: 18px; }
+.standards-intro .standards-lead { font-size: 1.2rem; }
+.standards-list { list-style: none; margin-top: 22px; border-top: 1px solid var(--line); }
+.standards-list li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; padding-block: 28px; border-bottom: 1px solid var(--line); }
+.standards-list .technical-note { padding-top: 7px; }
+.standards-list h3 { font-size: 1.3rem; font-weight: 500; line-height: 1.5; }
+.standards-list h3 a { display: inline-block; }
+.standards-list h3 span { color: var(--accent); }
+.standards-list p { margin-top: 8px; color: #c2d0d9; }
+.standards-list .standards-meta { font-size: .85rem; color: var(--muted); }
+.standards-note { margin-top: 40px; max-width: 760px; }
+.standards-note p { margin-top: 16px; color: #c2d0d9; }
+.standards-breadcrumb { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-bottom: 36px; color: var(--accent); font-size: .9rem; }
+.standards-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); align-items: start; gap: 48px; }
+.standards-contents { min-width: 0; padding-top: 4px; }
+.standards-contents h2 { font: .75rem var(--font-geist-mono), monospace; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.standards-contents ul { list-style: none; padding: 0; margin-top: 16px; }
+.standards-contents a { display: block; padding-block: 8px; font-size: .85rem; line-height: 1.5; color: #c2d0d9; overflow-wrap: anywhere; }
+.standards-contents .contents-subheading { margin-left: 14px; }
+.standards-article { min-width: 0; color: #d0dce3; overflow-wrap: anywhere; }
+.standards-article > .eyebrow { margin-bottom: 16px; }
+.standards-article h1, .standards-article h2, .standards-article h3 { color: var(--foreground); }
+.standards-article h2 { margin: 40px 0 16px; }
+.standards-article h3 { margin: 28px 0 12px; font-size: 1.15rem; line-height: 1.5; font-weight: 600; }
+.standards-article [id] { scroll-margin-top: 12px; }
+.standards-article p, .standards-article ul, .standards-article ol { margin-block: 18px; }
+.standards-article ul, .standards-article ol { padding-left: 24px; }
+.standards-article ul { list-style: disc; }
+.standards-article ol { list-style: decimal; }
+.standards-article li { padding-left: 4px; margin-block: 10px; line-height: 1.8; }
+.standards-article a { color: var(--accent); }
+.standards-article strong { color: var(--foreground); font-weight: 600; }
+.standards-related { display: grid; gap: 14px; border-top: 1px solid var(--line); margin-top: 48px; padding-top: 28px; }
+.standards-related h2 { font-size: 1rem; }
+.standards-related a { width: fit-content; font-size: .9rem; color: #c2d0d9; }
+.standards-related a[aria-current] { color: var(--accent); }
+@media (max-width: 900px) {
+  .standards-page { padding-block: 32px 64px; }
+  .standards-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .standards-contents { border-block: 1px solid var(--line); padding-block: 20px; }
+  .standards-contents ul { columns: 2; column-gap: 24px; }
+  .standards-contents li { break-inside: avoid; }
+}
+@media (max-width: 540px) {
+  .standards-contents ul { columns: 1; }
+  .standards-list li { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
+  .standards-article h1 { font-size: 2.15rem; }
+}

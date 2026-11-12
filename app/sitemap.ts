@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import type { MetadataRoute } from 'next';
+import { getStandards } from '@/lib/standards';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const postFiles = fs.readdirSync(path.join('posts'));
@@ -25,6 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: 'https://www.b-tec.org/research', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
         { url: 'https://www.b-tec.org/osp', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
         { url: 'https://www.b-tec.org/first-principles', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: 'https://www.b-tec.org/standards', lastModified: new Date(Math.max(...getStandards().map(item => Date.parse(item.reviewed)))), changeFrequency: 'monthly', priority: 0.7 },
+        ...getStandards().map(item => ({ url: `https://www.b-tec.org${item.href}`, lastModified: new Date(item.reviewed), changeFrequency: 'monthly' as const, priority: 0.6 })),
         ...posts,
     ];
 }

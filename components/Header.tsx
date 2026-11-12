@@ -50,6 +50,7 @@ const navItems: NavItem[] = [
         links: [
           { name: 'About', href: '/about' },
           { name: 'First Principles', href: '/first-principles' },
+          { name: 'Standards', href: '/standards' },
         ],
       },
     ],

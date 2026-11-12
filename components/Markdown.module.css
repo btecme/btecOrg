@@ -1,0 +1,6 @@
+.tableScroll { max-width: 100%; overflow-x: auto; margin-block: 24px; border: 1px solid var(--line); border-radius: 4px; }
+.tableScroll table { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.65; }
+.tableScroll th, .tableScroll td { min-width: 140px; padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.tableScroll th { color: var(--foreground); background: #10212d; font-weight: 600; }
+.tableScroll td { background: #0b151de6; }
+.tableScroll tr:last-child td { border-bottom: 0; }
