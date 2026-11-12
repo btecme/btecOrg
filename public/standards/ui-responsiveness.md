@@ -12,7 +12,7 @@ Entry point: [Digital Design Standards](digital-design.md).
 ## Purpose and scope
 
 Make interactions feel immediate while accurately representing real system state.
-Use the relevant patterns for the interaction; do not install six features everywhere.
+Use the relevant patterns for the interaction; do not apply every pattern everywhere.
 Reduce actual latency and unnecessary work alongside perceived latency.
 This guide applies the [Digital Design Standards](digital-design.md) to interactions.
 People and digital agents can use the same guidance for websites, dashboards, and app UIs.
@@ -140,14 +140,16 @@ Measure true latency too: compare request duration, time to usable content, inte
 responsiveness, and layout shift before/after where relevant. Record environment and
 observed results; distinguish verified behavior from assumptions or untested states.
 
-## Source and evidence limit
+## Standards references
 
-Pattern inspiration: verified public captions of
-[Instagram reel DfFcILiBs2D](https://www.instagram.com/reel/DfFcILiBs2D/)
-(six perceived-performance patterns) and
-[Motion Ui Interface reel DfcwOHLh76I](https://www.instagram.com/reel/DfcwOHLh76I/)
-(copy feedback, floating labels, checkout steps, map pins, deletion and photo-viewer motion).
-Source basis for this public edition: captions/metadata reviewed on 2026-11-12;
-neither source received an audiovisual review. Example pixel distances, durations, curves and claimed polish
-are not validated measurements or universal requirements. Treat these as design options to
-validate, not measured guarantees of usability or performance.
+- [W3C Web Content Accessibility Guidelines (WCAG) 2.2](https://www.w3.org/TR/WCAG22/):
+  keyboard access, focus order, labels, contrast, status messages, and interaction-triggered
+  animation. Relevant criteria include 2.1.1, 2.4.3, 3.3.2, 1.4.3, 4.1.3, and 2.3.3.
+- [W3C Accessible Rich Internet Applications (WAI-ARIA) 1.2](https://www.w3.org/TR/wai-aria-1.2/):
+  accessible roles, states, and properties, including `status`, `progressbar`, `aria-busy`,
+  and live-region semantics. Prefer native HTML semantics where available.
+
+These references cover the accessibility requirements relevant to this guide. Pattern
+selection, loading behavior, and motion details are b-tec design guidance, not requirements
+prescribed by those specifications. Validate usability and performance in the actual
+product; citing a standard does not establish conformance or measured results.

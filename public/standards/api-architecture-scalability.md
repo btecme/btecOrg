@@ -99,12 +99,17 @@ For composition, include a slow/failed dependency and bounded fan-out/partial re
 Record before/after measurements, observed limits, and unverified cases; claim scalability
 only within the tested workload and environment. Preserve a practical rollback/recovery path.
 
-## Source and evidence limit
+## Standards references
 
-Public-edition source inspiration: [Instagram reel DfAIT0IOcAq](https://www.instagram.com/reel/DfAIT0IOcAq/),
-@_devoops (Devoops), dated 2026-10-27, “The 7 levels of APIs, explained with one food
-delivery app.” Public caption/metadata verification identified REST, GraphQL, Webhooks,
-SSE, WebSockets, gRPC, and Composition; no video or audio was reviewed.
-Its closing “Start at level one. Climb only when something breaks.” is a rhetorical prompt,
-not this standard's rule: measure need before failure and select alternatives/complements.
-The caption is inspiration, not a specification authority or evidence of performance wins.
+- [IETF RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html):
+  HTTP methods, safe and idempotent operations, status codes, and retry semantics.
+- [IETF RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html):
+  cache controls, freshness, validation, and rules for storing and reusing HTTP responses.
+- [OpenAPI Specification 3.1.1](https://spec.openapis.org/oas/v3.1.1.html):
+  a standard description format for HTTP API operations, parameters, schemas, and responses.
+
+These specifications apply to HTTP behavior and API descriptions within their scope;
+OpenAPI does not prescribe an architecture or prove runtime correctness. Mechanism
+selection, resource limits, and recovery policies remain b-tec engineering guidance to
+validate against each project's needs. Performance and scalability claims require
+measurements from the actual implementation.

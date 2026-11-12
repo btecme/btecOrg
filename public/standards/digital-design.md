@@ -52,8 +52,10 @@ Apply it to new work and relevant edits; verify affected behavior before claimin
 - **Options:** select interaction patterns and architecture mechanisms for actual needs.
   Example timings, distances, and curves are not universal rules.
 - **Future guidance:** coverage gaps are not silently adopted specifications.
-- **Evidence:** distinguish observed behavior, estimates, source inspiration, and unverified
-  claims. A social-media caption is not a technical specification or a performance result.
+- **References:** cite established design, accessibility, and API standards from their
+  official publishers; distinguish their requirements from b-tec implementation guidance.
+- **Evidence:** distinguish observed behavior, estimates, and unverified claims. Referencing
+  a standard does not establish product conformance or measured performance.
 
 ## Maintaining the documentation
 

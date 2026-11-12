@@ -15,6 +15,13 @@ Edit the public Markdown, retaining truthful review dates and source/evidence li
 Do not add a second copy of the article body in page components. Keep public-facing copy
 clear about intended practice versus verified implementation or certification.
 
+Cite only established design, accessibility, and API standards from official publishers
+(for example, W3C Recommendations, IETF standards, and the OpenAPI Specification).
+Do not cite social-media posts, reels, captions, or creator accounts as sources.
+Map each reference to the requirements it actually covers; keep b-tec recommendations
+distinct from specification requirements and avoid implying conformance or performance.
+Keep this policy consistent in rendered pages and raw downloads.
+
 The current collection uses plain-text ATX headings. Heading IDs and the generated
 contents links use GitHub-style slugs. Preserve IDs for linked headings when revising
 titles, or update all referring links deliberately. `components/Markdown.tsx` extends
