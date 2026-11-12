@@ -21,6 +21,9 @@ titles, or update all referring links deliberately. `components/Markdown.tsx` ex
 the existing `next-mdx-remote/rsc` renderer with GFM tables and heading IDs. Standard
 links ending in one of the three allowlisted `.md` names are rewritten to rendered
 routes while preserving fragments; raw files keep their relative Markdown links.
+Canonical links to the collection landing page and First Principles become same-host
+paths when rendered, so review previews do not send readers to production anchors.
+The raw files retain absolute canonical URLs for standalone readers.
 
 These are reviewed, repository-owned documents, not user-submitted MDX. Do not connect
 this renderer directly to arbitrary untrusted input.

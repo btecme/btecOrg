@@ -6,6 +6,11 @@ import styles from './Markdown.module.css';
 
 function standardHref(href: string | undefined) {
   if (!href) return href;
+  // Canonical links stay portable in raw Markdown; rendered navigation stays
+  // on the current host, including review previews with new heading targets.
+  if (/^https:\/\/www\.b-tec\.org\/(?:standards|first-principles)(?:#|$)/.test(href)) {
+    return href.slice('https://www.b-tec.org'.length);
+  }
   // Only the three public documents may become rendered standards links.
   return href.replace(/^(?:\.\/)?(digital-design|ui-responsiveness|api-architecture-scalability)\.md(?=#|$)/, '/standards/$1');
 }
