@@ -23,26 +23,32 @@ export const metadata: Metadata = {
 
 const derived = [
   {
+    id: 'start-with-reality',
     title: 'Start With Reality',
     body: "A well-defined problem is half solved. Before choosing technology, we define what success actually looks like, and we ask three plain questions: is it true, does it work, what does it cost. We try to understand existing workflows, habits, and constraints without judgment. Technology should follow problem definition, not precede it.",
   },
   {
+    id: 'prefer-simplicity-not-simplism',
     title: 'Prefer Simplicity, Not Simplism',
     body: 'Do more with less. Reduce unnecessary dependencies, add redundancy where the cost of failure justifies it, and keep a reliable source of truth. Documentation should be minimal, practical, and centralized. Good systems reduce complexity without pretending complexity does not exist, and they should be understandable by whoever inherits them tomorrow.',
   },
   {
+    id: 'design-for-change-and-failure',
     title: 'Design for Change and Failure',
     body: "Systems degrade. People change, organizations change, vendors change, requirements change, and failures eventually happen. So we plan for degradation, design for recovery, preserve portability, and monitor what actually matters. Downtime may be inevitable. Recovery time is designable.",
   },
   {
+    id: 'ship-learn-improve',
     title: 'Ship, Learn, Improve',
     body: 'Perfect is not a useful target. We build the smallest safe, useful system, put it into real use, and observe what happens. User feedback reveals needs that planning cannot. Reversible decisions move fast; irreversible ones get more care. Analysis paralysis has a cost too.',
   },
   {
+    id: 'automate-what-should-exist',
     title: 'Automate What Should Exist',
     body: "Automation is a force multiplier. It magnifies good workflows and dysfunctional ones equally, so we fix the workflow before automating it, and structure the data before asking automation or digital intelligence to reason over it. Deterministic software, automation, probabilistic digital intelligence, autonomous agents, and human judgment each have an appropriate role. There are no magic buttons.",
   },
   {
+    id: 'design-for-independence',
     title: 'Design for Independence',
     body: "Users and organizations should retain meaningful control over the systems their businesses depend on: data portability, understandable architecture, replaceable infrastructure, and credible exit paths. Software should serve the business. Portability is a feature. Exit should be considered during architecture, not during a breakup.",
   },
@@ -109,7 +115,7 @@ export default function FirstPrinciplesPage() {
 
           <div className="grid md:grid-cols-2 gap-10 md:gap-8 max-w-3xl mx-auto pt-10 border-t border-white/10">
             <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3">Transparency</h3>
+              <h3 id="transparency" className="text-xl md:text-2xl font-bold mb-3">Transparency</h3>
               <p className="text-foreground/70 leading-relaxed">
                 Systems should be understandable: how something works, what it costs, where the data
                 lives, what assumptions were made, what limitations remain. Show the work. Where practical,
@@ -142,7 +148,7 @@ export default function FirstPrinciplesPage() {
         <div className="space-y-10">
           {derived.map((d) => (
             <div key={d.title} className="pb-10 border-b border-white/5 last:border-0 last:pb-0">
-              <h3 className="text-lg md:text-xl font-bold mb-3 text-foreground">{d.title}</h3>
+              <h3 id={d.id} className="text-lg md:text-xl font-bold mb-3 text-foreground">{d.title}</h3>
               <p className="text-foreground/70 leading-relaxed">{d.body}</p>
             </div>
           ))}

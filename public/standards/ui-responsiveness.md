@@ -14,13 +14,12 @@ Entry point: [Digital Design Standards](digital-design.md).
 Make interactions feel immediate while accurately representing real system state.
 Use the relevant patterns for the interaction; do not install six features everywhere.
 Reduce actual latency and unnecessary work alongside perceived latency.
-This guide is the interaction standard indexed by [Digital Design Standards](digital-design.md).
+This guide applies the [Digital Design Standards](digital-design.md) to interactions.
 People and digital agents can use the same guidance for websites, dashboards, and app UIs.
 Project-specific implementation details belong in that project's documentation.
 
-Apply this standard to new UI work and relevant edits. Existing products need explicit
-implementation and verification before claiming coverage. Publishing guidance is not proof
-that an interface implements it, and this standard is not a compliance certification.
+Apply this standard to new UI work and relevant edits; verify affected behavior before
+claiming implementation.
 
 ## Interaction contract
 

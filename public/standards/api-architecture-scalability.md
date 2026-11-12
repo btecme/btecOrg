@@ -17,8 +17,7 @@ Choose the simplest architecture that meets the actual product and operational n
 Apply this guide to new API decisions and relevant changes; it does not mandate migrations.
 Keep an existing, adequate stack unless measured constraints justify added complexity.
 Protocols are alternatives and complements, not successive levels of engineering maturity.
-This standard describes intended practice, not a certification or proof of implementation,
-deployment, or runtime verification in any existing product.
+This is intended practice; verify implementation and runtime behavior for each product.
 Keep project-specific contracts, budgets, decisions, and evidence in the project's docs.
 
 ## Measure before optimizing
