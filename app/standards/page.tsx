@@ -22,6 +22,10 @@ export default function StandardsPage() {
       <p className="standards-lead">A living view of how btec designs and builds digital products. Practical guidance you can read, question, and see evolve as we learn.</p>
       <p>These are working principles, not a certification or a claim that every existing product already conforms. We apply relevant guidance to new work and changes, then verify the affected behavior.</p>
     </header>
+    <section className="standards-foundation" aria-labelledby="first-principles">
+      <h2 id="first-principles"><Link href="/first-principles">First Principles <span aria-hidden="true">↗</span></Link></h2>
+      <p>The thinking behind our working standards: how we approach technology, design, and the people using what we build.</p>
+    </section>
     <section aria-labelledby="current-standards">
       <h2 id="current-standards">Current standards</h2>
       <ol className="standards-list">{standards.map((standard, index) => <li key={standard.slug}>
@@ -35,7 +39,7 @@ export default function StandardsPage() {
     <section className="standards-note" aria-labelledby="reading-standards">
       <h2 id="reading-standards">Read them as a working practice</h2>
       <p>Start with Digital Design Standards, then explore interaction and API guidance as needed. Requirements, optional patterns, future coverage, and verified evidence are kept distinct. Each document includes its review date and any source limitations.</p>
-      <p>Our <Link href="/first-principles">First Principles</Link> explain the thinking behind this practice. <Link href="/contact">Talk with us</Link> about what it means for your product.</p>
+      <p><Link href="/contact">Talk with us</Link> about what it means for your product.</p>
     </section>
   </div>;
 }
