@@ -19,7 +19,7 @@ export default function StandardsPage() {
     <header className="standards-intro">
       <p className="eyebrow">How we build</p>
       <h1>Standards, in the open.</h1>
-      <p className="standards-lead">A living view of how b-tec designs and builds digital products. Practical guidance you can read, question, and see evolve as we learn.</p>
+      <p className="standards-lead">A living view of how b-tec designs and builds digital products. Practical guidance you can read, question, and see evolve as we grow.</p>
       <p>These are working principles, not a certification, an audit, or a claim that every existing product already conforms. We apply relevant guidance to new work and changes, then verify the affected behavior.</p>
     </header>
     <section aria-labelledby="current-standards">
@@ -28,7 +28,7 @@ export default function StandardsPage() {
         <li value={0}>
           <span className="technical-note" aria-hidden="true">00</span>
           <div><h3 id="first-principles"><Link href="/first-principles">First Principles <span aria-hidden="true">↗</span></Link></h3>
-            <p>The thinking behind our working standards: how we approach technology, design, and the people using what we build.</p>
+            <p>The thinking behind our working standards: how we approach technology, design, and the people and agents using what we build.</p>
           </div>
         </li>
         {standards.map((standard, index) => <li key={standard.slug}>
