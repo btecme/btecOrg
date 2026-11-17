@@ -4,16 +4,16 @@
 .homepage-candidate .hp-topline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 16px; border-top: 1px solid var(--line); }
 .homepage-candidate h1 { max-width: 20ch; margin-top: 34px; font-size: clamp(42px, 4.6vw, 70px); font-weight: 450; line-height: 1.06; letter-spacing: -.05em; }
 .homepage-candidate h1 span { color: var(--accent); }
-.homepage-candidate .hp-intro { max-width: 640px; margin: 24px 0 28px; font-size: 17px; line-height: 1.7; color: #c2cdd5; }
+.homepage-candidate .hp-intro { max-width: 640px; margin: 24px 0 28px; font-size: 17px; line-height: 1.7; color: var(--text-secondary, #c2cdd5); }
 .homepage-candidate .hp-starting-points { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 36px; padding-block: 16px; border-block: 1px solid var(--line); }
-.homepage-candidate .hp-starting-points a { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; font-size: 13px; color: #c2cdd5; }
+.homepage-candidate .hp-starting-points a { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; font-size: 13px; color: var(--text-secondary, #c2cdd5); }
 .homepage-candidate .hp-starting-points a span { color: var(--accent); }
 .homepage-candidate .hp-starting-points a:hover { color: var(--accent); }
 .homepage-candidate .hp-section { padding-block: 76px; }
 .homepage-candidate .hp-service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.homepage-candidate .hp-service { min-width: 0; display: flex; flex-direction: column; padding: 28px; background: #0b1720ed; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); scroll-margin-top: 120px; }
+.homepage-candidate .hp-service { min-width: 0; display: flex; flex-direction: column; padding: 28px; background: var(--surface, #0b1720ed); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); scroll-margin-top: 120px; }
 .homepage-candidate .hp-service h3 { font-size: 25px; line-height: 1.2; letter-spacing: -.025em; font-weight: 500; margin: 24px 0 20px; }
-.homepage-candidate .hp-problem { color: #edf4f7; font-size: 16px; line-height: 1.55; margin-bottom: 16px; }
+.homepage-candidate .hp-problem { color: var(--text-strong, #edf4f7); font-size: 16px; line-height: 1.55; margin-bottom: 16px; }
 .homepage-candidate .hp-service-description { color: var(--muted); font-size: 14px; line-height: 1.8; margin-bottom: 28px; }
 .homepage-candidate .hp-service-links { margin-top: auto; display: grid; gap: 8px; }
 .homepage-candidate .hp-service-links .button-text { gap: 12px; font-size: 12px; }
@@ -21,7 +21,7 @@
 .homepage-candidate .hp-related:hover { color: var(--accent); }
 .homepage-candidate .hp-service-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 24px; }
 .homepage-candidate .hp-service-foot p { max-width: 540px; font-size: 14px; line-height: 1.7; color: var(--muted); }
-.homepage-candidate .hp-evidence-band { border-block: 1px solid var(--line); background: #0b1720c9; }
+.homepage-candidate .hp-evidence-band { border-block: 1px solid var(--line); background: var(--surface-soft, #0b1720c9); }
 .homepage-candidate .hp-evidence-grid, .homepage-candidate .hp-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
 .homepage-candidate .hp-evidence-grid article { display: flex; flex-direction: column; align-items: flex-start; }
 .homepage-candidate .hp-evidence-label { font: 10px/1.7 var(--font-geist-mono), monospace; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); }
@@ -41,7 +41,7 @@
 .homepage-candidate .hp-closing { padding-block: 12px 88px; }
 .homepage-candidate .hp-closing h2 { font-size: clamp(42px, 5vw, 68px); font-weight: 450; line-height: 1.06; letter-spacing: -.05em; margin: 24px 0; }
 .homepage-candidate .hp-closing h2 span { color: var(--accent); }
-.homepage-candidate .hp-closing > p:not(.eyebrow) { color: #c2cdd5; max-width: 580px; font-size: 16px; line-height: 1.75; margin-bottom: 28px; }
+.homepage-candidate .hp-closing > p:not(.eyebrow) { color: var(--text-secondary, #c2cdd5); max-width: 580px; font-size: 16px; line-height: 1.75; margin-bottom: 28px; }
 @container (max-width: 880px) {
   .homepage-candidate .hp-service-grid { grid-template-columns: 1fr; }
   .homepage-candidate .hp-service { padding: 28px; }

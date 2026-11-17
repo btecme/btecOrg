@@ -48,7 +48,9 @@ export default function ParallaxBackground() {
             const scrollY = window.scrollY;
 
             particles.forEach((p) => {
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                ctx.fillStyle = document.documentElement.dataset.theme === 'light'
+                    ? `rgba(0, 90, 120, ${p.opacity * .45})`
+                    : `rgba(255, 255, 255, ${p.opacity})`;
 
                 // Move particles slowly upward
                 p.y -= p.speed;

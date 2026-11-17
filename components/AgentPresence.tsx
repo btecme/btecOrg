@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import AppearanceControl from './AppearanceControl';
 
 type Vector = { x: number; y: number; z: number };
 type Panel = { points: Vector[]; light: number };
@@ -158,6 +159,7 @@ export default function AgentPresence() {
     function render(time = performance.now()) {
       if (!ctx || !canvas || !root || staticFallback) return;
       ctx.clearRect(0, 0, width, height);
+      const lightTheme = document.documentElement.dataset.theme === 'light';
       const scale = Math.min(height * .235, width * (width < 641 ? .55 : .26));
       const { x: cx, y: cy } = center();
       const yaw = x, pitch = y;
@@ -177,7 +179,7 @@ export default function AgentPresence() {
       ctx.save();
       // Soft light spill separates the obsidian bust from the page's dark ground.
       const atmosphere = ctx.createRadialGradient(cx, cy, scale * .45, cx, cy, scale * 2.5);
-      atmosphere.addColorStop(0, 'rgba(0,151,229,.10)'); atmosphere.addColorStop(1, 'rgba(0,118,229,0)');
+      atmosphere.addColorStop(0, lightTheme ? 'rgba(0,112,145,.06)' : 'rgba(0,151,229,.10)'); atmosphere.addColorStop(1, 'rgba(0,118,229,0)');
       ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
       // Matte cloth has a broad softbox highlight, restrained cyan bounce and
       // a brighter folded collar edge. Depth sorting keeps the layers attached
@@ -222,7 +224,7 @@ export default function AgentPresence() {
         ctx.fill(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = .6; ctx.stroke();
       }
       outline(bezel);
-      ctx.fillStyle = '#030e17'; ctx.fill();
+      ctx.fillStyle = lightTheme ? '#244453' : '#030e17'; ctx.fill();
       ctx.strokeStyle = 'rgba(85,200,245,.18)'; ctx.lineWidth = scale * .022; ctx.stroke();
       outline(screen);
       const glass = ctx.createLinearGradient(cx - scale * .7, cy - scale * 1.1, cx + scale * .7, cy + scale * 1.1);
@@ -364,11 +366,19 @@ export default function AgentPresence() {
       try { localStorage.setItem(storageKey, motionChoice ? 'on' : 'off'); } catch { /* Optional persistence. */ }
       preference();
     }
+    function resetMotionPreference() {
+      motionChoice = null;
+      try { localStorage.removeItem(storageKey); } catch { /* Current-page reset still works. */ }
+      preference();
+    }
+    function repaintTheme() { render(); }
     function visibility() {
       window.clearTimeout(glitchTimer); glitchTimer = 0; glitchStart = 0;
       if (document.hidden) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; }
       else { schedule(); queueGlitch(); }
     }
+    window.addEventListener('btec-reset-motion', resetMotionPreference);
+    window.addEventListener('btec-appearance-change', repaintTheme);
     window.addEventListener('pointermove', pointer, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', resize);
@@ -383,6 +393,8 @@ export default function AgentPresence() {
     return () => {
       cancelAnimationFrame(frame); window.clearTimeout(glitchTimer);
       sizeObserver.disconnect();
+      window.removeEventListener('btec-reset-motion', resetMotionPreference);
+      window.removeEventListener('btec-appearance-change', repaintTheme);
       window.removeEventListener('pointermove', pointer); window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', resize); window.removeEventListener('blur', reset);
       document.documentElement.removeEventListener('pointerleave', reset); document.removeEventListener('visibilitychange', visibility);
@@ -407,6 +419,9 @@ export default function AgentPresence() {
     </svg>
     <canvas className="agent-canvas" ref={canvasRef} />
   </div>
+    <div className="site-preferences-toolbar" role="group" aria-label="Site preferences">
+    <AppearanceControl />
     <button className="agent-motion-control" ref={motionButtonRef} type="button" hidden aria-label="Enable background motion" aria-pressed="false">Motion: off</button>
+    </div>
   </>;
 }

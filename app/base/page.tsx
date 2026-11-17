@@ -8,7 +8,7 @@ export default function BasePage() {
             <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
                 <BaseHero />
 
-                <div className="relative z-10 text-center px-6 pointer-events-none mix-blend-exclusion">
+                <div className="base-hero-copy relative z-10 text-center px-6 pointer-events-none mix-blend-exclusion">
                     <h1 className="text-6xl md:text-9xl font-extrabold tracking-tighter mb-4 uppercase">BASE</h1>
                     <p className="text-xl md:text-2xl font-medium tracking-[0.2em] text-accent/80 uppercase mb-8">
                         Your intelligence. Your infrastructure.

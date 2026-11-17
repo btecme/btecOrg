@@ -11,7 +11,7 @@ export default function AlignmentHero() {
 
         const container = containerRef.current;
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#000000');
+        scene.background = new THREE.Color(document.documentElement.dataset.theme === 'light' ? '#f3f6f7' : '#000000');
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.z = 30;
@@ -160,9 +160,15 @@ export default function AlignmentHero() {
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         };
+        const repaintTheme = () => {
+            scene.background = new THREE.Color(document.documentElement.dataset.theme === 'light' ? '#f3f6f7' : '#000000');
+            renderer.render(scene, camera);
+        };
+        window.addEventListener('btec-appearance-change', repaintTheme);
         window.addEventListener('resize', handleResize);
 
         return () => {
+            window.removeEventListener('btec-appearance-change', repaintTheme);
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationId);
             if (container && container.contains(renderer.domElement)) {

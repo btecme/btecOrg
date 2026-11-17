@@ -155,7 +155,7 @@ export default function Contact() {
               </div>
             </fieldset>
 
-            <p className="contact-privacy">Your inquiry is sent to Formspree to handle this form. This form does not save a draft in your browser.</p>
+            <p className="contact-privacy">Your inquiry is sent to Formspree to handle this form. This form does not save a draft in your browser. <a href="/privacy">Privacy &amp; Site Preferences</a>.</p>
             <button type="submit" className="button-primary contact-submit" disabled={status === 'submitting'}>
               {status === 'submitting' ? 'Sending…' : 'Send inquiry'} <span aria-hidden="true">↗</span>
             </button>

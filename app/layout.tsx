@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import "./appearance.css";
+import { appearanceBootstrap } from "@/lib/appearance";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AgentPresence from "@/components/AgentPresence";
@@ -35,7 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head><script id="appearance-bootstrap" dangerouslySetInnerHTML={{ __html: appearanceBootstrap }} /></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} antialiased min-h-screen flex flex-col`}
       >

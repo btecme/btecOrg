@@ -7,6 +7,6 @@ import TransparencyConsole from './TransparencyConsole';
  * and focus order. Other routes retain their existing placement. */
 export default function PageTransparency({ position }: { position: 'before' | 'after' }) {
   const pathname = usePathname();
-  const contentFirst = pathname === '/' || pathname === '/contact';
+  const contentFirst = pathname === '/' || pathname === '/contact' || pathname === '/privacy';
   return (position === 'after') === contentFirst ? <TransparencyConsole /> : null;
 }

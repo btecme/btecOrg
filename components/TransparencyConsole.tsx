@@ -20,9 +20,14 @@ export default function TransparencyConsole() {
         heading?.scrollIntoView({ block: 'nearest' });
       });
     };
-    const onHash = () => { if (window.location.hash === '#console-security') revealSecurity(); };
+    const onHash = () => { if (window.location.hash === '#console-security') revealSecurity();
+      if (window.location.hash === '#data-console') setOpen(true); };
     const onClick = (event: MouseEvent) => {
       if (event.target instanceof Element && event.target.closest('a[href="#console-security"]')) revealSecurity();
+      if (event.target instanceof Element && event.target.closest('a[href="#data-console"]')) {
+        setOpen(true);
+        requestAnimationFrame(() => document.getElementById('data-console')?.focus());
+      }
     };
     onHash();
     window.addEventListener('hashchange', onHash);
@@ -76,7 +81,7 @@ export default function TransparencyConsole() {
     return () => { observer?.disconnect(); clearInterval(timer); window.removeEventListener('pointermove', onPointer); };
   }, []);
 
-  return <aside className="transparency-console" data-open={open} aria-label="Data transparency console">
+  return <aside id="data-console" tabIndex={-1} className="transparency-console" data-open={open} aria-label="Data transparency console">
     <div className="transparency-heading">
       <button type="button" aria-expanded={open} aria-controls="transparency-content" onClick={() => setOpen(!open)}>
         <span aria-hidden="true">&gt;_ </span>Data console <span aria-hidden="true">{open ? '−' : '+'}</span>
@@ -99,7 +104,7 @@ export default function TransparencyConsole() {
           <div><dt>Scroll</dt><dd>{snapshot?.scroll ?? '0 px'}</dd></div>
           <div><dt>Motion</dt><dd>{snapshot?.motion ?? 'On by default'}</dd></div>
         </dl>
-        <p>Pointer and scroll drive the background locally. Only your motion choice is saved by this feature, under <code>btec-background-motion</code>. No visit history or console readings are saved.</p>
+        <p>Pointer and scroll drive the background locally. Motion uses <code>btec-background-motion</code>; an explicit Light or Dark choice uses <code>btec-appearance</code>. System removes the appearance override. No visit history or console readings are saved by these controls.</p>
       </section>
       <section>
         <h2><span aria-hidden="true">03 / </span>Network activity</h2>
@@ -115,6 +120,7 @@ export default function TransparencyConsole() {
         <p>Submitting Contact sends your name, email, message and any company or service selection to <strong>Formspree</strong>. This console never reads those values. An older <code>/api/contact</code> endpoint logs messages sent directly to it; the current form does not use it.</p>
         <p>BASE loads a texture from <code>raw.githubusercontent.com</code>; OSP video loads from <code>media.b-tec.org</code>. Those servers receive the corresponding requests. Following external links shares a request with that destination.</p>
       </section>
+      <p><a href="/privacy">Privacy &amp; Site Preferences</a> · storage, requests and resetting choices.</p>
       <p className="console-footnote">Public CVE reports are shared information. Browser readings are your session only. No identity lookup, IP lookup, location permission or added tracking.</p>
     </div>
   </aside>;

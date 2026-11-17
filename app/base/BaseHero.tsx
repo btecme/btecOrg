@@ -17,7 +17,7 @@ export default function BaseHero() {
 
         const container = containerRef.current;
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#000000'); // Or transparent if we want to blend
+        scene.background = new THREE.Color(document.documentElement.dataset.theme === 'light' ? '#f3f6f7' : '#000000');
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.z = 6;
@@ -132,11 +132,14 @@ export default function BaseHero() {
       precision highp float;
       varying float vLight;
       varying vec3 vColor;
+      uniform float uPaper;
 
       void main() {
           vec2 coord = gl_PointCoord - vec2(0.5);
           if (length(coord) > 0.5) discard;
-          gl_FragColor = vec4(vColor * (0.6 + 0.4 * vLight), 1.0);
+          // Light theme fades points toward the paper ground so hero copy stays legible.
+          vec3 lit = vColor * (0.6 + 0.4 * vLight);
+          gl_FragColor = vec4(mix(lit, vec3(0.953, 0.965, 0.969), uPaper * 0.5), 1.0);
       }
     `;
 
@@ -160,7 +163,8 @@ export default function BaseHero() {
                 uTime: { value: 0 },
                 uMorph: { value: 0 },
                 uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-                uEarthMap: { value: earthMap }
+                uEarthMap: { value: earthMap },
+                uPaper: { value: document.documentElement.dataset.theme === 'light' ? 1 : 0 }
             },
             transparent: true,
             blending: THREE.NormalBlending,
@@ -194,9 +198,17 @@ export default function BaseHero() {
             renderer.setSize(window.innerWidth, window.innerHeight);
             material.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
         };
+        const repaintTheme = () => {
+            const light = document.documentElement.dataset.theme === 'light';
+            scene.background = new THREE.Color(light ? '#f3f6f7' : '#000000');
+            material.uniforms.uPaper.value = light ? 1 : 0;
+            renderer.render(scene, camera);
+        };
+        window.addEventListener('btec-appearance-change', repaintTheme);
         window.addEventListener('resize', handleResize);
 
         return () => {
+            window.removeEventListener('btec-appearance-change', repaintTheme);
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationId);
             if (container && container.contains(renderer.domElement)) {
