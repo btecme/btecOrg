@@ -1,0 +1,55 @@
+▲ Next.js 16.4.6 (webpack)
+✓ Running next.config.ts took 43ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.8s
+  Running TypeScript ...
+  Finished TypeScript in 2.4s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/42) ...
+  Generating static pages using 3 workers (10/42) 
+Failed to set Next.js data cache for https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json, items over 2MB can not be cached (2473723 bytes)
+  Generating static pages using 3 workers (20/42) 
+  Generating static pages using 3 workers (31/42) 
+✓ Generating static pages using 3 workers (42/42) in 1347ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)                                     Revalidate  Expire
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /alignment
+├ ƒ /api/contact
+├ ƒ /api/posts
+├ ○ /api/security-feed                                  1h      1y
+├ ○ /base
+├ ○ /bdf
+├ ○ /blog
+├   /blog/[slug]
+│ ├ ● /blog/AiAgentAmnesia-Part1
+│ ├ ● /blog/AiAgentAmnesia-Part2
+│ ├ ● /blog/CheckYourIllusions
+│ └ ● [+12 more paths]
+├ ○ /contact
+├ ○ /first-principles
+├ ○ /icon.png
+├ ○ /member-portal
+├ ○ /osp
+├ ○ /research
+├ ○ /services
+├ ○ /services/websites-domains
+├ ○ /services/websites-domains/opengraph-image
+├ ○ /show
+├ ○ /sitemap.xml
+├ ○ /standards
+└   /standards/[slug]
+  ├ ● /standards/digital-design
+  ├ ● /standards/ui-responsiveness
+  └ ● /standards/api-architecture-scalability
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

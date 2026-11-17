@@ -1,0 +1,128 @@
+[
+  {
+    "engine": "chromium",
+    "widths": [
+      320,
+      390,
+      768,
+      900,
+      1024,
+      1280,
+      1440,
+      1660
+    ],
+    "mockedRequests": 23,
+    "states": [
+      "422",
+      "429",
+      "500",
+      "network",
+      "malformed",
+      "false-ok",
+      "timeout"
+    ],
+    "accessibility": [
+      {
+        "state": "idle",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "state": "invalid",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "state": "error",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "state": "success",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      }
+    ],
+    "keyboard": true,
+    "duplicateProtection": true,
+    "payload": true,
+    "runtime": [],
+    "storage": {
+      "session": [],
+      "local": [
+        "btec-background-motion"
+      ]
+    }
+  },
+  {
+    "engine": "firefox",
+    "widths": [
+      320,
+      390,
+      768,
+      900,
+      1024,
+      1280,
+      1440,
+      1660
+    ],
+    "mockedRequests": 23,
+    "states": [
+      "422",
+      "429",
+      "500",
+      "network",
+      "malformed",
+      "false-ok",
+      "timeout"
+    ],
+    "accessibility": [
+      {
+        "state": "idle",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "state": "invalid",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "state": "error",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "state": "success",
+        "violations": [],
+        "incomplete": [
+          "color-contrast"
+        ]
+      }
+    ],
+    "keyboard": true,
+    "duplicateProtection": true,
+    "payload": true,
+    "runtime": [],
+    "storage": {
+      "session": [],
+      "local": [
+        "btec-background-motion"
+      ]
+    }
+  }
+]

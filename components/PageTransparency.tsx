@@ -3,9 +3,10 @@
 import { usePathname } from 'next/navigation';
 import TransparencyConsole from './TransparencyConsole';
 
-/** Keep the homepage's complementary console after its content in DOM and focus
- * order. Other routes retain their existing before-content placement. */
+/** Keep homepage and Contact content before the complementary console in DOM
+ * and focus order. Other routes retain their existing placement. */
 export default function PageTransparency({ position }: { position: 'before' | 'after' }) {
-  const home = usePathname() === '/';
-  return (position === 'after') === home ? <TransparencyConsole /> : null;
+  const pathname = usePathname();
+  const contentFirst = pathname === '/' || pathname === '/contact';
+  return (position === 'after') === contentFirst ? <TransparencyConsole /> : null;
 }

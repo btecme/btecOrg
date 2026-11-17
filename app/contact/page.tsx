@@ -1,161 +1,182 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import './contact.css';
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mpwvjvvv';
+const REQUEST_TIMEOUT_MS = 15000;
+const emptyForm = { name: '', email: '', company: '', service: '', fix: '' };
+const serviceChoices = [
+  'Business IT & Support',
+  'Modernization & Advisory',
+  'Property & Owner Services',
+  'Something else / Not sure',
+];
+type RequiredField = 'name' | 'email' | 'fix';
+type Status = 'idle' | 'submitting' | 'success' | 'rejected' | 'unconfirmed';
 
 export default function Contact() {
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mpwvjvvv";
+  const [formData, setFormData] = useState(emptyForm);
+  const [errors, setErrors] = useState<Partial<Record<RequiredField, string>>>({});
+  const [status, setStatus] = useState<Status>('idle');
+  const [timedOut, setTimedOut] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  const firstInputRef = useRef<HTMLInputElement>(null);
+  const sendingRef = useRef(false);
+  const controllerRef = useRef<AbortController | null>(null);
 
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        company: '',
-        sector: 'Technology',
-        fix: '',
-        tolerance: 'Medium',
-    });
-    const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  useEffect(() => () => {
+    controllerRef.current?.abort();
+    controllerRef.current = null;
+  }, []);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setStatus('submitting');
+  useEffect(() => {
+    if (status === 'success' || status === 'rejected' || status === 'unconfirmed') {
+      resultRef.current?.focus();
+    }
+  }, [status]);
 
-        try {
-            // We fetch directly to Formspree now
-            const res = await fetch(FORMSPREE_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json' // Crucial: Tells Formspree to return JSON, not redirect
-                },
-                body: JSON.stringify(formData),
-            });
+  function changeField(field: keyof typeof emptyForm, value: string) {
+    setFormData(current => ({ ...current, [field]: value }));
+    setErrors(current => ({ ...current, [field]: undefined }));
+  }
 
-            if (res.ok) {
-                setStatus('success');
-                setFormData({ name: '', email: '', company: '', sector: 'Technology', fix: '', tolerance: 'Medium' });
-            } else {
-                setStatus('error');
-            }
-        } catch {
-            setStatus('error');
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (sendingRef.current) return;
+
+    const nextErrors: Partial<Record<RequiredField, string>> = {};
+    if (!formData.name.trim()) nextErrors.name = 'Enter your name.';
+    const emailInput = formRef.current?.elements.namedItem('email') as HTMLInputElement;
+    if (!formData.email.trim() || !emailInput.validity.valid) nextErrors.email = 'Enter a valid email address.';
+    if (!formData.fix.trim()) nextErrors.fix = 'Add a short description of what you need.';
+    setErrors(nextErrors);
+    const firstInvalid = (['name', 'email', 'fix'] as const).find(field => nextErrors[field]);
+    if (firstInvalid) {
+      (formRef.current?.elements.namedItem(firstInvalid) as HTMLElement)?.focus();
+      return;
+    }
+
+    sendingRef.current = true;
+    setStatus('submitting');
+    setTimedOut(false);
+    const controller = new AbortController();
+    controllerRef.current = controller;
+    const timer = window.setTimeout(() => {
+      setTimedOut(true);
+      controller.abort();
+    }, REQUEST_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        // Keep the legacy message key and field shape for existing consumers.
+        // Removed qualification answers stay blank, rather than inventing defaults.
+        body: JSON.stringify({ ...formData, sector: '', tolerance: '' }),
+        signal: controller.signal,
+      });
+      if (!response.ok) {
+        setStatus('rejected');
+      } else {
+        const result = await response.json();
+        if (controller.signal.aborted) {
+          setStatus('unconfirmed');
+          return;
         }
-    };
+        // A positive provider acknowledgement is not proof of inbox delivery.
+        setStatus(result.ok === true ? 'success' : 'unconfirmed');
+        if (result.ok === true) setFormData(emptyForm);
+      }
+    } catch {
+      if (controllerRef.current === controller) setStatus('unconfirmed');
+    } finally {
+      window.clearTimeout(timer);
+      if (controllerRef.current === controller) {
+        controllerRef.current = null;
+        sendingRef.current = false;
+      }
+    }
+  }
 
-    return (
-        <div className="container mx-auto px-6 py-20">
-            <div className="max-w-2xl mx-auto">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact</h1>
-                <p className="text-xl text-foreground/60 mb-12">
-                    Serious inquiries only. Tell us what you&apos;re trying to build or fix.
-                </p>
+  return (
+    <section className="site-shell contact-page" aria-labelledby="contact-title">
+      <header className="contact-intro">
+        <p className="eyebrow">Start a conversation</p>
+        <h1 id="contact-title">Tell us what you need</h1>
+        <p>Tell us what you want to fix, build, or improve. You do not need a finished brief to get started.</p>
+      </header>
 
-                {status === 'success' ? (
-                    <div className="p-8 rounded-2xl bg-green-500/10 border border-green-500/20 text-center">
-                        <h3 className="text-2xl font-bold text-green-500 mb-4">Message Received</h3>
-                        <p className="text-foreground/80">
-                            Thank you for reaching out. We will review your inquiry and get back to you shortly.
-                        </p>
-                        <button
-                            onClick={() => setStatus('idle')}
-                            className="mt-6 px-6 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm font-bold transition-colors"
-                        >
-                            Send another message
-                        </button>
-                    </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-foreground/80">Name</label>
-                                <input
-                                    type="text"
-                                    name="name" // Added name attributes for safety
-                                    required
-                                    className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-foreground/80">Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                />
-                            </div>
-                        </div>
+      <div className="contact-panel">
+        {status === 'success' ? (
+          <div ref={resultRef} tabIndex={-1} className="contact-result contact-success" role="status">
+            <p className="eyebrow">Inquiry submitted</p>
+            <h2>Thank you for getting in touch.</h2>
+            <p>Formspree has accepted your inquiry. This confirms submission, not delivery to our inbox.</p>
+            <button type="button" className="button-text" onClick={() => {
+              setStatus('idle');
+              requestAnimationFrame(() => firstInputRef.current?.focus());
+            }}>Send another inquiry <span aria-hidden="true">→</span></button>
+          </div>
+        ) : (
+          <form ref={formRef} onSubmit={handleSubmit} noValidate aria-label="Contact inquiry">
+            <p className="contact-required-note">Name, email, and a short description are required. Everything else is optional.</p>
+            <fieldset disabled={status === 'submitting'}>
+              <legend className="sr-only">Your inquiry</legend>
+              <div className="contact-fields">
+                <div className="contact-field">
+                  <label htmlFor="contact-name">Name <span>(required)</span></label>
+                  <input ref={firstInputRef} id="contact-name" name="name" autoComplete="name" required value={formData.name} onChange={e => changeField('name', e.target.value)} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'contact-name-error' : undefined} />
+                  {errors.name && <p id="contact-name-error" className="contact-field-error">{errors.name}</p>}
+                </div>
+                <div className="contact-field">
+                  <label htmlFor="contact-email">Email <span>(required)</span></label>
+                  <input id="contact-email" name="email" type="email" autoComplete="email" required value={formData.email} onChange={e => changeField('email', e.target.value)} aria-invalid={!!errors.email} aria-describedby={errors.email ? 'contact-email-error' : undefined} />
+                  {errors.email && <p id="contact-email-error" className="contact-field-error">{errors.email}</p>}
+                </div>
+                <div className="contact-field contact-full-width">
+                  <label htmlFor="contact-message">What can we help with? <span>(required)</span></label>
+                  <p id="contact-message-help" className="contact-helper">A short description is enough. Include any timing or constraints that matter.</p>
+                  <textarea id="contact-message" name="fix" rows={5} required value={formData.fix} onChange={e => changeField('fix', e.target.value)} aria-invalid={!!errors.fix} aria-describedby={`contact-message-help${errors.fix ? ' contact-message-error' : ''}`} />
+                  {errors.fix && <p id="contact-message-error" className="contact-field-error">{errors.fix}</p>}
+                </div>
+                <div className="contact-field">
+                  <label htmlFor="contact-company">Company or organization <span>(optional)</span></label>
+                  <input id="contact-company" name="company" autoComplete="organization" value={formData.company} onChange={e => changeField('company', e.target.value)} />
+                </div>
+                <div className="contact-field">
+                  <label htmlFor="contact-service">What is this about? <span>(optional)</span></label>
+                  <select id="contact-service" name="service" value={formData.service} onChange={e => changeField('service', e.target.value)}>
+                    <option value="">Select if helpful</option>
+                    {serviceChoices.map(choice => <option key={choice} value={choice}>{choice}</option>)}
+                  </select>
+                </div>
+              </div>
+            </fieldset>
 
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-foreground/80">Company</label>
-                                <input
-                                    type="text"
-                                    name="company"
-                                    className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
-                                    value={formData.company}
-                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-foreground/80">Sector</label>
-                                <select
-                                    name="sector"
-                                    className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors appearance-none"
-                                    value={formData.sector}
-                                    onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                                >
-                                    <option value="AECO">AECO</option>
-                                    <option value="Technology">Technology</option>
-                                    <option value="Entertainment">Entertainment</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                        </div>
+            <p className="contact-privacy">Your inquiry is sent to Formspree to handle this form. This form does not save a draft in your browser.</p>
+            <button type="submit" className="button-primary contact-submit" disabled={status === 'submitting'}>
+              {status === 'submitting' ? 'Sending…' : 'Send inquiry'} <span aria-hidden="true">↗</span>
+            </button>
+            <p className="contact-send-status" role="status" aria-live="polite" aria-atomic="true">{status === 'submitting' ? 'Sending your inquiry. Please wait.' : ''}</p>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-foreground/80">What are you trying to fix in the next 12 months?</label>
-                            <textarea
-                                name="message"
-                                required
-                                rows={4}
-                                className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors"
-                                value={formData.fix}
-                                onChange={(e) => setFormData({ ...formData, fix: e.target.value })}
-                            />
-                        </div>
+            {(status === 'rejected' || status === 'unconfirmed') && (
+              <div ref={resultRef} tabIndex={-1} className="contact-result contact-error" role="alert">
+                <h2>{status === 'rejected' ? 'Your inquiry was not accepted.' : 'Submission not confirmed.'}</h2>
+                <p>{status === 'rejected'
+                  ? 'Formspree could not accept this inquiry. Your text is still here. Please try sending again, or email us directly.'
+                  : `${timedOut ? 'The request timed out.' : 'We could not confirm Formspree’s response.'} Your text is still here. Your inquiry may have been accepted; retrying could send a duplicate. You can try again or email us directly.`}</p>
+              </div>
+            )}
+          </form>
+        )}
+      </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-foreground/80">Tolerance for operational disruption</label>
-                            <select
-                                name="tolerance"
-                                className="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:outline-none transition-colors appearance-none"
-                                value={formData.tolerance}
-                                onChange={(e) => setFormData({ ...formData, tolerance: e.target.value })}
-                            >
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={status === 'submitting'}
-                            className="w-full py-4 bg-accent text-background font-bold rounded-xl hover:bg-accent-dim transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {status === 'submitting' ? 'Sending...' : 'Submit Inquiry'}
-                        </button>
-
-                        {status === 'error' && (
-                            <p className="text-red-500 text-center text-sm">Something went wrong. Please try again.</p>
-                        )}
-                    </form>
-                )}
-            </div>
-        </div>
-    );
+      <div className="contact-email-alternative">
+        <h2>Prefer email?</h2>
+        <a href="mailto:hello@b-tec.org">hello@b-tec.org <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  );
 }

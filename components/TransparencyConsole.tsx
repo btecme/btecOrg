@@ -112,7 +112,7 @@ export default function TransparencyConsole() {
         <p>Page and asset requests reach the site host (Vercel). Servers can receive your IP address, browser headers and requested URL. Their logs and retention are not visible here.</p>
         <p>No analytics SDK or advertising pixel is installed in the site code. This is not a guarantee about browser extensions, hosting infrastructure or third-party services.</p>
         <p>The security feed requests <code>/api/security-feed</code> from this site. The server retrieves public CISA data; your browser does not contact CISA unless you follow a source link. No browser readings are included in the feed request.</p>
-        <p>Submitting Contact sends your name, email, company, sector, message and tolerance selection to <strong>Formspree</strong>. This console never reads those values. An older <code>/api/contact</code> endpoint logs messages sent directly to it; the current form does not use it.</p>
+        <p>Submitting Contact sends your name, email, message and any company or service selection to <strong>Formspree</strong>. This console never reads those values. An older <code>/api/contact</code> endpoint logs messages sent directly to it; the current form does not use it.</p>
         <p>BASE loads a texture from <code>raw.githubusercontent.com</code>; OSP video loads from <code>media.b-tec.org</code>. Those servers receive the corresponding requests. Following external links shares a request with that destination.</p>
       </section>
       <p className="console-footnote">Public CVE reports are shared information. Browser readings are your session only. No identity lookup, IP lookup, location permission or added tracking.</p>
