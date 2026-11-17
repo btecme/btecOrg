@@ -1,0 +1,383 @@
+[
+  {
+    "browser": "chromium",
+    "responsive": [
+      {
+        "width": 320,
+        "noOverflow": true,
+        "primaryBottom": 573
+      },
+      {
+        "width": 390,
+        "noOverflow": true,
+        "primaryBottom": 548
+      },
+      {
+        "width": 768,
+        "noOverflow": true,
+        "primaryBottom": 492
+      },
+      {
+        "width": 900,
+        "noOverflow": true,
+        "primaryBottom": 492
+      },
+      {
+        "width": 1024,
+        "noOverflow": true,
+        "primaryBottom": 503
+      },
+      {
+        "width": 1280,
+        "noOverflow": true,
+        "primaryBottom": 528
+      },
+      {
+        "width": 1440,
+        "noOverflow": true,
+        "primaryBottom": 544
+      },
+      {
+        "width": 1660,
+        "noOverflow": true,
+        "primaryBottom": 552
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "text": "IT that works.Projects that move forward."
+      },
+      {
+        "level": 2,
+        "text": "Start with whatneeds attention."
+      },
+      {
+        "level": 3,
+        "text": "Business IT & Support"
+      },
+      {
+        "level": 3,
+        "text": "Modernization & Advisory"
+      },
+      {
+        "level": 3,
+        "text": "Property & Owner Services"
+      },
+      {
+        "level": 2,
+        "text": "Decades of practice.Work you can look at."
+      },
+      {
+        "level": 3,
+        "text": "Experience across disciplines"
+      },
+      {
+        "level": 3,
+        "text": "From room scan to web tour"
+      },
+      {
+        "level": 3,
+        "text": "See what guides the build"
+      },
+      {
+        "level": 2,
+        "text": "Bring the problem.Let\u2019s define the work."
+      },
+      {
+        "level": 3,
+        "text": "Tell us what you need"
+      },
+      {
+        "level": 3,
+        "text": "Define the scope"
+      },
+      {
+        "level": 3,
+        "text": "Agree the next step"
+      },
+      {
+        "level": 2,
+        "text": "Useful tools.Room for what\u2019s next."
+      },
+      {
+        "level": 3,
+        "text": "BASE"
+      },
+      {
+        "level": 3,
+        "text": "BDF"
+      },
+      {
+        "level": 3,
+        "text": "OSP"
+      },
+      {
+        "level": 3,
+        "text": "SHOW"
+      },
+      {
+        "level": 3,
+        "text": "What we\u2019re testing"
+      },
+      {
+        "level": 3,
+        "text": "Useful knowledge, shared"
+      },
+      {
+        "level": 2,
+        "text": "What needsyour attention?"
+      }
+    ],
+    "internalDestinations": 13,
+    "keyboard": true,
+    "consoleReopens": true,
+    "protectedMetadata": [
+      {
+        "route": "/services",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/alignment",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/research",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/base",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/bdf",
+        "title": "BDF \u2014 A PDF utility for people and agents"
+      },
+      {
+        "route": "/osp",
+        "title": "OSP \u2014 Open Storage Platform | b-tec Research"
+      },
+      {
+        "route": "/show",
+        "title": "SHOW: Know which shows pay."
+      },
+      {
+        "route": "/standards",
+        "title": "Digital Product Standards | b-tec"
+      },
+      {
+        "route": "/services/websites-domains",
+        "title": "Websites & Domains | Professional websites from $400 | b-tec"
+      },
+      {
+        "route": "/blog",
+        "title": "b-tec | Future Systems"
+      }
+    ],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    "homepageRuntimeErrors": [],
+    "protectedRouteRuntimeFindings": []
+  },
+  {
+    "browser": "firefox",
+    "responsive": [
+      {
+        "width": 320,
+        "noOverflow": true,
+        "primaryBottom": 573
+      },
+      {
+        "width": 390,
+        "noOverflow": true,
+        "primaryBottom": 548
+      },
+      {
+        "width": 768,
+        "noOverflow": true,
+        "primaryBottom": 492
+      },
+      {
+        "width": 900,
+        "noOverflow": true,
+        "primaryBottom": 492
+      },
+      {
+        "width": 1024,
+        "noOverflow": true,
+        "primaryBottom": 503
+      },
+      {
+        "width": 1280,
+        "noOverflow": true,
+        "primaryBottom": 528
+      },
+      {
+        "width": 1440,
+        "noOverflow": true,
+        "primaryBottom": 544
+      },
+      {
+        "width": 1660,
+        "noOverflow": true,
+        "primaryBottom": 552
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "text": "IT that works.Projects that move forward."
+      },
+      {
+        "level": 2,
+        "text": "Start with whatneeds attention."
+      },
+      {
+        "level": 3,
+        "text": "Business IT & Support"
+      },
+      {
+        "level": 3,
+        "text": "Modernization & Advisory"
+      },
+      {
+        "level": 3,
+        "text": "Property & Owner Services"
+      },
+      {
+        "level": 2,
+        "text": "Decades of practice.Work you can look at."
+      },
+      {
+        "level": 3,
+        "text": "Experience across disciplines"
+      },
+      {
+        "level": 3,
+        "text": "From room scan to web tour"
+      },
+      {
+        "level": 3,
+        "text": "See what guides the build"
+      },
+      {
+        "level": 2,
+        "text": "Bring the problem.Let\u2019s define the work."
+      },
+      {
+        "level": 3,
+        "text": "Tell us what you need"
+      },
+      {
+        "level": 3,
+        "text": "Define the scope"
+      },
+      {
+        "level": 3,
+        "text": "Agree the next step"
+      },
+      {
+        "level": 2,
+        "text": "Useful tools.Room for what\u2019s next."
+      },
+      {
+        "level": 3,
+        "text": "BASE"
+      },
+      {
+        "level": 3,
+        "text": "BDF"
+      },
+      {
+        "level": 3,
+        "text": "OSP"
+      },
+      {
+        "level": 3,
+        "text": "SHOW"
+      },
+      {
+        "level": 3,
+        "text": "What we\u2019re testing"
+      },
+      {
+        "level": 3,
+        "text": "Useful knowledge, shared"
+      },
+      {
+        "level": 2,
+        "text": "What needsyour attention?"
+      }
+    ],
+    "internalDestinations": 13,
+    "keyboard": true,
+    "consoleReopens": true,
+    "protectedMetadata": [
+      {
+        "route": "/services",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/alignment",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/research",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/base",
+        "title": "b-tec | Future Systems"
+      },
+      {
+        "route": "/bdf",
+        "title": "BDF \u2014 A PDF utility for people and agents"
+      },
+      {
+        "route": "/osp",
+        "title": "OSP \u2014 Open Storage Platform | b-tec Research"
+      },
+      {
+        "route": "/show",
+        "title": "SHOW: Know which shows pay."
+      },
+      {
+        "route": "/standards",
+        "title": "Digital Product Standards | b-tec"
+      },
+      {
+        "route": "/services/websites-domains",
+        "title": "Websites & Domains | Professional websites from $400 | b-tec"
+      },
+      {
+        "route": "/blog",
+        "title": "b-tec | Future Systems"
+      }
+    ],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    "homepageRuntimeErrors": [],
+    "protectedRouteRuntimeFindings": [
+      {
+        "url": "http://127.0.0.1:3141/alignment",
+        "message": "e is not a function"
+      },
+      {
+        "url": "http://127.0.0.1:3141/base",
+        "message": "e is not a function"
+      },
+      {
+        "url": "http://127.0.0.1:3141/blog",
+        "message": "NetworkError when attempting to fetch resource."
+      }
+    ]
+  }
+]

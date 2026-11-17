@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AgentPresence from "@/components/AgentPresence";
-import TransparencyConsole from "@/components/TransparencyConsole";
+import PageTransparency from "@/components/PageTransparency";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,10 +42,11 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">Skip to content</a>
         <AgentPresence />
         <Header />
-        <TransparencyConsole />
+        <PageTransparency position="before" />
         <main id="main-content" className="flex-grow site-main" tabIndex={-1}>
           {children}
         </main>
+        <PageTransparency position="after" />
         <Footer />
       </body>
     </html>
