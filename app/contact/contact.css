@@ -1,7 +1,6 @@
 .contact-page { max-width: 940px; padding-block: 44px 96px; }
 @media (max-width: 1279px) {
   body:has(.contact-page) .site-main { padding-top: 112px; }
-  body:has(.contact-page) .transparency-console { margin-top: 0; }
 }
 .contact-intro { max-width: 720px; margin-bottom: 32px; }
 .contact-intro .eyebrow { margin-bottom: 18px; }
@@ -46,3 +45,5 @@
   .contact-email-alternative { gap: 2px 18px; }
 }
 @media (max-width: 380px) { .contact-panel { padding: 22px 16px; } }
+
+.contact-coverage { color: var(--muted); font-size: 14px; line-height: 1.8; margin-top: 24px; max-width: 680px; }

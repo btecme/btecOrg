@@ -3,10 +3,11 @@
 import { usePathname } from 'next/navigation';
 import TransparencyConsole from './TransparencyConsole';
 
-/** Keep homepage and Contact content before the complementary console in DOM
- * and focus order. Other routes retain their existing placement. */
+/** Contact is focused on the inquiry form; disclosures remain on Privacy.
+ * Other routes retain their existing console placement and state. */
 export default function PageTransparency({ position }: { position: 'before' | 'after' }) {
   const pathname = usePathname();
-  const contentFirst = pathname === '/' || pathname === '/contact' || pathname === '/privacy';
+  if (pathname === '/contact') return null;
+  const contentFirst = pathname === '/' || pathname === '/privacy';
   return (position === 'after') === contentFirst ? <TransparencyConsole /> : null;
 }

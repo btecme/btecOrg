@@ -26,14 +26,15 @@ export default function Privacy() {
     <section aria-labelledby="hosting-requests">
       <p className="eyebrow">02 / Loading the site</p>
       <h2 id="hosting-requests">Hosting requests and logs</h2>
-      <p>Page and asset requests reach our hosting provider, Vercel. Requests can include your IP address, browser headers and the requested URL. We have not verified the host&apos;s logging settings or retention periods; the Data console cannot show those server-side records.</p>
+      <p>Vercel hosts this site and receives page and asset requests, which can include your IP address, browser headers and requested URL. Vercel may retain request and security logs. The account&apos;s log access, exports and retention settings have not been verified; the Data console cannot show those records.</p>
       <p>The inspected site code contains no analytics SDK or advertising pixel. That does not describe everything a hosting provider, external service or browser extension may do. The Data console displays browser readings locally; it does not upload or save those readings or visit history.</p>
     </section>
     <section aria-labelledby="privacy-inquiries">
       <p className="eyebrow">03 / Starting a conversation</p>
       <h2 id="privacy-inquiries">Inquiries</h2>
-      <p>Submitting the <Link href="/contact">Contact form</Link> sends your name, email, message and any company or service selection to Formspree to handle your inquiry. Formspree acceptance is not confirmation of delivery to our inbox. Provider-side routing, spam settings and retention periods are not verified here.</p>
-      <p>The current form does not use the older <code>/api/contact</code> endpoint. That endpoint still logs submissions sent directly to it in the server console. Its logging behavior is unchanged; log access and retention have not been verified.</p>
+      <p>Submitting the <Link href="/contact">Contact form</Link> sends your name, email, message and any company or service selection to Formspree. Formspree processes the submission and related request information and stores submission history. Acceptance is not confirmation of delivery to our inbox. The account&apos;s recipients, routing, spam settings and retention have not been verified.</p>
+      <p>Emailing us uses your email provider and ours. Mailbox access, forwarding and retention have not yet been confirmed. These providers process messages; contacting us is not local-only processing.</p>
+      <p>The retired <code>/api/contact</code> endpoint rejects submissions without reading or logging inquiry bodies. This does not establish that historical logs were deleted; access to and retention of those records remain unverified.</p>
     </section>
     <section aria-labelledby="external-resources">
       <p className="eyebrow">04 / Other services</p>
@@ -49,7 +50,7 @@ export default function Privacy() {
     <section aria-labelledby="privacy-questions">
       <p className="eyebrow">05 / Questions</p>
       <h2 id="privacy-questions">Let&apos;s talk</h2>
-      <p>For questions about privacy or these preferences, email <a href="mailto:hello@b-tec.org">hello@b-tec.org</a>.</p>
+      <p>For privacy questions or to request deletion of inquiry information, email <a href="mailto:hello@b-tec.org">hello@b-tec.org</a>. For a deletion request, include the email address used and the approximate submission date so the inquiry can be located. Removing a form record does not necessarily remove forwarded email or historical hosting logs.</p>
     </section>
   </article>;
 }

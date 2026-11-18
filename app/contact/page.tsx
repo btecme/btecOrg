@@ -177,6 +177,7 @@ export default function Contact() {
         <h2>Prefer email?</h2>
         <a href="mailto:hello@b-tec.org">hello@b-tec.org <span aria-hidden="true">↗</span></a>
       </div>
+      <p className="contact-coverage">Based in Bourbonnais, Illinois. On-site work across Chicagoland, with a focus on the south suburbs and Kankakee County as our preferred area.</p>
     </section>
   );
 }
