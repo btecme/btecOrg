@@ -10,7 +10,7 @@ No production deployment or real inquiry is authorized/performed by this review.
 - The working Formspree destination, payload keys, labels, validation, duplicate lock, timeout, error/acceptance states and keyboard behavior are unchanged. Provider acceptance remains explicitly distinct from inbox delivery.
 - `PageTransparency` renders no Data console on Contact, including initial HTML and client navigation. Privacy and other routes retain their existing console placement and default-open behavior. Contact keeps its Privacy link.
 - Privacy and console disclosures describe endpoint retirement, Formspree submission storage, provider processing and unresolved account settings. They do **not** imply historical logs were deleted. Privacy supplies a deletion-request route via the already-published `hello@b-tec.org`, asking for submission email/date without promising a deletion deadline or that every copy can be removed.
-- Contact adds only the owner-supplied location/on-site coverage: Bourbonnais, Chicagoland, south suburbs and Kankakee County as the preferred area. Remote territory and reply-time copy are omitted pending confirmation.
+- Contact includes owner-confirmed Bourbonnais/Chicagoland coverage, focusing on the south suburbs and Kankakee County; remote support depends on the issue and hardware installation is on-site. It sets a typical one-business-day response expectation. The sentence about not needing a finished brief is removed.
 - Homepage headline, inquiry buttons, header/footer, Services and other page source remain unchanged. Shared console text changes are limited to the relevant disclosure; there is no redesign.
 
 ## Provider evidence: actual access vs documentation
@@ -29,16 +29,19 @@ Read-only audit on 2026-11-18. No submissions/mail bodies were read and no accou
 
 Detailed redacted evidence is separate from visitor copy and tracked source: `/home/brian/.openclaw/workspace/media/review/btec-contact-privacy-20261118/provider-audit.md` (private mode 600).
 
-## Unresolved questions and proposed wording
+## Owner-confirmed wording — 2026-11-18 follow-up
 
-1. **Who reads inquiries and for what purposes?** Confirm Formspree recipients/rules/integrations and `hello@b-tec.org` forwarding, mailbox provider, readers/delegates and any other use. Candidate, only if confirmed: “Inquiries are read by Brian Earsley to respond to your request and discuss possible work.” Add other authorized readers/uses if applicable; do not promise exclusive access without evidence. Current preview retains the uncertainty.
-2. **What is kept, for how long, and who handles deletion?** Confirm Formspree history, mailbox copies, exports/backups, hosting/security logs and drains separately, plus whether the public mailbox is monitored for deletion requests. Current safe wording: “For privacy questions or to request deletion of inquiry information, email hello@b-tec.org.” No invented retention period or deletion deadline. Proposed operational wording after confirmation: “We review deletion requests across the form service and our mailbox; some records may need to be retained for agreed work or legal obligations.” Confirm the actual process before adding that assurance.
-3. **Is the response expectation sustainable?** Proposed: “We typically reply within one business day.” Omitted until the owner confirms; no unconditional 24-hour promise.
-4. **What remote territory is supported?** On-site coverage is confirmed by this request, but remote coverage is not. Possible wording for approval: “Remote support is available case by case.” Omitted until confirmed.
+- Only b-tec staff read inquiries to establish preliminary scope and next steps. This describes b-tec business access; it does not exclude the disclosed processing by service providers.
+- Communication records are preserved to maintain correspondence integrity over time. The owner did not supply a fixed deletion period; none is invented.
+- The response standard is expressed as “We typically respond within one business day,” reflecting business-day timing rather than an unconditional 24-clock-hour guarantee.
+- Remote support depends on the issue; physical work such as hardware installation is performed on-site. No remote geographic territory is promised.
+- Removed “You do not need a finished brief to get started” above the form; retained the preceding invitation.
 
-Authenticated follow-up: sign into the authorized Vercel team and Formspree form, inspect configuration/access only, and reconcile these findings with the owner. Do not change spam settings or submit a real inquiry under this prompt.
+Provider account settings remain independently unverified. Authenticated follow-up can inspect Formspree routing, integrations and provider-side retention; mailbox forwarding; and Vercel logs/exports separately. Owner-confirmed business policy does not establish those technical settings. No real inquiry or provider configuration change is part of this update.
 
 ## Verification
+
+The detailed matrix below applies to the original `146333f` candidate. Follow-up copy verification is recorded separately below.
 
 - Final production build, TypeScript, changed-file/new-harness lint and `git diff --check` pass. Build retains unrelated CISA feed-cache-size and `metadataBase` warnings; no fixes to those are included here. Full-repository lint is not claimed.
 - Retired-handler unit check supplies a proxy Request that throws on any property access and logging functions that throw on use: **zero request/body accesses; zero log calls; 410**. Local production HTTP tests with valid JSON, malformed JSON and plain text all return 410 without reflecting the marker. Captured local server output contains no marker. GET/PUT/PATCH/DELETE return 405. This verifies application behavior, not a claim about host/network metadata retention.
@@ -49,6 +52,13 @@ Authenticated follow-up: sign into the authorized Vercel team and Formspree form
 - Every browser form POST intercepted; unexpected writes aborted. No real Formspree inquiry or legacy-production POST sent; inbox delivery not tested. Exact protected-page source diff is empty.
 
 Reproducible local checks: `docs/review/contact-privacy-20261118/{endpoint-check,form-check,layout-check}.mjs`. Serve a production build on loopback port 3158. Playwright/axe paths use this workspace's installed tools. Private screenshots, results, build/server logs and deployment metadata: `/home/brian/.openclaw/workspace/media/review/btec-contact-privacy-20261118/`.
+
+## Follow-up copy verification — 2026-11-18
+
+- Changed-page ESLint, TypeScript and production build pass. The existing CISA-cache and metadataBase build warnings remain unchanged.
+- Local rendered HTML confirms the removed sentence is absent, the business-day response and issue-dependent remote-support wording are present, and Privacy includes the owner-confirmed staff/purpose and correspondence-preservation policy.
+- Existing layout/navigation harness rerun: Contact/Privacy across eight widths, two themes and Chromium/Firefox (**64 views**), no overflow or runtime errors; preference changes retain unsent values. Representative updated mobile/desktop Contact screenshots inspected.
+- Form submission code, destination and payload remain unchanged; no real inquiries sent. Production remains unchanged; this is a review-branch update.
 
 ## Separate follow-ups — not implemented
 

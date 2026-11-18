@@ -105,7 +105,7 @@ export default function Contact() {
       <header className="contact-intro">
         <p className="eyebrow">Start a conversation</p>
         <h1 id="contact-title">Tell us what you need</h1>
-        <p>Tell us what you want to fix, build, or improve. You do not need a finished brief to get started.</p>
+        <p>Tell us what you want to fix, build, or improve.</p>
       </header>
 
       <div className="contact-panel">
@@ -121,6 +121,7 @@ export default function Contact() {
           </div>
         ) : (
           <form ref={formRef} onSubmit={handleSubmit} noValidate aria-label="Contact inquiry">
+            <p className="contact-helper">We typically respond within one business day.</p>
             <p className="contact-required-note">Name, email, and a short description are required. Everything else is optional.</p>
             <fieldset disabled={status === 'submitting'}>
               <legend className="sr-only">Your inquiry</legend>
@@ -177,7 +178,7 @@ export default function Contact() {
         <h2>Prefer email?</h2>
         <a href="mailto:hello@b-tec.org">hello@b-tec.org <span aria-hidden="true">↗</span></a>
       </div>
-      <p className="contact-coverage">Based in Bourbonnais, Illinois. On-site work across Chicagoland, with a focus on the south suburbs and Kankakee County as our preferred area.</p>
+      <p className="contact-coverage">Based in Bourbonnais, Illinois. On-site work across Chicagoland, with a focus on the south suburbs and Kankakee County as our preferred area. Remote support depends on the issue; work such as hardware installation is performed on-site.</p>
     </section>
   );
 }

@@ -32,8 +32,9 @@ export default function Privacy() {
     <section aria-labelledby="privacy-inquiries">
       <p className="eyebrow">03 / Starting a conversation</p>
       <h2 id="privacy-inquiries">Inquiries</h2>
-      <p>Submitting the <Link href="/contact">Contact form</Link> sends your name, email, message and any company or service selection to Formspree. Formspree processes the submission and related request information and stores submission history. Acceptance is not confirmation of delivery to our inbox. The account&apos;s recipients, routing, spam settings and retention have not been verified.</p>
-      <p>Emailing us uses your email provider and ours. Mailbox access, forwarding and retention have not yet been confirmed. These providers process messages; contacting us is not local-only processing.</p>
+      <p>At b-tec, only b-tec staff read inquiries to establish a preliminary scope and next steps. We preserve communication records to maintain the integrity of our correspondence over time.</p>
+      <p>Submitting the <Link href="/contact">Contact form</Link> sends your name, email, message and any company or service selection to Formspree. Formspree processes the submission and related request information and stores submission history. Acceptance is not confirmation of delivery to our inbox. Formspree&apos;s configured routing, spam settings and provider-side retention have not been independently verified.</p>
+      <p>Emailing us uses your email provider and ours. Provider-side mailbox settings and forwarding have not been independently verified. These providers process messages; contacting us is not local-only processing.</p>
       <p>The retired <code>/api/contact</code> endpoint rejects submissions without reading or logging inquiry bodies. This does not establish that historical logs were deleted; access to and retention of those records remain unverified.</p>
     </section>
     <section aria-labelledby="external-resources">
